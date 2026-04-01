@@ -7,6 +7,8 @@ public class FallZone : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Bean"))
         {
+            BeanController bean = col.gameObject.GetComponent<BeanController>();
+            if (bean != null && bean.IsInGrinder()) return; // ignore if grinding
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
