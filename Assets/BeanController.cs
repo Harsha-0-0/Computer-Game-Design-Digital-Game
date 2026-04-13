@@ -29,11 +29,22 @@ public class BeanController : MonoBehaviour
     {
         if (inGrinder) return;
 
-        float move = Input.GetAxis("Horizontal");
-        rb.AddForce(new Vector2(move * rollSpeed, 0));
+        float move = Input.GetAxisRaw("Horizontal");
 
-        float clampedX = Mathf.Clamp(rb.linearVelocity.x, -maxSpeed, maxSpeed);
-        rb.linearVelocity = new Vector2(clampedX, rb.linearVelocity.y);
+        if (isGrounded)
+        {
+            rb.AddForce(new Vector2(move * rollSpeed, 0));
+        }
+        else
+        {
+            float airControlSpeed = 0.08f;
+            float targetX = rb.linearVelocity.x + move * airControlSpeed;
+            float clampedX = Mathf.Clamp(targetX, -maxSpeed, maxSpeed);
+            rb.linearVelocity = new Vector2(clampedX, rb.linearVelocity.y);
+        }
+
+        float finalClampedX = Mathf.Clamp(rb.linearVelocity.x, -maxSpeed, maxSpeed);
+        rb.linearVelocity = new Vector2(finalClampedX, rb.linearVelocity.y);
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
