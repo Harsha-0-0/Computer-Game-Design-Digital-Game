@@ -34,54 +34,57 @@ public class GrinderGoal : MonoBehaviour
     }
 
     IEnumerator GrindSequence(GameObject bean)
+{
+    float elapsed = 0f;
+
+    // Spin the bean in place
+    while (elapsed < spinDuration)
     {
-        float elapsed = 0f;
-
-        // Spin the bean in place
-        while (elapsed < spinDuration)
-        {
-            bean.transform.Rotate(0f, 0f, spinSpeed * Time.deltaTime);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        // Hide the bean (grinding is "done")
-        Vector3 grindPosition = bean.transform.position;
-        bean.SetActive(false);
-
-        // Spawn powder particles
-        for (int i = 0; i < powderCount; i++)
-        {
-            if (powderParticlePrefab == null) break;
-
-            GameObject particle = Instantiate(
-                powderParticlePrefab,
-                grindPosition,
-                Quaternion.identity
-            );
-
-            // Give each particle a slightly different sideways drift + downward fall
-            Rigidbody2D prb = particle.GetComponent<Rigidbody2D>();
-            if (prb != null)
-            {
-                float randomX = Random.Range(-powderSpread, powderSpread);
-                prb.linearVelocity = new Vector2(randomX, -powderFallSpeed);
-            }
-
-            yield return new WaitForSeconds(0.05f); // Stagger the spray slightly
-        }
-
-        // Wait for particles to settle into the cup
-        yield return new WaitForSeconds(1.5f);
-
-        // Show win screen or load next scene
-        if (winCanvas != null)
-        {
-            winCanvas.SetActive(true);
-        }
-        else
-        {
-            Debug.Log("Bean ground into powder — coffee is ready! Load next scene here.");
-        }
+        bean.transform.Rotate(0f, 0f, spinSpeed * Time.deltaTime);
+        elapsed += Time.deltaTime;
+        yield return null;
     }
+
+    // Hide the bean
+    Vector3 grindPosition = bean.transform.position;
+    bean.SetActive(false);
+
+    // Play grinder sound from the grinder object itself
+    AudioSource grinderAudio = GetComponent<AudioSource>();
+    if (grinderAudio != null && grinderAudio.clip != null)
+    {
+        grinderAudio.Play();
+        yield return new WaitForSeconds(grinderAudio.clip.length);
+    }
+
+    // Spawn powder particles
+    for (int i = 0; i < powderCount; i++)
+    {
+        if (powderParticlePrefab == null) break;
+        GameObject particle = Instantiate(
+            powderParticlePrefab,
+            grindPosition,
+            Quaternion.identity
+        );
+        Rigidbody2D prb = particle.GetComponent<Rigidbody2D>();
+        if (prb != null)
+        {
+            float randomX = Random.Range(-powderSpread, powderSpread);
+            prb.linearVelocity = new Vector2(randomX, -powderFallSpeed);
+        }
+        yield return new WaitForSeconds(0.05f);
+    }
+
+    yield return new WaitForSeconds(1.5f);
+
+    if (winCanvas != null)
+{
+    winCanvas.SetActive(true);
+    WinSequence ws = winCanvas.GetComponent<WinSequence>();
+    if (ws != null)
+        ws.Play();
+    else
+        Debug.Log("WinSequence script not found on Canvas!");
+}
+}
 }
