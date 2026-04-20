@@ -1,9 +1,10 @@
 using UnityEngine;
+using System.Collections;
 
-public class CollectibleBean : MonoBehaviour
+public class TutorialBean : MonoBehaviour
 {
     public float bobSpeed = 2f;
-    public float bobHeight = 0.2f;
+    public float bobHeight = 0.15f;
 
     private Vector3 startPos;
 
@@ -16,8 +17,7 @@ public class CollectibleBean : MonoBehaviour
     {
         // Bob up and down
         float newY = startPos.y +
-            Mathf.Sin(Time.time * bobSpeed) 
-            * bobHeight;
+            Mathf.Sin(Time.time * bobSpeed) * bobHeight;
         transform.position = new Vector3(
             startPos.x, newY, startPos.z
         );
@@ -25,13 +25,9 @@ public class CollectibleBean : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Bean") || 
-            other.CompareTag("Mug"))
+        if (other.CompareTag("Mug"))
         {
-            // Tell LevelManager bean collected
-            if (LevelManager.Instance != null)
-                LevelManager.Instance.BeanCollected();
-            
+            Debug.Log("Coffee bean collected!");
             Destroy(gameObject);
         }
     }
