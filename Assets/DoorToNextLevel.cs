@@ -1,0 +1,180 @@
+using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
+using TMPro;
+
+public class DoorToNextLevel : MonoBehaviour
+{
+    [Header("Door Settings")]
+    public string nextSceneName = "Level2";
+    public bool requireAllBeans = true;
+    public int beansRequired = 20;
+
+    [Header("Blink Settings")]
+    public float blinkSpeed = 0.1f;
+    public int blinkCount = 6;
+
+    [Header("Level Complete UI")]
+    public GameObject levelCompletePanel;
+
+    private bool isUnlocked = false;
+    private bool mugEntered = false;
+    private SpriteRenderer[] doorRenderers;
+
+    void Start()
+    {
+        doorRenderers = GetComponentsInChildren
+            <SpriteRenderer>();
+
+        if (!requireAllBeans)
+            isUnlocked = true;
+    }
+
+    void Update()
+    {
+        if (requireAllBeans &&
+            !isUnlocked &&
+            LevelManager.Instance != null)
+        {
+            if (LevelManager.Instance.GetBeans()
+                >= beansRequired)
+            {
+                isUnlocked = true;
+                Debug.Log("Door unlocked!");
+                // Start glowing when unlocked
+                StartCoroutine(GlowDoor());
+            }
+        }
+    }
+
+    IEnumerator GlowDoor()
+    {
+        // Pulse the door color to show
+        // it's now unlocked
+        while (isUnlocked && !mugEntered)
+        {
+            // Glow bright
+            foreach (var sr in doorRenderers)
+            {
+                if (sr != null)
+                    sr.color = new Color(
+                        1f, 0.9f, 0.3f
+                    );
+            }
+            yield return new WaitForSeconds(0.5f);
+
+            // Normal color
+            foreach (var sr in doorRenderers)
+            {
+                if (sr != null)
+                    sr.color = Color.white;
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Mug") &&
+            !mugEntered)
+        {
+            if (isUnlocked)
+            {
+                mugEntered = true;
+                StartCoroutine(
+                    DoorSequence(other.gameObject)
+                );
+            }
+            else
+            {
+                StartCoroutine(ShowLockedMessage());
+            }
+        }
+    }
+
+    IEnumerator DoorSequence(GameObject mug)
+    {
+        // Disable mug movement
+        MugController mc = mug
+            .GetComponent<MugController>();
+        if (mc != null)
+            mc.enabled = false;
+
+        // Blink the door rapidly
+        for (int i = 0; i < blinkCount; i++)
+        {
+            // Hide door
+            foreach (var sr in doorRenderers)
+                if (sr != null)
+                    sr.enabled = false;
+            yield return new WaitForSeconds(
+                blinkSpeed
+            );
+
+            // Show door
+            foreach (var sr in doorRenderers)
+                if (sr != null)
+                    sr.enabled = true;
+            yield return new WaitForSeconds(
+                blinkSpeed
+            );
+        }
+
+        // Blink the mug
+        SpriteRenderer[] mugRenderers =
+            mug.GetComponentsInChildren
+                <SpriteRenderer>();
+
+        for (int i = 0; i < blinkCount; i++)
+        {
+            foreach (var sr in mugRenderers)
+                if (sr != null)
+                    sr.enabled = false;
+            yield return new WaitForSeconds(
+                blinkSpeed
+            );
+
+            foreach (var sr in mugRenderers)
+                if (sr != null)
+                    sr.enabled = true;
+            yield return new WaitForSeconds(
+                blinkSpeed
+            );
+        }
+
+        // Hide mug completely
+        mug.SetActive(false);
+
+        yield return new WaitForSeconds(0.5f);
+
+        // Show level complete panel if exists
+        if (levelCompletePanel != null)
+        {
+            levelCompletePanel.SetActive(true);
+            yield return new WaitForSeconds(2f);
+        }
+
+        // Load next scene
+        SceneManager.LoadScene(nextSceneName);
+    }
+
+    IEnumerator ShowLockedMessage()
+    {
+        GameObject popup =
+            new GameObject("LockedPopup");
+        popup.transform.position =
+            transform.position +
+            new Vector3(0, 2f, 0);
+
+        TextMesh text =
+            popup.AddComponent<TextMesh>();
+        text.text = "Collect all beans first!";
+        text.fontSize = 14;
+        text.color = Color.red;
+        text.alignment = TextAlignment.Center;
+        text.anchor = TextAnchor.MiddleCenter;
+
+        yield return new WaitForSeconds(2f);
+        Destroy(popup);
+    }
+}

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CollectibleBean : MonoBehaviour
 {
-    public float bobSpeed = 2f;       // floating bob up and down
+    public float bobSpeed = 2f;
     public float bobHeight = 0.2f;
 
     private Vector3 startPos;
@@ -14,23 +14,24 @@ public class CollectibleBean : MonoBehaviour
 
     void Update()
     {
-        // Bob up and down so it's visible and attractive
-        float newY = startPos.y + Mathf.Sin(Time.time * bobSpeed) * bobHeight;
-        transform.position = new Vector3(startPos.x, newY, startPos.z);
+        // Bob up and down
+        float newY = startPos.y +
+            Mathf.Sin(Time.time * bobSpeed) 
+            * bobHeight;
+        transform.position = new Vector3(
+            startPos.x, newY, startPos.z
+        );
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Bean"))
+        if (other.CompareTag("Bean") || 
+            other.CompareTag("Mug"))
         {
-            // Tell GameManager a bean was collected
-            GameManager.Instance.BeanCollected();
-
-            // Tell the player bean to grow
-            BeanController bc = other.GetComponent<BeanController>();
-            if (bc != null) bc.GrowBean();
-
-            // Destroy this collectible
+            // Tell LevelManager bean collected
+            if (LevelManager.Instance != null)
+                LevelManager.Instance.BeanCollected();
+            
             Destroy(gameObject);
         }
     }

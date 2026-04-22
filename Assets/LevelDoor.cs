@@ -4,12 +4,22 @@ using UnityEngine.SceneManagement;
 
 public class LevelDoor : MonoBehaviour
 {
+    public enum DoorMode
+    {
+        UnlockRequired,   // Old levels: need Unlock() first
+        ExactMilkRequired // Level 2: need exactly requiredMilk at the door
+    }
+
+    [Header("Door Settings")]
+    public DoorMode doorMode = DoorMode.UnlockRequired;
+    public int requiredMilk = 40;
+
     public float openAngle = -90f;
     public float openSpeed = 2f;
     public GameObject level2Screen;
     public AudioClip doorOpenSound;
 
-    // New: hint UI
+    [Header("Hint UI")]
     public GameObject lockedHintUI;
     public float hintDuration = 1.5f;
 
@@ -43,6 +53,7 @@ public class LevelDoor : MonoBehaviour
         }
     }
 
+    // Used by old levels
     public void Unlock()
     {
         isUnlocked = true;
@@ -56,15 +67,55 @@ public class LevelDoor : MonoBehaviour
     {
         Debug.Log("Something entered door: " + other.gameObject.name);
 
-        if (other.CompareTag("Bean") && isUnlocked && !beanEnteredDoor)
+        // Your current player tag in this project appears to be "Mug"
+        if (!other.CompareTag("Mug")) return;
+        if (beanEnteredDoor) return;
+
+        if (doorMode == DoorMode.UnlockRequired)
         {
-            Debug.Log("Bean entered door!");
-            beanEnteredDoor = true;
-            StartCoroutine(DoorSequence(other.gameObject));
+            HandleUnlockRequiredMode(other.gameObject);
         }
-        else if (other.CompareTag("Bean") && !isUnlocked)
+        else if (doorMode == DoorMode.ExactMilkRequired)
         {
-            Debug.Log("Bean reached door but not unlocked yet!");
+            HandleExactMilkMode(other.gameObject);
+        }
+    }
+
+    void HandleUnlockRequiredMode(GameObject player)
+    {
+        if (isUnlocked)
+        {
+            Debug.Log("Player entered unlocked door!");
+            beanEnteredDoor = true;
+            StartCoroutine(DoorSequence(player));
+        }
+        else
+        {
+            Debug.Log("Player reached door but it is still locked.");
+            ShowLockedHint();
+        }
+    }
+
+    void HandleExactMilkMode(GameObject player)
+    {
+        if (LevelManager.Instance == null)
+        {
+            Debug.LogWarning("LevelManager not found.");
+            ShowLockedHint();
+            return;
+        }
+
+        int milk = LevelManager.Instance.GetMilk();
+
+        if (milk == requiredMilk)
+        {
+            Debug.Log("Exactly correct milk amount! Door opens.");
+            beanEnteredDoor = true;
+            StartCoroutine(DoorSequence(player));
+        }
+        else
+        {
+            Debug.Log("Wrong milk amount. Current milk: " + milk);
             ShowLockedHint();
         }
     }
@@ -87,7 +138,7 @@ public class LevelDoor : MonoBehaviour
         hintCoroutine = null;
     }
 
-    IEnumerator DoorSequence(GameObject bean)
+    IEnumerator DoorSequence(GameObject player)
     {
         if (doorOpenSound != null)
             audioSource.PlayOneShot(doorOpenSound);
@@ -96,7 +147,7 @@ public class LevelDoor : MonoBehaviour
 
         yield return new WaitForSeconds(0.8f);
 
-        SpriteRenderer sr = bean.GetComponent<SpriteRenderer>();
+        SpriteRenderer sr = player.GetComponent<SpriteRenderer>();
         if (sr != null)
         {
             float elapsed = 0f;
@@ -112,7 +163,7 @@ public class LevelDoor : MonoBehaviour
             }
         }
 
-        bean.SetActive(false);
+        player.SetActive(false);
 
         yield return new WaitForSeconds(0.3f);
 
@@ -120,6 +171,7 @@ public class LevelDoor : MonoBehaviour
         {
             Debug.Log("Activating Level2Canvas!");
             level2Screen.SetActive(true);
+
             WinSequence ws = level2Screen.GetComponent<WinSequence>();
             if (ws != null)
             {
