@@ -2924,6 +2924,8 @@ MonoBehaviour:
   levelTime: 240
   totalBeans: 20
   isTutorial: 0
+  totalMilk: 40
+  useMilkSystem: 0
 --- !u!4 &513024810
 Transform:
   m_ObjectHideFlags: 0

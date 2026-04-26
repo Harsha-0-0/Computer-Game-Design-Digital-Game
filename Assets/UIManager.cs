@@ -26,9 +26,15 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            Debug.Log("UIManager Awake: instance assigned. beanCountText=" + (beanCountText != null));
+        }
         else
+        {
+            Debug.Log("UIManager Awake: duplicate instance destroyed.");
             Destroy(gameObject);
+        }
     }
 
     public void UpdateTimer(
@@ -65,15 +71,32 @@ public class UIManager : MonoBehaviour
 
     public void UpdateBeans(int collected, int total)
     {
-        if (beanCountText == null) return;
-        beanCountText.text = collected + 
-            "/" + total + " Beans";
+        if (beanCountText == null)
+        {
+            Debug.LogWarning("UIManager.UpdateBeans: beanCountText is not assigned.");
+            return;
+        }
+        beanCountText.text = collected + "/" + total + " Beans";
     }
 
     public void UpdateMilk(int collected, int total)
     {
-        if (beanCountText == null) return;
+        if (beanCountText == null)
+        {
+            Debug.LogWarning("UIManager.UpdateMilk: beanCountText is not assigned.");
+            return;
+        }
         beanCountText.text = collected + "/" + total + " Milk Drops";
+    }
+
+    public void UpdateFoam(int collected, int total)
+    {
+        if (beanCountText == null)
+        {
+            Debug.LogWarning("UIManager.UpdateFoam: beanCountText is not assigned.");
+            return;
+        }
+        beanCountText.text = collected + "/" + total + " Foams";
     }
 
     public void UpdateLives(int lives)

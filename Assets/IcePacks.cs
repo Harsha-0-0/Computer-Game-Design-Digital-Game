@@ -32,44 +32,44 @@ public class IcePack : MonoBehaviour
 
     IEnumerator IcePackHit(GameObject mug)
     {
-        // Flash mug blue
-        SpriteRenderer[] renderers =
-            mug.GetComponentsInChildren
-                <SpriteRenderer>();
-
-        Color[] originalColors =
-            new Color[renderers.Length];
-
+        MugController mugController = mug.GetComponent<MugController>();
+        SpriteRenderer[] renderers = mug.GetComponentsInChildren<SpriteRenderer>();
+        Color[] originalColors = new Color[renderers.Length];
         for (int i = 0; i < renderers.Length; i++)
             originalColors[i] = renderers[i].color;
 
-        // Flash blue 3 times
+        if (mugController != null)
+        {
+            mugController.ApplyIceEffect(5f, timePenalty);
+        }
+
         for (int i = 0; i < 3; i++)
         {
             foreach (var sr in renderers)
-                sr.color = new Color(0.5f, 0.8f, 1f);
+            {
+                if (sr != null)
+                    sr.color = new Color(0.5f, 0.8f, 1f);
+            }
             yield return new WaitForSeconds(0.15f);
 
             for (int j = 0; j < renderers.Length; j++)
-                renderers[j].color = originalColors[j];
+            {
+                if (renderers[j] != null)
+                    renderers[j].color = originalColors[j];
+            }
             yield return new WaitForSeconds(0.15f);
         }
 
-        // Reduce timer
         if (LevelManager.Instance != null)
         {
-            LevelManager.Instance.ReduceTime(
-                timePenalty
-            );
-            Debug.Log("Ice pack! -" + 
-                timePenalty + "s!");
+            LevelManager.Instance.ReduceTime(timePenalty);
+            Debug.Log("Ice pack! -" + timePenalty + "s!");
         }
         else
         {
-            Debug.Log("LevelManager not found!");
+            Debug.LogWarning("Ice pack time penalty requested but LevelManager.Instance is null.");
         }
 
-        // Show floating penalty text
         ShowPenaltyPopup(mug.transform.position);
 
         if (destroyOnHit)

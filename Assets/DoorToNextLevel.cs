@@ -9,6 +9,7 @@ public class DoorToNextLevel : MonoBehaviour
     public string nextSceneName = "Level2";
     public bool requireAllBeans = true;
     public int beansRequired = 20;
+    public int foamRequired = 20;
 
     [Header("Blink Settings")]
     public float blinkSpeed = 0.1f;
@@ -26,23 +27,41 @@ public class DoorToNextLevel : MonoBehaviour
         doorRenderers = GetComponentsInChildren
             <SpriteRenderer>();
 
-        if (!requireAllBeans)
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Level1" && !requireAllBeans)
             isUnlocked = true;
     }
 
     void Update()
     {
-        if (requireAllBeans &&
-            !isUnlocked &&
-            LevelManager.Instance != null)
+        if (isUnlocked) return;
+
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        if (currentScene == "Level1")
         {
-            if (LevelManager.Instance.GetBeans()
-                >= beansRequired)
+            // Require beans for Level1
+            if (requireAllBeans && LevelManager.Instance != null)
             {
-                isUnlocked = true;
-                Debug.Log("Door unlocked!");
-                // Start glowing when unlocked
-                StartCoroutine(GlowDoor());
+                if (LevelManager.Instance.GetBeans() >= beansRequired)
+                {
+                    isUnlocked = true;
+                    Debug.Log("Door unlocked with beans!");
+                    StartCoroutine(GlowDoor());
+                }
+            }
+        }
+        else
+        {
+            // Require foam for other levels
+            if (LevelManager.Instance != null)
+            {
+                if (LevelManager.Instance.GetFoam() >= foamRequired)
+                {
+                    isUnlocked = true;
+                    Debug.Log("Door unlocked with foam!");
+                    StartCoroutine(GlowDoor());
+                }
             }
         }
     }
@@ -99,6 +118,11 @@ public class DoorToNextLevel : MonoBehaviour
             .GetComponent<MugController>();
         if (mc != null)
             mc.enabled = false;
+
+        // Stop any residual movement
+        Rigidbody2D rb = mug.GetComponent<Rigidbody2D>();
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
 
         // Blink the door rapidly
         for (int i = 0; i < blinkCount; i++)
@@ -168,11 +192,20 @@ public class DoorToNextLevel : MonoBehaviour
 
         TextMesh text =
             popup.AddComponent<TextMesh>();
-        text.text = "Collect all beans first!";
         text.fontSize = 14;
         text.color = Color.red;
         text.alignment = TextAlignment.Center;
         text.anchor = TextAnchor.MiddleCenter;
+
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Level1")
+        {
+            text.text = "Collect all beans first!";
+        }
+        else
+        {
+            text.text = "Collect all foam first!";
+        }
 
         yield return new WaitForSeconds(2f);
         Destroy(popup);
