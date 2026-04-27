@@ -52,6 +52,23 @@ public class MugController : MonoBehaviour
             originalMugColors[i] = mugRenderers[i].color;
 
         targetScale = transform.localScale;
+        // Apply selected mug sprite
+        int selectedMug = PlayerPrefs.GetInt(
+            "SelectedMug", 0
+        );
+
+        // Load mug sprites from Resources folder
+        Sprite[] mugs = Resources.LoadAll<Sprite>(
+            "MugSprites"
+        );
+
+        if (mugs.Length > selectedMug)
+        {
+            SpriteRenderer sr = 
+                GetComponentInChildren<SpriteRenderer>();
+            if (sr != null)
+                sr.sprite = mugs[selectedMug];
+        }
     }
 
     void Update()
