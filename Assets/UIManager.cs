@@ -46,16 +46,15 @@ public class UIManager : MonoBehaviour
     {
         if (timerText == null) return;
 
-        int minutes = Mathf.FloorToInt(
-            timeRemaining / 60f
-        );
-        int seconds = Mathf.FloorToInt(
-            timeRemaining % 60f
-        );
+        int minutes = Mathf.FloorToInt(timeRemaining / 60f);
+        int seconds = Mathf.FloorToInt(timeRemaining % 60f);
 
         if (isTutorial)
         {
-            timerText.text = "Tutorial";
+            // Show running timer in tutorial (no red flash)
+            timerText.text = string.Format(
+                "{0:00}:{1:00}", minutes, seconds
+            );
             timerText.color = Color.white;
         }
         else

@@ -81,6 +81,9 @@ public class LevelManager : MonoBehaviour
 
         if (isTutorial)
         {
+            timeRemaining -= Time.deltaTime;
+            if (timeRemaining <= 0)
+                timeRemaining = 0;
             UpdateUI();
             return;
         }
@@ -191,22 +194,16 @@ public class LevelManager : MonoBehaviour
 
     public void ReduceTime(float seconds)
     {
-        if (isTutorial) return;
-
         timeRemaining -= seconds;
         if (timeRemaining < 0)
             timeRemaining = 0;
 
-        // Save updated timer
-        if (GameManager.Instance != null)
-            GameManager.Instance.SaveTimer(
-                timeRemaining
-            );
+        // Only save timer to GameManager in non-tutorial levels
+        if (!isTutorial && GameManager.Instance != null)
+            GameManager.Instance.SaveTimer(timeRemaining);
 
         if (UIManager.Instance != null)
-            StartCoroutine(
-                UIManager.Instance.FlashTimer()
-            );
+            StartCoroutine(UIManager.Instance.FlashTimer());
 
         UpdateUI();
     }
