@@ -64,11 +64,13 @@ public class MugController : MonoBehaviour
 
         if (mugs.Length > selectedMug)
         {
+            Vector3 originalScale = transform.localScale;
             SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
             if (sr != null)
                 sr.sprite = mugs[selectedMug];
                 
-            transform.localScale = new Vector3(3f, 3f, 1f);
+            transform.localScale = originalScale; // restore scale
+            targetScale = originalScale;
         }
 
         canJump = true;

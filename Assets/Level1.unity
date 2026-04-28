@@ -3230,6 +3230,9 @@ MonoBehaviour:
   totalFoam: 20
   useMilkSystem: 0
   useFoamSystem: 0
+  totalChocolate: 13
+  requiredChocolate: 10
+  useChocolateSystem: 0
 --- !u!4 &513024810
 Transform:
   m_ObjectHideFlags: 0
@@ -10411,7 +10414,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8, y: -2.1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 529278239}
@@ -10544,6 +10547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   timerText: {fileID: 1330960605}
   beanCountText: {fileID: 2054704504}
+  chocolateCountText: {fileID: 0}
   lifeIcons:
   - {fileID: 1842592917}
   - {fileID: 270101738}
