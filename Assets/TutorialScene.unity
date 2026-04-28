@@ -519,11 +519,11 @@ Transform:
   m_GameObject: {fileID: 229420039}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 19.2, y: 10.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1308555008}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &229420041
 SpriteRenderer:
@@ -3896,7 +3896,6 @@ MonoBehaviour:
   timerText: {fileID: 1403798455}
   beanCountText: {fileID: 1400443197}
   chocolateCountText: {fileID: 0}
-  chocolateCountText: {fileID: 0}
   lifeIcons:
   - {fileID: 1510387986}
   - {fileID: 1050559834}
@@ -3956,9 +3955,6 @@ MonoBehaviour:
   totalFoam: 20
   useMilkSystem: 0
   useFoamSystem: 0
-  totalChocolate: 13
-  requiredChocolate: 10
-  useChocolateSystem: 0
   totalChocolate: 13
   requiredChocolate: 10
   useChocolateSystem: 0
@@ -4040,7 +4036,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4068,8 +4064,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 19.2, y: 10.8, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 229420040}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1308555009
@@ -5903,7 +5898,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6, y: -1.7, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 496193214}
@@ -8215,6 +8210,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1308555008}
+  - {fileID: 229420040}
   - {fileID: 1556019522}
   - {fileID: 1586453363}
   - {fileID: 1506438801}

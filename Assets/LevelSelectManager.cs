@@ -51,4 +51,9 @@ public class LevelSelectManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void GoBack()
+    {
+        SceneManager.LoadScene("MugSelectionScene");
+    }
 }
