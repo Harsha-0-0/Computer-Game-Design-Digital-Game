@@ -26,6 +26,8 @@ public class MugController : MonoBehaviour
     private bool isGrowing   = false;
     private bool isOnSeesaw  = false;
     private Vector3 targetScale;
+    private float lastJumpTime = -1f;
+    private bool canJump = true;
 
     // Orders effect
     private bool  ordersActive            = false;
@@ -68,6 +70,8 @@ public class MugController : MonoBehaviour
                 
             transform.localScale = new Vector3(3f, 3f, 1f);
         }
+
+        canJump = true;
     }
 
     void Update()
@@ -141,9 +145,13 @@ public class MugController : MonoBehaviour
         // ── Jump ──────────────────────────────────────────────────────────
         if ((Input.GetKeyDown(KeyCode.Space) ||
              Input.GetKeyDown(KeyCode.W)     ||
-             Input.GetKeyDown(KeyCode.UpArrow)) && isGrounded)
+             Input.GetKeyDown(KeyCode.UpArrow)) && isGrounded && canJump && Time.time - lastJumpTime > 0.3f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            // Prevent jumping higher than intended due to collisions
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Min(rb.linearVelocity.y, jumpForce));
+            lastJumpTime = Time.time;
+            canJump = false;
         }
 
         // ── Grow animation ────────────────────────────────────────────────
@@ -170,7 +178,10 @@ public class MugController : MonoBehaviour
             isSlippery = true;
 
         if (IsGroundCollision(col))
+        {
             isGrounded = true;
+            canJump = true;
+        }
 
         if (TagMatches(col.gameObject, "Frother"))
             CollectFrother();

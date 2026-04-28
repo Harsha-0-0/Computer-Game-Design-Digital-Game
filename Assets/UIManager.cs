@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour
     [Header("Bean Count")]
     public TextMeshProUGUI beanCountText;
 
+    [Header("Chocolate Count")]
+    public TextMeshProUGUI chocolateCountText;
+
     [Header("Lives")]
     public List<GameObject> lifeIcons;
 
@@ -97,6 +100,22 @@ public class UIManager : MonoBehaviour
             return;
         }
         beanCountText.text = collected + "/" + total + " Foams";
+    }
+
+    public void UpdateChocolate(int collected, int total)
+    {
+        if (chocolateCountText != null)
+        {
+            chocolateCountText.text = collected + "/" + total + " Chocolate Particles";
+        }
+        else if (beanCountText != null)
+        {
+            beanCountText.text = collected + "/" + total + " Chocolate Particles";
+        }
+        else
+        {
+            Debug.LogWarning("UIManager.UpdateChocolate: no text assigned.");
+        }
     }
 
     public void UpdateLives(int lives)
