@@ -2720,7 +2720,12 @@ MonoBehaviour:
   totalBeans: 20
   isTutorial: 0
   totalMilk: 40
+  totalFoam: 20
   useMilkSystem: 1
+  useFoamSystem: 0
+  totalChocolate: 13
+  requiredChocolate: 10
+  useChocolateSystem: 0
 --- !u!4 &513024810
 Transform:
   m_ObjectHideFlags: 0
@@ -2762,8 +2767,8 @@ Transform:
   m_GameObject: {fileID: 529278238}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0.05, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalPosition: {x: 0.3, y: -0.16, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1754394043}
@@ -2817,7 +2822,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -6437902881995173051, guid: bf4406b016f9b401eb1f20d2db18ec54, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4d1d6a8e047364beaa8ad638928ca36b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -8283,6 +8288,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MugController
   moveSpeed: 5
   jumpForce: 10
+  rollSpeed: 8
+  maxSpeed: 8
+  growAmount: 0.05
+  growDuration: 0.4
+  ordersBoostSpeed: 4
+  ordersBoostControl: 0.15
+  ordersBoostDuration: 5
 --- !u!61 &1754394045
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8526,6 +8538,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   timerText: {fileID: 1330960605}
   beanCountText: {fileID: 2054704504}
+  chocolateCountText: {fileID: 0}
   lifeIcons:
   - {fileID: 1842592917}
   - {fileID: 270101738}

@@ -3896,6 +3896,7 @@ MonoBehaviour:
   timerText: {fileID: 1403798455}
   beanCountText: {fileID: 1400443197}
   chocolateCountText: {fileID: 0}
+  chocolateCountText: {fileID: 0}
   lifeIcons:
   - {fileID: 1510387986}
   - {fileID: 1050559834}
@@ -3955,6 +3956,9 @@ MonoBehaviour:
   totalFoam: 20
   useMilkSystem: 0
   useFoamSystem: 0
+  totalChocolate: 13
+  requiredChocolate: 10
+  useChocolateSystem: 0
   totalChocolate: 13
   requiredChocolate: 10
   useChocolateSystem: 0
