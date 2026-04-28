@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [Header("Game Settings")]
-    public int totalLives = 5;
+    public int totalLives = 3;
     public float levelTime = 240f;
 
     private int currentLives;
