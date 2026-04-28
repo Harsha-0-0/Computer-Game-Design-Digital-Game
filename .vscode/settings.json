@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Computer-Game-Design-Digital-Game.slnx"
+    "dotnet.defaultSolution": "My project.slnx"
 }

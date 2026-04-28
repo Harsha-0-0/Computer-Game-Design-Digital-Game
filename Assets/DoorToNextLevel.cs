@@ -203,6 +203,8 @@ public class DoorToNextLevel : MonoBehaviour
         text.alignment = TextAlignment.Center;
         text.anchor = TextAnchor.MiddleCenter;
 
+        string currentScene = SceneManager.GetActiveScene().name;
+
         // ── Tutorial: always show beans message ───────────────────────────
         bool isTutorial = LevelManager.Instance != null &&
                           LevelManager.Instance.isTutorial;
@@ -217,7 +219,6 @@ public class DoorToNextLevel : MonoBehaviour
         }
         else
         {
-            string currentScene = SceneManager.GetActiveScene().name;
             if (currentScene == "Level1")
                 text.text = "Collect all beans first!";
             else
