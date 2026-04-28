@@ -51,6 +51,19 @@ public class DoorToNextLevel : MonoBehaviour
                 }
             }
         }
+        else if (currentScene == "level 4")
+        {
+            // Require required chocolate for Level 4
+            if (LevelManager.Instance != null)
+            {
+                if (LevelManager.Instance.GetChocolate() >= LevelManager.Instance.GetRequiredChocolate())
+                {
+                    isUnlocked = true;
+                    Debug.Log("Door unlocked with chocolate!");
+                    StartCoroutine(GlowDoor());
+                }
+            }
+        }
         else
         {
             // Require foam for other levels
@@ -201,6 +214,10 @@ public class DoorToNextLevel : MonoBehaviour
         if (currentScene == "Level1")
         {
             text.text = "Collect all beans first!";
+        }
+        else if (currentScene == "level 4")
+        {
+            text.text = "Collect " + LevelManager.Instance.GetRequiredChocolate() + " chocolate particles first!";
         }
         else
         {

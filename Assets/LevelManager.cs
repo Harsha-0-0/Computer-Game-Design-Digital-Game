@@ -21,6 +21,13 @@ public class LevelManager : MonoBehaviour
     private int collectedFoam = 0;
     public bool useMilkSystem = false;
     public bool useFoamSystem = false;
+
+    [Header("Chocolate Settings")]
+    public int totalChocolate = 13;
+    private int collectedChocolate = 0;
+    public int requiredChocolate = 10;
+    public bool useChocolateSystem = false;
+
     private bool levelActive = true;
     private bool levelComplete = false;
 
@@ -61,6 +68,7 @@ public class LevelManager : MonoBehaviour
         collectedBeans = 0;
         collectedMilk = 0;
         collectedFoam = 0;
+        collectedChocolate = 0;
         levelActive = true;
         levelComplete = false;
         EnsureUIManager();
@@ -113,6 +121,16 @@ public class LevelManager : MonoBehaviour
         if (!isTutorial &&
             collectedFoam >= totalFoam)
             LevelComplete();
+    }
+
+    public void ChocolateCollected()
+    {
+        collectedChocolate++;
+        Debug.Log("Chocolate: " + collectedChocolate +
+            "/" + totalChocolate);
+        UpdateUI();
+
+        // Note: Level complete is handled by DoorToNextLevel for chocolate
     }
 
     public void MugDied()
@@ -223,6 +241,10 @@ public class LevelManager : MonoBehaviour
         {
             UIManager.Instance.UpdateFoam(collectedFoam, totalFoam);
         }
+        else if (useChocolateSystem)
+        {
+            UIManager.Instance.UpdateChocolate(collectedChocolate, requiredChocolate);
+        }
         else
         {
             UIManager.Instance.UpdateBeans(collectedBeans, totalBeans);
@@ -297,5 +319,20 @@ public class LevelManager : MonoBehaviour
     public int GetTotalFoam()
     {
         return totalFoam;
+    }
+
+    public int GetChocolate()
+    {
+        return collectedChocolate;
+    }
+
+    public int GetTotalChocolate()
+    {
+        return totalChocolate;
+    }
+
+    public int GetRequiredChocolate()
+    {
+        return requiredChocolate;
     }
 }
