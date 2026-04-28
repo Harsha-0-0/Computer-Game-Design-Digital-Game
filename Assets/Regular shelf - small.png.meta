@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c12401574b84f40f9a31cc7040ee05b9
+guid: dd3d6f35764214be5a590717582abca1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1611054963774259811
-    second: Regular shelf - small@2x_0
+      213: 6488967938015043065
+    second: Regular shelf - small_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +52,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 20, y: 20, z: 20, w: 20}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Regular shelf - small@2x_0
+      name: Regular shelf - small_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 472
-        height: 50
+        width: 236
+        height: 25
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 362056d24fd9b5610800000000000000
-      internalID: 1611054963774259811
+      spriteID: 9fd1948a5f17d0a50800000000000000
+      internalID: 6488967938015043065
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Regular shelf - small@2x_0: 1611054963774259811
+      Regular shelf - small_0: 6488967938015043065
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

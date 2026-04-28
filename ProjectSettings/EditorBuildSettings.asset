@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
+    path: Assets/MugSelectionScene.unity
+    guid: e31ee80fcc5e2421497bf7934f84de24
+  - enabled: 1
+    path: Assets/LevelSelectScene.unity
+    guid: 0804434d0906e43b68c63d76b7b3c573
+  - enabled: 1
     path: Assets/TutorialScene.unity
     guid: 4e886021ace674903821dc88d7b7eaea
   - enabled: 1
@@ -21,11 +27,8 @@ EditorBuildSettings:
     path: Assets/Level2.unity
     guid: 96ff450c88eb04766a109189017baa50
   - enabled: 1
-    path: Assets/MugSelectionScene.unity
-    guid: e31ee80fcc5e2421497bf7934f84de24
-  - enabled: 1
-    path: Assets/LevelSelectScene.unity
-    guid: 0804434d0906e43b68c63d76b7b3c573
+    path: Assets/Level 3.unity
+    guid: a6f3996dcaa264e108d8247d1159d010
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

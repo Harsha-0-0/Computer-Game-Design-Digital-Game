@@ -67,7 +67,7 @@ public class MugSelectionManager : MonoBehaviour
         }
     }
 
-    void ConfirmSelection()
+    public void ConfirmSelection()
     {
         PlayerPrefs.SetInt(
             "SelectedMug",

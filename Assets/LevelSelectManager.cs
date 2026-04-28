@@ -5,7 +5,7 @@ using TMPro;
 
 public class LevelSelectManager : MonoBehaviour
 {
-    [Header("Level Cards")]
+    [Header("Level Buttons")]
     public Button tutorialButton;
     public Button level1Button;
     public Button level2Button;
@@ -13,12 +13,10 @@ public class LevelSelectManager : MonoBehaviour
     public Button level4Button;
 
     [Header("Coming Soon Overlays")]
-    public GameObject level3Overlay;
     public GameObject level4Overlay;
 
     void Start()
     {
-        // Set up button listeners
         if (tutorialButton != null)
             tutorialButton.onClick.AddListener(
                 () => LoadLevel("TutorialScene")
@@ -34,16 +32,17 @@ public class LevelSelectManager : MonoBehaviour
                 () => LoadLevel("Level2")
             );
 
-        // Levels 3 and 4 do nothing for now
+        // Level 3 now clickable!
         if (level3Button != null)
-            level3Button.interactable = false;
+            level3Button.onClick.AddListener(
+                () => LoadLevel("Level3")
+            );
 
+        // Level 4 still coming soon
         if (level4Button != null)
             level4Button.interactable = false;
 
-        // Show coming soon overlays
-        if (level3Overlay != null)
-            level3Overlay.SetActive(true);
+        // Only Level 4 overlay now
         if (level4Overlay != null)
             level4Overlay.SetActive(true);
     }

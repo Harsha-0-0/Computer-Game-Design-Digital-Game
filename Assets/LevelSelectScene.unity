@@ -2738,7 +2738,6 @@ MonoBehaviour:
   level2Button: {fileID: 414236497}
   level3Button: {fileID: 863447748}
   level4Button: {fileID: 1755469929}
-  level3Overlay: {fileID: 1817118792}
   level4Overlay: {fileID: 1692803328}
 --- !u!4 &1006230766
 Transform:
@@ -3955,7 +3954,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4440421717087763417, guid: 89f78faffc876485f97c94c74fb53a49, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89f78faffc876485f97c94c74fb53a49, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

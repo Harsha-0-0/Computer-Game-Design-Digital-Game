@@ -21,16 +21,17 @@ public class MugController : MonoBehaviour
 
     // ── Private state ─────────────────────────────────────────────────────
     private Rigidbody2D rb;
-    private bool isGrounded = false;
-    private bool isSlippery = false;
-    private bool isGrowing  = false;
+    private bool isGrounded  = false;
+    private bool isSlippery  = false;
+    private bool isGrowing   = false;
+    private bool isOnSeesaw  = false;
     private Vector3 targetScale;
 
     // Orders effect
-    private bool  ordersActive           = false;
+    private bool  ordersActive            = false;
     private float ordersSpeedMultiplier   = 1f;
     private float ordersControlMultiplier = 1f;
-    private float ordersTimer            = 0f;
+    private float ordersTimer             = 0f;
 
     // Ice effect
     private bool  iceActive           = false;
@@ -52,22 +53,20 @@ public class MugController : MonoBehaviour
             originalMugColors[i] = mugRenderers[i].color;
 
         targetScale = transform.localScale;
+
         // Apply selected mug sprite
-        int selectedMug = PlayerPrefs.GetInt(
-            "SelectedMug", 0
-        );
+        int selectedMug = PlayerPrefs.GetInt("SelectedMug", 0);
 
         // Load mug sprites from Resources folder
-        Sprite[] mugs = Resources.LoadAll<Sprite>(
-            "MugSprites"
-        );
+        Sprite[] mugs = Resources.LoadAll<Sprite>("MugSprites");
 
         if (mugs.Length > selectedMug)
         {
-            SpriteRenderer sr = 
-                GetComponentInChildren<SpriteRenderer>();
+            SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
             if (sr != null)
                 sr.sprite = mugs[selectedMug];
+                
+            transform.localScale = new Vector3(3f, 3f, 1f);
         }
     }
 
@@ -103,26 +102,39 @@ public class MugController : MonoBehaviour
             if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) keyboardMove =  1f;
             if (Input.GetKey(KeyCode.LeftArrow)  || Input.GetKey(KeyCode.A)) keyboardMove = -1f;
 
-            rb.linearVelocity = new Vector2(
-                keyboardMove * moveSpeed * speedMult,
-                rb.linearVelocity.y
-            );
+            float axisMove = Input.GetAxisRaw("Horizontal");
+
+            if (isOnSeesaw)
+            {
+                // On seesaw — only use AddForce, never set velocity directly
+                // SeesawPlatform slide force and player resistance fight each other
+                rb.AddForce(new Vector2(
+                    axisMove * effectiveRollSpeed * controlMult * 0.6f, 0));
+            }
+            else
+            {
+                // Normal ground — set velocity directly for crisp control
+                rb.linearVelocity = new Vector2(
+                    keyboardMove * moveSpeed * speedMult,
+                    rb.linearVelocity.y
+                );
+
+                if (isGrounded)
+                    rb.AddForce(new Vector2(
+                        axisMove * effectiveRollSpeed * controlMult, 0));
+                else
+                {
+                    float airControl = 0.08f * controlMult;
+                    float targetX    = rb.linearVelocity.x + axisMove * airControl;
+                    rb.linearVelocity = new Vector2(
+                        Mathf.Clamp(targetX, -effectiveMaxSpeed, effectiveMaxSpeed),
+                        rb.linearVelocity.y
+                    );
+                }
+            }
         }
 
-        float axisMove = Input.GetAxisRaw("Horizontal");
-
-        if (isGrounded)
-            rb.AddForce(new Vector2(axisMove * effectiveRollSpeed * controlMult, 0));
-        else
-        {
-            float airControl = 0.08f * controlMult;
-            float targetX    = rb.linearVelocity.x + axisMove * airControl;
-            rb.linearVelocity = new Vector2(
-                Mathf.Clamp(targetX, -effectiveMaxSpeed, effectiveMaxSpeed),
-                rb.linearVelocity.y
-            );
-        }
-
+        // ── Clamp final velocity ──────────────────────────────────────────
         float finalX = Mathf.Clamp(rb.linearVelocity.x, -effectiveMaxSpeed, effectiveMaxSpeed);
         rb.linearVelocity = new Vector2(finalX, rb.linearVelocity.y);
 
@@ -151,7 +163,6 @@ public class MugController : MonoBehaviour
     }
 
     // ── Collision / Trigger ───────────────────────────────────────────────
-    // Orders are handled entirely by OrdersPile.cs — nothing here touches Orders.
 
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -213,7 +224,6 @@ public class MugController : MonoBehaviour
         ordersControlMultiplier = controlMult;
         ordersTimer             = duration;
 
-        // Immediate lurch so the effect is felt instantly
         float lurchDir = rb.linearVelocity.x >= 0 ? 1f : -1f;
         rb.linearVelocity = new Vector2(lurchDir * moveSpeed * speedMult, rb.linearVelocity.y);
 
@@ -247,6 +257,7 @@ public class MugController : MonoBehaviour
     }
 
     public void SetSlippery(bool slippery) { isSlippery = slippery; }
+    public void SetOnSeesaw(bool onSeesaw) { isOnSeesaw = onSeesaw; }
 
     // ── Helpers ───────────────────────────────────────────────────────────
 
@@ -303,7 +314,7 @@ public class MugController : MonoBehaviour
             elapsed += Time.deltaTime;
             popup.transform.position = startPos + new Vector3(0, elapsed * 2f, 0);
             TextMesh text = popup.GetComponent<TextMesh>();
-            if (text != null) { Color c = text.color; c.a = 1f-(elapsed/duration); text.color = c; }
+            if (text != null) { Color c = text.color; c.a = 1f - (elapsed / duration); text.color = c; }
             yield return null;
         }
         if (popup != null) Destroy(popup);
