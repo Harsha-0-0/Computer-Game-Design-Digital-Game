@@ -8,8 +8,20 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [Header("Timer")]
-    public TextMeshProUGUI timerText;
+[Header("Timer")]
+public RectTransform thermometerBar;
+public RectTransform thermometerCircle;
+public float levelTime = 240f;
+// public float thermometerDisplayWidth = 160; // set this in Inspector to match your bar's visual width
+private float _thermoWidth;
+private float _circleRadius;
+private UnityEngine.UI.Image _circleImage;
+
+
+[Header("Lives")]
+public List<Image> lifeImages;        // 3 Image components (Life1, Life2, Life3)
+public Sprite mugNormal;
+public Sprite mugBroken;
 
     [Header("Bean Count")]
     public TextMeshProUGUI beanCountText;
@@ -17,8 +29,7 @@ public class UIManager : MonoBehaviour
     [Header("Chocolate Count")]
     public TextMeshProUGUI chocolateCountText;
 
-    [Header("Lives")]
-    public List<GameObject> lifeIcons;
+
 
     [Header("Level Complete")]
     public GameObject levelCompletePanel;
@@ -26,51 +37,49 @@ public class UIManager : MonoBehaviour
     [Header("Game Over")]
     public GameObject gameOverPanel;
 
-    void Awake()
+void Awake()
+{
+    Debug.Log("UIManager Awake FIRED on " + gameObject.name); // add this first
+    if (Instance == null)
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            Debug.Log("UIManager Awake: instance assigned. beanCountText=" + (beanCountText != null));
-        }
-        else
-        {
-            Debug.Log("UIManager Awake: duplicate instance destroyed.");
-            Destroy(gameObject);
-        }
+        Instance = this;
+        Debug.Log("UIManager assigned");
     }
-
-    public void UpdateTimer(
-        float timeRemaining, 
-        bool isTutorial = false)
+    else
     {
-        if (timerText == null) return;
-
-        int minutes = Mathf.FloorToInt(timeRemaining / 60f);
-        int seconds = Mathf.FloorToInt(timeRemaining % 60f);
-
-        if (isTutorial)
-        {
-            // Show running timer in tutorial (no red flash)
-            timerText.text = string.Format(
-                "{0:00}:{1:00}", minutes, seconds
-            );
-            timerText.color = Color.white;
-        }
-        else
-        {
-            timerText.text = string.Format(
-                "{0:00}:{1:00}", minutes, seconds
-            );
-
-            // Turn red when less than 30 seconds
-            if (timeRemaining <= 30f)
-                timerText.color = Color.red;
-            else
-                timerText.color = Color.white;
-        }
+        Debug.Log("UIManager DUPLICATE on " + gameObject.name);
+        Destroy(gameObject);
     }
+}
 
+void Start()
+{
+    Debug.Log("UIManager Start FIRED");
+    StartCoroutine(InitAfterLayout());
+}
+
+IEnumerator InitAfterLayout()
+{
+    yield return null;
+    yield return null;
+    _circleImage = thermometerCircle.GetComponent<UnityEngine.UI.Image>();
+    _circleRadius = thermometerCircle.rect.width * 0.5f;
+    _thermoWidth = thermometerBar.rect.width;
+    float halfWidth = _thermoWidth * 0.5f;
+    Debug.Log("thermoWidth: " + _thermoWidth + " halfWidth: " + halfWidth);
+    thermometerCircle.anchoredPosition = new Vector2(halfWidth - _circleRadius, 0f);
+}
+public void UpdateTimer(float timeRemaining, bool isTutorial = false)
+{
+    if (thermometerCircle == null) return;
+    float totalTime = LevelManager.Instance != null ? LevelManager.Instance.levelTime : levelTime;
+    float t = Mathf.Clamp01(timeRemaining / totalTime);
+    float halfWidth = _thermoWidth * 0.5f;
+    // t=1 (full time) = right edge, t=0 (no time) = left edge
+float x = Mathf.Lerp(halfWidth - _circleRadius, -halfWidth + _circleRadius, t);    thermometerCircle.anchoredPosition = new Vector2(x, 0f);
+    if (_circleImage != null)
+        _circleImage.color = (timeRemaining <= 30f) ? Color.red : Color.white;
+}
     public void UpdateBeans(int collected, int total)
     {
         if (beanCountText == null)
@@ -117,15 +126,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateLives(int lives)
+public void UpdateLives(int lives)
+{
+    Debug.Log("UpdateLives called with lives=" + lives + ", lifeImages.Count=" + lifeImages.Count 
+        + ", mugNormal=" + (mugNormal != null) + ", mugBroken=" + (mugBroken != null));
+    
+    for (int i = 0; i < lifeImages.Count; i++)
     {
-        for (int i = 0; i < lifeIcons.Count; i++)
-        {
-            if (lifeIcons[i] != null)
-                lifeIcons[i].SetActive(i < lives);
-        }
+        if (lifeImages[i] == null) continue;
+        lifeImages[i].sprite = (i < lives) ? mugNormal : mugBroken;
+        lifeImages[i].enabled = true;
     }
-
+}
     public void ShowLevelComplete()
     {
         if (levelCompletePanel != null)
@@ -138,16 +150,16 @@ public class UIManager : MonoBehaviour
             gameOverPanel.SetActive(true);
     }
 
-    public IEnumerator FlashTimer()
+  public IEnumerator FlashTimer()
+{
+    for (int i = 0; i < 3; i++)
     {
-        for (int i = 0; i < 3; i++)
-        {
-            if (timerText != null)
-                timerText.color = Color.cyan;
-            yield return new WaitForSeconds(0.15f);
-            if (timerText != null)
-                timerText.color = Color.white;
-            yield return new WaitForSeconds(0.15f);
-        }
+        if (_circleImage != null)
+            _circleImage.color = Color.cyan;
+        yield return new WaitForSeconds(0.15f);
+        if (_circleImage != null)
+            _circleImage.color = Color.white;
+        yield return new WaitForSeconds(0.15f);
     }
+}
 }
