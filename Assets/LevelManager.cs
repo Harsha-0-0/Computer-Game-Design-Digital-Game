@@ -79,11 +79,11 @@ public class LevelManager : MonoBehaviour
     {
         if (!levelActive) return;
 
-        if (isTutorial)
-        {
-            UpdateUI();
-            return;
-        }
+        // if (isTutorial)
+        // {
+        //     UpdateUI();
+        //     return;
+        // }
 
         timeRemaining -= Time.deltaTime;
 
@@ -137,11 +137,11 @@ public class LevelManager : MonoBehaviour
     {
         if (!levelActive) return;
 
-        if (isTutorial)
-        {
-            StartCoroutine(RestartLevel());
-            return;
-        }
+        // if (isTutorial)
+        // {
+        //     StartCoroutine(RestartLevel());
+        //     return;
+        // }
 
         levelActive = false;
 
@@ -251,8 +251,8 @@ public class LevelManager : MonoBehaviour
         }
 
         int lives = GameManager.Instance != null ?
-            GameManager.Instance.GetLives() : 5;
-        UIManager.Instance.UpdateLives(lives);
+    GameManager.Instance.GetLives() : 3;
+    UIManager.Instance.UpdateLives(lives);
     }
 
     void EnsureUIManager()
