@@ -7,6 +7,10 @@ TagManager:
   - Bean
   - Mug
   - Ground
+  - Frother
+  - Orders
+  - FallZone
+  - Slippery Shelf
   layers:
   - Default
   - TransparentFX

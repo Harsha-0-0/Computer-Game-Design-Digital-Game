@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class Level1Bean : MonoBehaviour
 {
-    public float bobSpeed = 2f;
-    public float bobHeight = 0.15f;
+    [Header("Circle Movement")]
+    public float circleRadius = 0.2f;
+    public float circleSpeed = 2f;
+
     private Vector3 startPos;
 
     void Start()
@@ -13,10 +15,15 @@ public class Level1Bean : MonoBehaviour
 
     void Update()
     {
-        float newY = startPos.y +
-            Mathf.Sin(Time.time * bobSpeed) * bobHeight;
+        float x = startPos.x +
+            Mathf.Cos(Time.time * circleSpeed)
+            * circleRadius;
+        float y = startPos.y +
+            Mathf.Sin(Time.time * circleSpeed)
+            * circleRadius;
+
         transform.position = new Vector3(
-            startPos.x, newY, startPos.z
+            x, y, startPos.z
         );
     }
 
@@ -24,7 +31,8 @@ public class Level1Bean : MonoBehaviour
     {
         if (other.CompareTag("Mug"))
         {
-            LevelManager.Instance.BeanCollected();
+            if (LevelManager.Instance != null)
+                LevelManager.Instance.BeanCollected();
             Destroy(gameObject);
         }
     }

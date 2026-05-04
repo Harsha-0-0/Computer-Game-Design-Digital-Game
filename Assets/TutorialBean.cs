@@ -1,10 +1,10 @@
 using UnityEngine;
-using System.Collections;
 
 public class TutorialBean : MonoBehaviour
 {
-    public float bobSpeed = 2f;
-    public float bobHeight = 0.15f;
+    [Header("Circle Movement")]
+    public float circleRadius = 0.2f;
+    public float circleSpeed = 2f;
 
     private Vector3 startPos;
 
@@ -15,11 +15,16 @@ public class TutorialBean : MonoBehaviour
 
     void Update()
     {
-        // Bob up and down
-        float newY = startPos.y +
-            Mathf.Sin(Time.time * bobSpeed) * bobHeight;
+        // Move in small circle
+        float x = startPos.x +
+            Mathf.Cos(Time.time * circleSpeed)
+            * circleRadius;
+        float y = startPos.y +
+            Mathf.Sin(Time.time * circleSpeed)
+            * circleRadius;
+
         transform.position = new Vector3(
-            startPos.x, newY, startPos.z
+            x, y, startPos.z
         );
     }
 
@@ -27,7 +32,8 @@ public class TutorialBean : MonoBehaviour
     {
         if (other.CompareTag("Mug"))
         {
-            Debug.Log("Coffee bean collected!");
+            if (LevelManager.Instance != null)
+                LevelManager.Instance.BeanCollected();
             Destroy(gameObject);
         }
     }

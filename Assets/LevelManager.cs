@@ -16,30 +16,48 @@ public class LevelManager : MonoBehaviour
 
     [Header("Milk Settings")]
     public int totalMilk = 40;
+    public int totalFoam = 20;
     private int collectedMilk = 0;
+    private int collectedFoam = 0;
     public bool useMilkSystem = false;
+    public bool useFoamSystem = false;
+
+    [Header("Chocolate Settings")]
+    public int totalChocolate = 13;
+    private int collectedChocolate = 0;
+    public int requiredChocolate = 10;
+    public bool useChocolateSystem = false;
+
     private bool levelActive = true;
     private bool levelComplete = false;
 
     void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            Debug.Log("LevelManager Awake: instance assigned.");
+        }
         else
+        {
+            Debug.Log("LevelManager Awake: duplicate instance destroyed.");
             Destroy(gameObject);
+            return;
+        }
     }
 
     void Start()
     {
+        Debug.Log("LevelManager Start: useMilkSystem=" + useMilkSystem + ", useFoamSystem=" + useFoamSystem);
         // Restore timer from GameManager
         // if it has a saved value
-        if (!isTutorial && 
+        if (!isTutorial &&
             GameManager.Instance != null)
         {
-            float saved = 
+            float saved =
                 GameManager.Instance.GetSavedTimer();
             // Use saved timer if valid
-            timeRemaining = saved > 0 ? 
+            timeRemaining = saved > 0 ?
                 saved : levelTime;
         }
         else
@@ -49,8 +67,11 @@ public class LevelManager : MonoBehaviour
 
         collectedBeans = 0;
         collectedMilk = 0;
+        collectedFoam = 0;
+        collectedChocolate = 0;
         levelActive = true;
         levelComplete = false;
+        EnsureUIManager();
         UpdateUI();
     }
 
@@ -58,11 +79,11 @@ public class LevelManager : MonoBehaviour
     {
         if (!levelActive) return;
 
-        if (isTutorial)
-        {
-            UpdateUI();
-            return;
-        }
+        // if (isTutorial)
+        // {
+        //     UpdateUI();
+        //     return;
+        // }
 
         timeRemaining -= Time.deltaTime;
 
@@ -90,15 +111,37 @@ public class LevelManager : MonoBehaviour
             LevelComplete();
     }
 
+    public void FoamCollected()
+    {
+        collectedFoam++;
+        Debug.Log("Foam: " + collectedFoam +
+            "/" + totalFoam);
+        UpdateUI();
+
+        if (!isTutorial &&
+            collectedFoam >= totalFoam)
+            LevelComplete();
+    }
+
+    public void ChocolateCollected()
+    {
+        collectedChocolate++;
+        Debug.Log("Chocolate: " + collectedChocolate +
+            "/" + totalChocolate);
+        UpdateUI();
+
+        // Note: Level complete is handled by DoorToNextLevel for chocolate
+    }
+
     public void MugDied()
     {
         if (!levelActive) return;
 
-        if (isTutorial)
-        {
-            StartCoroutine(RestartLevel());
-            return;
-        }
+        // if (isTutorial)
+        // {
+        //     StartCoroutine(RestartLevel());
+        //     return;
+        // }
 
         levelActive = false;
 
@@ -148,22 +191,16 @@ public class LevelManager : MonoBehaviour
 
     public void ReduceTime(float seconds)
     {
-        if (isTutorial) return;
-
         timeRemaining -= seconds;
         if (timeRemaining < 0)
             timeRemaining = 0;
 
-        // Save updated timer
-        if (GameManager.Instance != null)
-            GameManager.Instance.SaveTimer(
-                timeRemaining
-            );
+        // Only save timer to GameManager in non-tutorial levels
+        if (!isTutorial && GameManager.Instance != null)
+            GameManager.Instance.SaveTimer(timeRemaining);
 
         if (UIManager.Instance != null)
-            StartCoroutine(
-                UIManager.Instance.FlashTimer()
-            );
+            StartCoroutine(UIManager.Instance.FlashTimer());
 
         UpdateUI();
     }
@@ -178,7 +215,14 @@ public class LevelManager : MonoBehaviour
 
     void UpdateUI()
     {
-        if (UIManager.Instance == null) return;
+        EnsureUIManager();
+        if (UIManager.Instance == null)
+        {
+            Debug.LogWarning("LevelManager.UpdateUI: UIManager.Instance is null; UI will not update.");
+            return;
+        }
+
+        Debug.Log("LevelManager.UpdateUI: useMilkSystem=" + useMilkSystem + " useFoamSystem=" + useFoamSystem + " collectedFoam=" + collectedFoam);
 
         UIManager.Instance.UpdateTimer(
             timeRemaining, isTutorial
@@ -187,14 +231,39 @@ public class LevelManager : MonoBehaviour
         {
             UIManager.Instance.UpdateMilk(collectedMilk, totalMilk);
         }
+        else if (useFoamSystem)
+        {
+            UIManager.Instance.UpdateFoam(collectedFoam, totalFoam);
+        }
+        else if (useChocolateSystem)
+        {
+            UIManager.Instance.UpdateChocolate(collectedChocolate, requiredChocolate);
+        }
         else
         {
             UIManager.Instance.UpdateBeans(collectedBeans, totalBeans);
         }
 
         int lives = GameManager.Instance != null ?
-            GameManager.Instance.GetLives() : 5;
-        UIManager.Instance.UpdateLives(lives);
+    GameManager.Instance.GetLives() : 3;
+    UIManager.Instance.UpdateLives(lives);
+    }
+
+    void EnsureUIManager()
+    {
+        if (UIManager.Instance == null)
+        {
+            UIManager foundUI = FindObjectOfType<UIManager>();
+            if (foundUI != null)
+            {
+                UIManager.Instance = foundUI;
+                Debug.Log("LevelManager.EnsureUIManager: found UIManager in scene.");
+            }
+            else
+            {
+                Debug.LogWarning("LevelManager.EnsureUIManager: no UIManager found in scene.");
+            }
+        }
     }
 
     public int GetBeans() { return collectedBeans; }
@@ -205,6 +274,15 @@ public class LevelManager : MonoBehaviour
         collectedMilk = Mathf.Max(collectedMilk, 0);
 
         Debug.Log("Milk: " + collectedMilk + "/" + totalMilk);
+        UpdateUI();
+    }
+
+    public void FoamCollected(int amount = 1)
+    {
+        collectedFoam += amount;
+        collectedFoam = Mathf.Max(collectedFoam, 0);
+
+        Debug.Log("Foam: " + collectedFoam + "/" + totalFoam);
         UpdateUI();
     }
 
@@ -225,5 +303,30 @@ public class LevelManager : MonoBehaviour
     public int GetTotalMilk()
     {
         return totalMilk;
+    }
+
+    public int GetFoam()
+    {
+        return collectedFoam;
+    }
+
+    public int GetTotalFoam()
+    {
+        return totalFoam;
+    }
+
+    public int GetChocolate()
+    {
+        return collectedChocolate;
+    }
+
+    public int GetTotalChocolate()
+    {
+        return totalChocolate;
+    }
+
+    public int GetRequiredChocolate()
+    {
+        return requiredChocolate;
     }
 }

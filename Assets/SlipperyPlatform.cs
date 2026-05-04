@@ -45,8 +45,13 @@ public class SlipperyPlatform : MonoBehaviour
         );
     }
 
+    bool IsSlipperyShelf() => CompareTag("Slippery Shelf");
+
     void OnCollisionEnter2D(Collision2D col)
     {
+        if (!IsSlipperyShelf())
+            return;
+
         if (col.gameObject.CompareTag("Mug"))
         {
             mugOnPlatform = true;
@@ -61,6 +66,9 @@ public class SlipperyPlatform : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D col)
     {
+        if (!IsSlipperyShelf())
+            return;
+
         if (col.gameObject.CompareTag("Mug"))
         {
             mugOnPlatform = false;
