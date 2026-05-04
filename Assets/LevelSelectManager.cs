@@ -35,7 +35,7 @@ public class LevelSelectManager : MonoBehaviour
         // Level 3 now clickable!
         if (level3Button != null)
             level3Button.onClick.AddListener(
-                () => LoadLevel("Level3")
+                () => LoadLevel("Level 3")
             );
 
         // Level 4 still coming soon
