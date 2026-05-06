@@ -10386,7 +10386,6 @@ GameObject:
   - component: {fileID: 1255474601}
   - component: {fileID: 1255474600}
   - component: {fileID: 1255474599}
-  - component: {fileID: 1255474602}
   m_Layer: 0
   m_Name: Platform_5 (5)
   m_TagString: Slippery Shelf
@@ -10514,22 +10513,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1255474602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1255474598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c59d552b39fc74f7d81e27191147a93c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SlipperyPlatform
-  slideForce: 3
-  controlForce: 4
-  maxSlideSpeed: 6
-  slideDirection: 1
 --- !u!1 &1268053750
 GameObject:
   m_ObjectHideFlags: 0
@@ -16962,17 +16945,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.04026568, y: 0.02247125}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.18, y: 2.07}
+    oldSize: {x: 4.5, y: 5.12}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.323354, y: 2.1318512}
+  m_Size: {x: 4.5, y: 5.12}
   m_EdgeRadius: 0
 --- !u!212 &1951701262
 SpriteRenderer:
@@ -17023,7 +17006,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8689319978456130346, guid: c53cabe39b04a41d282f60e9db29007b, type: 3}
+  m_Sprite: {fileID: -7341407202210888751, guid: 16c035cfe62b54bdeaa2e8257600e56a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -17042,8 +17025,8 @@ Transform:
   m_GameObject: {fileID: 1951701259}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 134.07, y: 8.76, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalPosition: {x: 133.95, y: 8.55, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
