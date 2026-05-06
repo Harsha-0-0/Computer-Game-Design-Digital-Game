@@ -10,7 +10,7 @@ public class TitleScreen : MonoBehaviour
     public TextMeshProUGUI pressAnyKeyText;
 
     [Header("Settings")]
-    public string nextSceneName = "TutorialScene";
+    public string nextSceneName = "PremiseScene";
     public float pulseSpeed = 1.5f;
 
     private bool canPress = false;

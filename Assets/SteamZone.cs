@@ -31,13 +31,17 @@ public class SteamZone : MonoBehaviour
         {
             if (steamPuffPrefab != null)
             {
-                // Spawn puff at base of steam zone
-                Vector3 spawnPos = transform.position +
-                    new Vector3(
-                        Random.Range(-0.3f, 0.3f),
-                        -1f,
-                        0
-                    );
+                // Find the SteamTrigger child position
+                Transform triggerPos = transform.Find("SteamTrigger");
+                Vector3 origin = triggerPos != null 
+                    ? triggerPos.position 
+                    : transform.position;
+
+                Vector3 spawnPos = origin + new Vector3(
+                    Random.Range(-0.2f, 0.2f),
+                    0f,
+                    0
+                );
 
                 GameObject puff = Instantiate(
                     steamPuffPrefab,
@@ -46,23 +50,17 @@ public class SteamZone : MonoBehaviour
                 );
 
                 activePuffs.Add(puff);
-
-                // Animate puff rising up
                 StartCoroutine(AnimatePuff(puff));
 
-                // Remove old puffs
                 if (activePuffs.Count > maxPuffs)
                 {
                     GameObject old = activePuffs[0];
                     activePuffs.RemoveAt(0);
-                    if (old != null)
-                        Destroy(old);
+                    if (old != null) Destroy(old);
                 }
             }
 
-            yield return new WaitForSeconds(
-                puffSpawnInterval
-            );
+            yield return new WaitForSeconds(puffSpawnInterval);
         }
     }
 
@@ -85,9 +83,9 @@ public class SteamZone : MonoBehaviour
             puff.transform.position = startPos +
                 new Vector3(
                     Mathf.Sin(elapsed * 2f) * 0.1f,
-                    elapsed * puffRiseSpeed,
+                    elapsed * puffRiseSpeed,   // always rises up
                     0
-                );
+            );
 
             // Grow bigger as it rises
             puff.transform.localScale = Vector3.Lerp(
