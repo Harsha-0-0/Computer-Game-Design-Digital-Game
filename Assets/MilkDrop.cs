@@ -10,13 +10,28 @@ public class MilkDrop : MonoBehaviour
     {
         Destroy(gameObject, autoDestroyTime);
     }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Mug"))
+        if (collision.gameObject.CompareTag("Mug") && !collected)
         {
-            LevelManager.Instance.MilkCollected(1);
+            collected = true;
+            if (LevelManager.Instance != null)
+                LevelManager.Instance.MilkCollected(milkValue);
             Destroy(gameObject);
         }
-        Destroy(gameObject);
+        // Removed the stray Destroy here — milk no longer
+        // destroys itself when hitting platforms/ground
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Mug") && !collected)
+        {
+            collected = true;
+            if (LevelManager.Instance != null)
+                LevelManager.Instance.MilkCollected(milkValue);
+            Destroy(gameObject);
+        }
     }
 }

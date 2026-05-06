@@ -9577,12 +9577,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ed161deabfc4a1ba01f248d93edced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  thermometerBar: {fileID: 0}
-  thermometerCircle: {fileID: 0}
+  thermometerBar: {fileID: 998371395}
+  thermometerCircle: {fileID: 594681080}
   levelTime: 240
   lifeImages: []
-  mugNormal: {fileID: 0}
-  mugBroken: {fileID: 0}
+  mugNormal: {fileID: -3843011854703233857, guid: cbb266a1fab494f8d91cdccb78bf8a0e, type: 3}
+  mugBroken: {fileID: 21300000, guid: 2810ad52990044ce0b32e93443af7243, type: 3}
   beanCountText: {fileID: 0}
   chocolateCountText: {fileID: 0}
   levelCompletePanel: {fileID: 0}
