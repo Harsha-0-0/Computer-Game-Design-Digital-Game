@@ -10661,8 +10661,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Keep brewing: Collect another 20 coffee beans and find the croissant before
-    it gets cold.'
+  m_text: 'Keep Preparing: Collect 40 milk drops and find the croissant before it
+    gets cold.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6eac4077a2c6c4ace9aa0972a6350cfd, type: 2}
   m_sharedMaterial: {fileID: -6839736008653491461, guid: 6eac4077a2c6c4ace9aa0972a6350cfd, type: 2}
