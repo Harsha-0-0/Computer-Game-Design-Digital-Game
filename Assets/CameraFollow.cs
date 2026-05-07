@@ -6,7 +6,7 @@ public class CameraFollow : MonoBehaviour
     public float smoothSpeed = 0.05f;
     public float horizontalOffset = 3f;
     public float verticalOffset = 2f;
-    public float cameraSize = 12f;
+    public float cameraSize = 5.4f;
 
     private Camera cam;
 

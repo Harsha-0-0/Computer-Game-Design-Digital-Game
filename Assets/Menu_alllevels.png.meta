@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: eb756540c81d445d4868486df57a187f
+guid: c88d67f00e0794484919bd73f5675a05
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7866275595535703258
-    second: Wallpaper Level 2_0
+      213: 7679749474757321821
+    second: Menu_alllevels_0
+  - first:
+      213: -2990643408674960959
+    second: Menu_alllevels_1
+  - first:
+      213: 6713820395244241448
+    second: Menu_alllevels_2
+  - first:
+      213: -2240019719683128098
+    second: Menu_alllevels_3
+  - first:
+      213: -1980313950702976448
+    second: Menu_alllevels_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +125,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wallpaper Level 2_0
+      name: Menu_alllevels_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1920
-        height: 1080
+        width: 304
+        height: 624
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +140,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 62325cee50065d290800000000000000
-      internalID: -7866275595535703258
+      spriteID: d5427ee4573f39a60800000000000000
+      internalID: 7679749474757321821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menu_alllevels_1
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 0
+        width: 306
+        height: 624
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c9c0183aa91f76d0800000000000000
+      internalID: -2990643408674960959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menu_alllevels_2
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 0
+        width: 306
+        height: 624
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8224e4004184c2d50800000000000000
+      internalID: 6713820395244241448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menu_alllevels_3
+      rect:
+        serializedVersion: 2
+        x: 1072
+        y: 0
+        width: 306
+        height: 624
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed4ca6edee9d9e0e0800000000000000
+      internalID: -2240019719683128098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menu_alllevels_4
+      rect:
+        serializedVersion: 2
+        x: 1430
+        y: 0
+        width: 305
+        height: 624
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 042499834f28484e0800000000000000
+      internalID: -1980313950702976448
       vertices: []
       indices: 
       edges: []
@@ -148,7 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Wallpaper Level 2_0: -7866275595535703258
+      Menu_alllevels_0: 7679749474757321821
+      Menu_alllevels_1: -2990643408674960959
+      Menu_alllevels_2: 6713820395244241448
+      Menu_alllevels_3: -2240019719683128098
+      Menu_alllevels_4: -1980313950702976448
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

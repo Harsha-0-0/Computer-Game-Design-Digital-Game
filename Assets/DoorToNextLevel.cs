@@ -22,9 +22,17 @@ public class DoorToNextLevel : MonoBehaviour
     private bool mugEntered = false;
     private SpriteRenderer[] doorRenderers;
 
+    // ── Level 2 only ──────────────────────────────────────────────────────────
+    private LevelManager_2 levelManager2;
+    private bool level2ModeActive = false;
+    // ─────────────────────────────────────────────────────────────────────────
+
     void Start()
     {
         doorRenderers = GetComponentsInChildren<SpriteRenderer>();
+
+        levelManager2     = FindObjectOfType<LevelManager_2>();
+        level2ModeActive  = levelManager2 != null;
 
         string currentScene = SceneManager.GetActiveScene().name;
         if (currentScene == "Level1" && !requireAllBeans)
@@ -35,7 +43,20 @@ public class DoorToNextLevel : MonoBehaviour
     {
         if (isUnlocked) return;
 
-        // ── Tutorial: only require beans ──────────────────────────────────
+        // ── Level 2: unlock ONLY at exactly 40 drops — over or under = locked ──
+        if (level2ModeActive)
+        {
+            if (levelManager2.IsExactTarget())
+            {
+                isUnlocked = true;
+                Debug.Log("[DoorToNextLevel] Unlocked — exactly 40 milk drops!");
+                StartCoroutine(GlowDoor());
+            }
+            // If player had exactly 40 but then collects more, re-lock the door
+            return;
+        }
+
+        // ── Tutorial ──────────────────────────────────────────────────────────
         bool isTutorial = LevelManager.Instance != null &&
                           LevelManager.Instance.isTutorial;
 
@@ -47,15 +68,14 @@ public class DoorToNextLevel : MonoBehaviour
                 Debug.Log("Tutorial door unlocked with beans!");
                 StartCoroutine(GlowDoor());
             }
-            return; // Don't check foam/milk in tutorial
+            return;
         }
 
-        // ── Normal levels ─────────────────────────────────────────────────
+        // ── Normal levels ─────────────────────────────────────────────────────
         string currentScene = SceneManager.GetActiveScene().name;
 
         if (currentScene == "Level1")
         {
-            // Require beans for Level1
             if (requireAllBeans && LevelManager.Instance != null)
             {
                 if (LevelManager.Instance.GetBeans() >= beansRequired)
@@ -68,7 +88,6 @@ public class DoorToNextLevel : MonoBehaviour
         }
         else if (currentScene == "level 4")
         {
-            // Require required chocolate for Level 4
             if (LevelManager.Instance != null)
             {
                 if (LevelManager.Instance.GetChocolate() >= LevelManager.Instance.GetRequiredChocolate())
@@ -81,7 +100,6 @@ public class DoorToNextLevel : MonoBehaviour
         }
         else
         {
-            // Require foam for other levels
             if (LevelManager.Instance != null)
             {
                 if (LevelManager.Instance.GetFoam() >= foamRequired)
@@ -96,99 +114,90 @@ public class DoorToNextLevel : MonoBehaviour
 
     IEnumerator GlowDoor()
     {
-        // Pulse the door color to show it's now unlocked
         while (isUnlocked && !mugEntered)
         {
-            // Glow bright
             foreach (var sr in doorRenderers)
-            {
-                if (sr != null)
-                    sr.color = new Color(1f, 0.9f, 0.3f);
-            }
+                if (sr != null) sr.color = new Color(1f, 0.9f, 0.3f);
             yield return new WaitForSeconds(0.5f);
 
-            // Normal color
             foreach (var sr in doorRenderers)
-            {
-                if (sr != null)
-                    sr.color = Color.white;
-            }
+                if (sr != null) sr.color = Color.white;
             yield return new WaitForSeconds(0.5f);
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Mug") && !mugEntered)
+        if (!other.CompareTag("Mug") || mugEntered) return;
+
+        if (isUnlocked)
         {
-            if (isUnlocked)
-            {
-                mugEntered = true;
-                StartCoroutine(DoorSequence(other.gameObject));
-            }
-            else
-            {
-                StartCoroutine(ShowLockedMessage());
-            }
+            mugEntered = true;
+            StartCoroutine(DoorSequence(other.gameObject));
+        }
+        else
+        {
+            StartCoroutine(ShowLockedMessage());
+        }
+    }
+
+    // ── Re-lock if player somehow gains drops after reaching exactly 40 ───────
+    // (e.g. walks into a spawned drop while standing near the door)
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (!level2ModeActive || mugEntered) return;
+
+        // If door was unlocked but player is now over/under target, re-lock it
+        if (isUnlocked && !levelManager2.IsExactTarget())
+        {
+            isUnlocked = false;
+            StopAllCoroutines(); // stop glow
+            foreach (var sr in doorRenderers)
+                if (sr != null) sr.color = Color.white;
+            Debug.Log("[DoorToNextLevel] Re-locked — milk drop count changed.");
         }
     }
 
     IEnumerator DoorSequence(GameObject mug)
     {
-        // Disable mug movement
         MugController mc = mug.GetComponent<MugController>();
-        if (mc != null)
-            mc.enabled = false;
+        if (mc != null) mc.enabled = false;
 
-        // Stop any residual movement
         Rigidbody2D rb = mug.GetComponent<Rigidbody2D>();
-        if (rb != null)
-            rb.linearVelocity = Vector2.zero;
-
-        // Blink the door rapidly
-        for (int i = 0; i < blinkCount; i++)
-        {
-            foreach (var sr in doorRenderers)
-                if (sr != null)
-                    sr.enabled = false;
-            yield return new WaitForSeconds(blinkSpeed);
-
-            foreach (var sr in doorRenderers)
-                if (sr != null)
-                    sr.enabled = true;
-            yield return new WaitForSeconds(blinkSpeed);
-        }
-
-        // Blink the mug
-        SpriteRenderer[] mugRenderers =
-            mug.GetComponentsInChildren<SpriteRenderer>();
+        if (rb != null) rb.linearVelocity = Vector2.zero;
 
         for (int i = 0; i < blinkCount; i++)
         {
-            foreach (var sr in mugRenderers)
-                if (sr != null)
-                    sr.enabled = false;
+            foreach (var sr in doorRenderers)
+                if (sr != null) sr.enabled = false;
             yield return new WaitForSeconds(blinkSpeed);
 
-            foreach (var sr in mugRenderers)
-                if (sr != null)
-                    sr.enabled = true;
+            foreach (var sr in doorRenderers)
+                if (sr != null) sr.enabled = true;
             yield return new WaitForSeconds(blinkSpeed);
         }
 
-        // Hide mug completely
+        SpriteRenderer[] mugRenderers = mug.GetComponentsInChildren<SpriteRenderer>();
+        for (int i = 0; i < blinkCount; i++)
+        {
+            foreach (var sr in mugRenderers)
+                if (sr != null) sr.enabled = false;
+            yield return new WaitForSeconds(blinkSpeed);
+
+            foreach (var sr in mugRenderers)
+                if (sr != null) sr.enabled = true;
+            yield return new WaitForSeconds(blinkSpeed);
+        }
+
         mug.SetActive(false);
-
         yield return new WaitForSeconds(0.5f);
 
-        // Show level complete panel if exists
         if (levelCompletePanel != null)
         {
             levelCompletePanel.SetActive(true);
             yield return new WaitForSeconds(2f);
         }
 
-        // Load next scene
         SceneManager.LoadScene(nextSceneName);
     }
 
@@ -203,23 +212,21 @@ public class DoorToNextLevel : MonoBehaviour
         text.alignment = TextAlignment.Center;
         text.anchor = TextAnchor.MiddleCenter;
 
-        string currentScene = SceneManager.GetActiveScene().name;
-
-        // ── Tutorial: always show beans message ───────────────────────────
-        bool isTutorial = LevelManager.Instance != null &&
-                          LevelManager.Instance.isTutorial;
-
-        if (isTutorial)
+        // ── Level 2: show exact count feedback ────────────────────────────
+        if (level2ModeActive)
+        {
+            text.text = levelManager2.GetDoorLockedReason();
+        }
+        else if (LevelManager.Instance != null && LevelManager.Instance.isTutorial)
         {
             text.text = "Collect all beans first!";
         }
-        else if (currentScene == "level 4")
-        {
-            text.text = "Collect " + LevelManager.Instance.GetRequiredChocolate() + " chocolate particles first!";
-        }
         else
         {
-            if (currentScene == "Level1")
+            string currentScene = SceneManager.GetActiveScene().name;
+            if (currentScene == "level 4")
+                text.text = "Collect " + LevelManager.Instance.GetRequiredChocolate() + " chocolate particles first!";
+            else if (currentScene == "Level1")
                 text.text = "Collect all beans first!";
             else
                 text.text = "Collect all foam first!";
