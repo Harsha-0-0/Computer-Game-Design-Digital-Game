@@ -1101,7 +1101,7 @@ Transform:
   m_GameObject: {fileID: 156233269}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 108.64, y: -4.45, z: 0}
+  m_LocalPosition: {x: 105.78, y: -3.57, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5860,7 +5860,7 @@ Transform:
   m_GameObject: {fileID: 714311512}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 95.8, y: -0.7, z: 0}
+  m_LocalPosition: {x: 93.53, y: -0.85, z: 0}
   m_LocalScale: {x: 11.799999, y: 0.08, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13755,11 +13755,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3338546947839331458, guid: 2e314af2192584da4a7203e83e8b6475, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 109.78
+      value: 107.95
       objectReference: {fileID: 0}
     - target: {fileID: 3338546947839331458, guid: 2e314af2192584da4a7203e83e8b6475, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.71
+      value: -0.86
       objectReference: {fileID: 0}
     - target: {fileID: 3338546947839331458, guid: 2e314af2192584da4a7203e83e8b6475, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13829,7 +13829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5d5c2771d904d9d9eb618f73d50e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorToNextLevel
-  nextSceneName: Level3
+  nextSceneName: Level 3
   requireAllBeans: 0
   beansRequired: 20
   foamRequired: 20
@@ -13870,7 +13870,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.048118174, y: 0.12831604}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -13880,7 +13880,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 4.5, y: 5.12}
+  m_Size: {x: 1.6449736, y: 2.4253666}
   m_EdgeRadius: 0
 --- !u!212 &1722127725
 SpriteRenderer:

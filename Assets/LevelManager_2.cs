@@ -351,6 +351,22 @@ public class LevelManager_2 : MonoBehaviour
     }
 
     // ─────────────────────────────────────────────────────────────────────────
+    // Ice Pack Hit
+    // ─────────────────────────────────────────────────────────────────────────
+    public void ReduceTime(float seconds)
+    {
+        timeRemaining -= seconds;
+        if (timeRemaining < 0) timeRemaining = 0;
+
+        // Flash the thermometer
+        if (UIManager.Instance != null)
+            StartCoroutine(UIManager.Instance.FlashTimer());
+
+        Debug.Log("[LevelManager_2] Time reduced by " +
+            seconds + "°. Remaining: " + timeRemaining);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
     // Win / Fail
     // ─────────────────────────────────────────────────────────────────────────
 

@@ -60,14 +60,21 @@ public class IcePack : MonoBehaviour
             yield return new WaitForSeconds(0.15f);
         }
 
-        if (LevelManager.Instance != null)
+        // Try LevelManager_2 first, fall back to LevelManager
+        LevelManager_2 lm2 = FindObjectOfType<LevelManager_2>();
+        if (lm2 != null)
+        {
+            lm2.ReduceTime(timePenalty);
+            Debug.Log("Ice pack! -" + timePenalty + "° (Level 2)");
+        }
+        else if (LevelManager.Instance != null)
         {
             LevelManager.Instance.ReduceTime(timePenalty);
-            Debug.Log("Ice pack! -" + timePenalty + "s!");
+            Debug.Log("Ice pack! -" + timePenalty + "°");
         }
         else
         {
-            Debug.LogWarning("Ice pack time penalty requested but LevelManager.Instance is null.");
+            Debug.LogWarning("Ice pack: no manager found!");
         }
 
         ShowPenaltyPopup(mug.transform.position);
@@ -85,7 +92,7 @@ public class IcePack : MonoBehaviour
 
         TextMesh text = 
             popup.AddComponent<TextMesh>();
-        text.text = "-" + timePenalty + "s!";
+        text.text = "-" + timePenalty + "°C!";
         text.fontSize = 24;
         text.color = new Color(0.3f, 0.7f, 1f);
         text.alignment = TextAlignment.Center;

@@ -6180,7 +6180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
   pauseMenuPanel: {fileID: 244240807}
-  pauseButton: {fileID: 0}
+  pauseButton: {fileID: 1734898549}
   continueButton: {fileID: 551762154}
   restartButton: {fileID: 1267034195}
   exitToMenuButton: {fileID: 442912724}
