@@ -72,11 +72,20 @@ public class UIManager : MonoBehaviour
     public void UpdateTimer(float timeRemaining, bool isTutorial = false)
     {
         if (thermometerCircle == null) return;
-        float totalTime = LevelManager.Instance != null ? LevelManager.Instance.levelTime : levelTime;
+        float totalTime = levelTime; // fallback
+
+        if (LevelManager.Instance != null)
+            totalTime = LevelManager.Instance.levelTime;
+        else
+        {
+            LevelManager_2 lm2 = FindObjectOfType<LevelManager_2>();
+            if (lm2 != null)
+                totalTime = lm2.levelTime; // Level 2 time
+        }
         float t = Mathf.Clamp01(timeRemaining / totalTime);
         float halfWidth = _thermoWidth * 0.5f;
         // t=1 (full time) = right edge, t=0 (no time) = left edge
-    float x = Mathf.Lerp(halfWidth - _circleRadius, -halfWidth + _circleRadius, t);    thermometerCircle.anchoredPosition = new Vector2(x, 0f);
+        float x = Mathf.Lerp(halfWidth - _circleRadius, -halfWidth + _circleRadius, t);    thermometerCircle.anchoredPosition = new Vector2(x, 0f);
         if (_circleImage != null)
             _circleImage.color = (timeRemaining <= 30f) ? Color.red : Color.white;
     }

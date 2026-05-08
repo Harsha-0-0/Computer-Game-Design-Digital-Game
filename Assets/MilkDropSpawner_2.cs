@@ -117,7 +117,7 @@ public class MilkDropSpawner_2 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (triggerZone != null && other.CompareTag("Player"))
+        if (triggerZone != null && other.CompareTag("Mug"))
             StartSpawning();
     }
 

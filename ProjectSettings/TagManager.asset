@@ -11,6 +11,7 @@ TagManager:
   - Orders
   - FallZone
   - Slippery Shelf
+  - MilkDrop
   layers:
   - Default
   - TransparentFX

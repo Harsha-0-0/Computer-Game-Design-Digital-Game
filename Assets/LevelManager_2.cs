@@ -24,6 +24,9 @@ public class LevelManager_2 : MonoBehaviour
     // Inspector fields
     // ─────────────────────────────────────────────────────────────────────────
 
+    [Header("Timer")]
+    public float levelTime = 240f;
+
     [Header("Drop Count")]
     [Tooltip("Exact number of milk drops needed to unlock the door")]
     public int targetDropCount = 40;
@@ -65,15 +68,17 @@ public class LevelManager_2 : MonoBehaviour
     public float slipperyCooldown = 1.5f;
 
     [Header("Scene")]
-    public string nextSceneName  = "Level3";
-    public string failSceneName  = "Level_2";
+    public string nextSceneName = "Level_3";
+    public string failSceneName = "Level2";
 
     // ─────────────────────────────────────────────────────────────────────────
     // Private state
     // ─────────────────────────────────────────────────────────────────────────
 
-    private int  currentDropCount      = 0;
-    private bool onSlipperyPlatform    = false;
+    private int currentDropCount = 0;
+    private float timeRemaining;
+    private bool levelActive = true;
+    private bool onSlipperyPlatform = false;
     private bool slipperyCooldownActive = false;
     private Transform mugTransform;
     private Coroutine spillWarningCoroutine;
@@ -85,15 +90,58 @@ public class LevelManager_2 : MonoBehaviour
 
     void Start()
     {
+        // Restore saved timer from GameManager if available
+        if (GameManager.Instance != null)
+        {
+            float saved = GameManager.Instance.GetSavedTimer();
+            timeRemaining = saved > 0 ? saved : levelTime;
+        }
+        else
+        {
+            timeRemaining = levelTime;
+        }
+
         currentDropCount = 0;
+        levelActive = true;
+
         UpdateDropCountUI();
         UpdateDoorVisual();
 
-        if (spillWarningPanel    != null) spillWarningPanel.SetActive(false);
-        if (overCountWarningPanel != null) overCountWarningPanel.SetActive(false);
+        if (spillWarningPanel != null)
+            spillWarningPanel.SetActive(false);
+        if (overCountWarningPanel != null)
+            overCountWarningPanel.SetActive(false);
 
+        // Find mug by tag
         GameObject mug = GameObject.FindGameObjectWithTag("Mug");
-        if (mug != null) mugTransform = mug.transform;
+        if (mug != null)
+            mugTransform = mug.transform;
+
+        // Initialise lives UI
+        if (UIManager.Instance != null &&
+            GameManager.Instance != null)
+            UIManager.Instance.UpdateLives(
+                GameManager.Instance.GetLives());
+    }
+
+    void Update()
+    {
+        if (!levelActive) return;
+
+        // Count down timer
+        timeRemaining -= Time.deltaTime;
+        if (timeRemaining < 0) timeRemaining = 0;
+
+        // Update thermometer
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateTimer(timeRemaining);
+
+        // Timer ran out — treat as falling off
+        if (timeRemaining <= 0)
+        {
+            levelActive = false;
+            TriggerFail();
+        }
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -108,6 +156,9 @@ public class LevelManager_2 : MonoBehaviour
         currentDropCount++;
         UpdateDropCountUI();
         UpdateDoorVisual();
+        if (UIManager.Instance != null)
+        UIManager.Instance.UpdateMilk(
+            currentDropCount, targetDropCount);
 
         // Warn player if they've gone over target
         if (currentDropCount > targetDropCount)
@@ -119,9 +170,13 @@ public class LevelManager_2 : MonoBehaviour
     /// </summary>
     public void RemoveMilkDrops(int amount)
     {
-        currentDropCount = Mathf.Max(0, currentDropCount - amount);
+        currentDropCount = Mathf.Max(0,
+            currentDropCount - amount);
         UpdateDropCountUI();
         UpdateDoorVisual();
+        if (UIManager.Instance != null)
+        UIManager.Instance.UpdateMilk(
+            currentDropCount, targetDropCount);
     }
 
     /// <summary>
@@ -142,8 +197,6 @@ public class LevelManager_2 : MonoBehaviour
 
     /// <summary>
     /// Called by SlipperyPlatform.cs once threshold is reached.
-    /// Spills drops whether the player is over OR under target —
-    /// standing on the platform always costs drops.
     /// </summary>
     public void OnSlipperyPenaltyTriggered()
     {
@@ -155,7 +208,8 @@ public class LevelManager_2 : MonoBehaviour
     /// <summary>
     /// Called by DoorToNextLevel — returns true only at exactly 40.
     /// </summary>
-    public bool IsExactTarget() => currentDropCount == targetDropCount;
+    public bool IsExactTarget() =>
+        currentDropCount == targetDropCount;
 
     /// <summary>
     /// Human-readable status for the locked door message.
@@ -163,9 +217,12 @@ public class LevelManager_2 : MonoBehaviour
     public string GetDoorLockedReason()
     {
         if (currentDropCount < targetDropCount)
-            return $"Need exactly {targetDropCount} milk drops! ({currentDropCount}/{targetDropCount})";
+            return $"Need exactly {targetDropCount} milk " +
+                   $"drops! ({currentDropCount}/{targetDropCount})";
         if (currentDropCount > targetDropCount)
-            return $"Too many milk drops! Use the slippery platform to spill some. ({currentDropCount}/{targetDropCount})";
+            return $"Too many milk drops! Use the slippery " +
+                   $"platform to spill some. " +
+                   $"({currentDropCount}/{targetDropCount})";
         return "";
     }
 
@@ -182,7 +239,8 @@ public class LevelManager_2 : MonoBehaviour
     {
         if (currentDropCount <= 0) return;
 
-        int actualLoss = Mathf.Min(slipperyPenaltyAmount, currentDropCount);
+        int actualLoss = Mathf.Min(
+            slipperyPenaltyAmount, currentDropCount);
         RemoveMilkDrops(actualLoss);
 
         ShowSpillWarning(actualLoss);
@@ -206,46 +264,50 @@ public class LevelManager_2 : MonoBehaviour
 
         if (currentDropCount < targetDropCount)
         {
-            milkDropCountText.text  = $"Milk Drops: {currentDropCount} / {targetDropCount}";
-            milkDropCountText.color = Color.white;
+            milkDropCountText.text = $"{currentDropCount} / {targetDropCount} Milk Drops";
         }
         else if (currentDropCount == targetDropCount)
         {
-            milkDropCountText.text  = $"Milk Drops: {currentDropCount} / {targetDropCount} ✓";
+            milkDropCountText.text =
+                $"Milk Drops: {currentDropCount} / {targetDropCount} ✓";
             milkDropCountText.color = Color.green;
         }
         else
         {
             int excess = currentDropCount - targetDropCount;
-            milkDropCountText.text  = $"Milk Drops: {currentDropCount} / {targetDropCount}  (+{excess} too many!)";
+            milkDropCountText.text =
+                $"Milk Drops: {currentDropCount} / {targetDropCount}" +
+                $"  (+{excess} too many!)";
             milkDropCountText.color = Color.red;
         }
     }
 
-    /// <summary>
-    /// Greys out the croissant when locked, white when exactly 40.
-    /// DoorToNextLevel handles the unlock glow and scene transition.
-    /// </summary>
     private void UpdateDoorVisual()
     {
         if (levelDoor == null) return;
-        SpriteRenderer sr = levelDoor.GetComponent<SpriteRenderer>();
+        SpriteRenderer sr =
+            levelDoor.GetComponent<SpriteRenderer>();
         if (sr == null) return;
-        sr.color = IsExactTarget() ? Color.white : new Color(0.5f, 0.5f, 0.5f);
+        sr.color = IsExactTarget()
+            ? Color.white
+            : new Color(0.5f, 0.5f, 0.5f);
     }
 
     private void ShowSpillWarning(int amount)
     {
         if (spillWarningPanel == null) return;
-        if (spillWarningCoroutine != null) StopCoroutine(spillWarningCoroutine);
-        spillWarningCoroutine = StartCoroutine(SpillWarningRoutine(amount));
+        if (spillWarningCoroutine != null)
+            StopCoroutine(spillWarningCoroutine);
+        spillWarningCoroutine =
+            StartCoroutine(SpillWarningRoutine(amount));
     }
 
     private IEnumerator SpillWarningRoutine(int amount)
     {
         spillWarningPanel.SetActive(true);
         if (spillWarningText != null)
-            spillWarningText.text = $"-{amount} Milk Drops Spilled!";
+            spillWarningText.text =
+                $"-{amount} Milk Drops Spilled!";
         yield return new WaitForSeconds(spillWarningDuration);
         spillWarningPanel.SetActive(false);
     }
@@ -253,25 +315,37 @@ public class LevelManager_2 : MonoBehaviour
     private void ShowOverCountWarning()
     {
         if (overCountWarningPanel == null) return;
-        if (overCountCoroutine != null) StopCoroutine(overCountCoroutine);
-        overCountCoroutine = StartCoroutine(OverCountRoutine());
+        if (overCountCoroutine != null)
+            StopCoroutine(overCountCoroutine);
+        overCountCoroutine =
+            StartCoroutine(OverCountRoutine());
     }
 
     private IEnumerator OverCountRoutine()
     {
         overCountWarningPanel.SetActive(true);
         if (overCountWarningText != null)
-            overCountWarningText.text = "Too many drops! Use the slippery platform to spill some.";
+            overCountWarningText.text =
+                "Too many drops! Use the slippery " +
+                "platform to spill some.";
         yield return new WaitForSeconds(2.5f);
         overCountWarningPanel.SetActive(false);
     }
 
     private void SpawnFloatingMinusText(int amount)
     {
-        if (floatingMinusTextPrefab == null || mugTransform == null) return;
-        Vector3 spawnPos = mugTransform.position + Vector3.up * 1f;
-        GameObject floater = Instantiate(floatingMinusTextPrefab, spawnPos, Quaternion.identity);
-        TMP_Text txt = floater.GetComponentInChildren<TMP_Text>();
+        if (floatingMinusTextPrefab == null ||
+            mugTransform == null) return;
+
+        Vector3 spawnPos =
+            mugTransform.position + Vector3.up * 1f;
+        GameObject floater = Instantiate(
+            floatingMinusTextPrefab,
+            spawnPos,
+            Quaternion.identity);
+
+        TMP_Text txt =
+            floater.GetComponentInChildren<TMP_Text>();
         if (txt != null) txt.text = $"-{amount}";
         Destroy(floater, 1.5f);
     }
@@ -280,24 +354,27 @@ public class LevelManager_2 : MonoBehaviour
     // Win / Fail
     // ─────────────────────────────────────────────────────────────────────────
 
-    private void TriggerWin()
-    {
-        // Win sequence handled by DoorToNextLevel (blink + scene load)
-        Debug.Log("[LevelManager_2] Level 2 complete!");
-    }
-
     private void TriggerFail()
     {
+        if (!levelActive) return;
+        levelActive = false;
+
         Debug.Log("[LevelManager_2] Mug fell!");
 
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.SaveTimer(0f);
+            // Save timer before restarting
+            GameManager.Instance.SaveTimer(timeRemaining);
             GameManager.Instance.LoseLife();
+
+            // Update life icons
+            if (UIManager.Instance != null)
+                UIManager.Instance.UpdateLives(
+                    GameManager.Instance.GetLives());
 
             if (GameManager.Instance.GetLives() > 0)
                 StartCoroutine(RestartLevel());
-            // If no lives left, GameManager.ResetGame() 
+            // If lives = 0, GameManager.ResetGame()
             // handles going back to Level1
         }
         else
@@ -306,20 +383,32 @@ public class LevelManager_2 : MonoBehaviour
         }
     }
 
+    private void TriggerWin()
+    {
+        levelActive = false;
+        Debug.Log("[LevelManager_2] Level 2 complete!");
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResetTimer();
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.ShowLevelComplete();
+    }
+
     private IEnumerator RestartLevel()
     {
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(
-            SceneManager.GetActiveScene().name
-        );
+            SceneManager.GetActiveScene().name);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
     // Read-only state
     // ─────────────────────────────────────────────────────────────────────────
 
-    public int  CurrentDropCount => currentDropCount;
-    public int  TargetDropCount  => targetDropCount;
-    public bool TargetReached    => currentDropCount == targetDropCount;
-    public bool OnSlippery       => onSlipperyPlatform;
+    public int CurrentDropCount => currentDropCount;
+    public int TargetDropCount => targetDropCount;
+    public bool TargetReached => currentDropCount == targetDropCount;
+    public bool OnSlippery => onSlipperyPlatform;
+    public float GetTime() => timeRemaining;
 }
