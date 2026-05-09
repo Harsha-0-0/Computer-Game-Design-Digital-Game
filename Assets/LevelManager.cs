@@ -25,7 +25,7 @@ public class LevelManager : MonoBehaviour
     [Header("Chocolate Settings")]
     public int totalChocolate = 13;
     private int collectedChocolate = 0;
-    public int requiredChocolate = 10;
+    public int requiredChocolate = 20;
     public bool useChocolateSystem = false;
 
     private bool levelActive = true;
