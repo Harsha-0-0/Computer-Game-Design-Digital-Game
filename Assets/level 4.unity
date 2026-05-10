@@ -2734,10 +2734,11 @@ MonoBehaviour:
   groundTags:
   - Ground
   - Slippery Shelf
-  bumpForceX: 14
-  bumpForceY: 4
+  bumpForceX: 80
+  bumpForceY: 10
   bumpCooldown: 1.5
   bumpDetectRange: 1.2
+  bumpSound: {fileID: 8300000, guid: 0fc1f0c56c6394a58bc8dca2f467680c, type: 3}
   gapProbeDistance: 0.8
   gapProbeDepth: 1.5
 --- !u!58 &185106690
@@ -8200,10 +8201,11 @@ MonoBehaviour:
   groundTags:
   - Ground
   - Slippery Shelf
-  bumpForceX: 14
-  bumpForceY: 4
+  bumpForceX: 80
+  bumpForceY: 10
   bumpCooldown: 1.5
   bumpDetectRange: 1.2
+  bumpSound: {fileID: 8300000, guid: 0fc1f0c56c6394a58bc8dca2f467680c, type: 3}
   gapProbeDistance: 0.8
   gapProbeDepth: 1.5
 --- !u!58 &796411434
@@ -10819,10 +10821,11 @@ MonoBehaviour:
   groundTags:
   - Ground
   - Slippery Shelf
-  bumpForceX: 20
-  bumpForceY: 4
+  bumpForceX: 80
+  bumpForceY: 10
   bumpCooldown: 1.5
   bumpDetectRange: 1.2
+  bumpSound: {fileID: 8300000, guid: 0fc1f0c56c6394a58bc8dca2f467680c, type: 3}
   gapProbeDistance: 0.8
   gapProbeDepth: 1.5
 --- !u!58 &1073697505
@@ -13110,10 +13113,11 @@ MonoBehaviour:
   groundTags:
   - Ground
   - Slippery Shelf
-  bumpForceX: 14
-  bumpForceY: 4
+  bumpForceX: 80
+  bumpForceY: 10
   bumpCooldown: 1.5
   bumpDetectRange: 1.2
+  bumpSound: {fileID: 8300000, guid: 0fc1f0c56c6394a58bc8dca2f467680c, type: 3}
   gapProbeDistance: 0.8
   gapProbeDepth: 1.5
 --- !u!58 &1256389515
@@ -14809,10 +14813,11 @@ MonoBehaviour:
   groundTags:
   - Ground
   - Slippery Shelf
-  bumpForceX: 14
-  bumpForceY: 4
+  bumpForceX: 80
+  bumpForceY: 10
   bumpCooldown: 1.5
   bumpDetectRange: 1.2
+  bumpSound: {fileID: 8300000, guid: 0fc1f0c56c6394a58bc8dca2f467680c, type: 3}
   gapProbeDistance: 0.8
   gapProbeDepth: 1.5
 --- !u!58 &1394688599
@@ -17911,10 +17916,11 @@ MonoBehaviour:
   groundTags:
   - Ground
   - Slippery Shelf
-  bumpForceX: 14
-  bumpForceY: 4
+  bumpForceX: 80
+  bumpForceY: 10
   bumpCooldown: 1.5
   bumpDetectRange: 1.2
+  bumpSound: {fileID: 8300000, guid: 0fc1f0c56c6394a58bc8dca2f467680c, type: 3}
   gapProbeDistance: 0.8
   gapProbeDepth: 1.5
 --- !u!58 &1584257631
