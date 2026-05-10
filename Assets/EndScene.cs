@@ -44,6 +44,9 @@ public class EndScene : MonoBehaviour
     private const string KEY_PERSONAL_BEST  = "PersonalBest";
     private const string KEY_SELECTED_MUG   = "SelectedMug";
 
+    [Header("Audio")]
+    public AudioClip endMusic;
+
     void Start()
     {
         ShowCompletionTime();
@@ -54,6 +57,15 @@ public class EndScene : MonoBehaviour
             playAgainButton.onClick.AddListener(PlayAgain);
         if (mainMenuButton != null)
             mainMenuButton.onClick.AddListener(GoToMainMenu);
+        if (endMusic != null)
+        {
+            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.clip = endMusic;
+            audioSource.loop = false;       // play once only
+            audioSource.playOnAwake = false;
+            audioSource.Play();
+        }
+
     }
 
     // ─────────────────────────────────────────────────────────────────────────

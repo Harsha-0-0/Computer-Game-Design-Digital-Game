@@ -514,6 +514,7 @@ MonoBehaviour:
   mainMenuButton: {fileID: 0}
   mainMenuScene: TitleScreen
   firstLevelScene: Level_1
+  endMusic: {fileID: 8300000, guid: 489a6b551bb984aa09c18d6e29361619, type: 3}
 --- !u!4 &743518498
 Transform:
   m_ObjectHideFlags: 0
