@@ -17,6 +17,10 @@ public class MatchaPatroller : MonoBehaviour
     public float bumpForceY = 0f;
     public float bumpCooldown = 0.8f;
     public float bumpDetectRange = 1.2f; // horizontal distance to trigger bump
+    [Header("Audio")]
+    public AudioClip bumpSound;
+    // Add this private field alongside the others
+    private AudioSource audioSource;
 
     [Header("Gap Detection")]
     public float gapProbeDistance = 0.4f;
@@ -61,6 +65,7 @@ void Start()
 
     // Find the platform Matcha is standing on and record its bounds
     StartCoroutine(FindPlatformBounds());
+    audioSource = gameObject.AddComponent<AudioSource>();
 }
 
 IEnumerator FindPlatformBounds()
@@ -141,34 +146,38 @@ void FixedUpdate()
         }
     }
 
-    IEnumerator DoBump(GameObject mugObj)
+IEnumerator DoBump(GameObject mugObj)
+{
+    isBumping = true;
+
+    rb.linearVelocity = Vector2.zero;
+    rb.angularVelocity = 0f;
+    rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+    Rigidbody2D playerRb = mugObj.GetComponent<Rigidbody2D>();
+    if (playerRb != null)
     {
-        isBumping = true;
+        float pushDir = Mathf.Sign(mugObj.transform.position.x - transform.position.x);
+        playerRb.linearVelocity = Vector2.zero;
+        playerRb.AddForce(
+            new Vector2(pushDir * bumpForceX, bumpForceY),
+            ForceMode2D.Impulse
+        );
 
-        rb.linearVelocity = Vector2.zero;
-        rb.angularVelocity = 0f;
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
-        Rigidbody2D playerRb = mugObj.GetComponent<Rigidbody2D>();
-        if (playerRb != null)
-        {
-            float pushDir = Mathf.Sign(mugObj.transform.position.x - transform.position.x);
-            playerRb.linearVelocity = Vector2.zero;
-            playerRb.AddForce(
-                new Vector2(pushDir * bumpForceX, bumpForceY),
-                ForceMode2D.Impulse
-            );
-        }
-
-        yield return new WaitForFixedUpdate();
-        yield return new WaitForFixedUpdate();
-
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-        rb.linearVelocity = Vector2.zero;
-
-        yield return new WaitForSeconds(0.3f);
-        isBumping = false;
+        // Play bump sound when force hits the mug
+        if (bumpSound != null)
+            audioSource.PlayOneShot(bumpSound);
     }
+
+    yield return new WaitForFixedUpdate();
+    yield return new WaitForFixedUpdate();
+
+    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    rb.linearVelocity = Vector2.zero;
+
+    yield return new WaitForSeconds(0.3f);
+    isBumping = false;
+}
 
     bool CheckGrounded()
     {
