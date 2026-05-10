@@ -62,15 +62,39 @@ public class EndScene : MonoBehaviour
 
     private void ShowCompletionTime()
     {
-        float totalTime = PlayerPrefs.GetFloat(KEY_TOTAL_TIME, 0f);
+        float totalTime = GetTotalTime();
 
         if (completionTimeText != null)
             completionTimeText.text = FormatTime(totalTime);
+
+        Debug.Log("[EndScene] Completion time: " + FormatTime(totalTime));
+    }
+
+    private float GetTotalTime()
+    {
+        // Try GameTimer first (if attached to GameManager)
+        float timerTime = PlayerPrefs.GetFloat(KEY_TOTAL_TIME, 0f);
+        if (timerTime > 0f) return timerTime;
+
+        // Fallback: calculate from GameManager's saved timer
+        // savedTimer starts at levelTime (240) and counts down,
+        // so time taken = levelTime - savedTimer... but since
+        // it persists across levels we use what GameManager has
+        if (GameManager.Instance != null)
+        {
+            // Each level is 240s max, use remaining timer to estimate
+            float remaining = GameManager.Instance.GetSavedTimer();
+            float levelTime = GameManager.Instance.levelTime;
+            float elapsed   = levelTime - remaining;
+            if (elapsed > 0f) return elapsed;
+        }
+
+        return 0f;
     }
 
     private void ShowPersonalRecord()
     {
-        float totalTime    = PlayerPrefs.GetFloat(KEY_TOTAL_TIME, 0f);
+        float totalTime    = GetTotalTime();
         float personalBest = PlayerPrefs.GetFloat(KEY_PERSONAL_BEST, float.MaxValue);
 
         // Update personal best if this run was faster (lower time = better)
@@ -98,28 +122,31 @@ public class EndScene : MonoBehaviour
     {
         int selectedMug = PlayerPrefs.GetInt(KEY_SELECTED_MUG, 0);
 
-        // Try loading from Resources first (same as MugController)
-        Sprite[] resourceMugs = Resources.LoadAll<Sprite>("MugSprites");
-
-        Sprite mugSprite = null;
-
-        if (resourceMugs != null && selectedMug < resourceMugs.Length)
-            mugSprite = resourceMugs[selectedMug];
-        else if (mugSprites != null && selectedMug < mugSprites.Length)
-            mugSprite = mugSprites[selectedMug]; // fallback to Inspector sprites
-
-        if (mugSprite == null)
+        // Use Inspector sprites directly — these are the cappuccino-filled versions
+        // NOT Resources/MugSprites which are the empty gameplay mugs
+        if (mugSprites == null || mugSprites.Length == 0)
         {
-            Debug.LogWarning("[EndScene] Could not find mug sprite for index: " + selectedMug);
+            Debug.LogWarning("[EndScene] No mug sprites assigned in Inspector!");
             return;
         }
 
-        // Apply to whichever component exists in the scene
+        // Clamp in case index is out of range
+        int index = Mathf.Clamp(selectedMug, 0, mugSprites.Length - 1);
+        Sprite mugSprite = mugSprites[index];
+
+        if (mugSprite == null)
+        {
+            Debug.LogWarning("[EndScene] Mug sprite at index " + index + " is null!");
+            return;
+        }
+
         if (mugSpriteRenderer != null)
             mugSpriteRenderer.sprite = mugSprite;
 
         if (mugImage != null)
             mugImage.sprite = mugSprite;
+
+        Debug.Log("[EndScene] Showing mug index: " + index + " sprite: " + mugSprite.name);
     }
 
     // ─────────────────────────────────────────────────────────────────────────
