@@ -1,24 +1,30 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Place this on a GameObject in your very first scene (e.g. the main menu or Tutorial).
-/// It survives scene loads and plays the background music on loop forever.
-/// Only one instance ever exists — duplicates destroy themselves on load.
-/// </summary>
 public class MusicManager : MonoBehaviour
 {
     public static MusicManager Instance;
 
-    [Header("Background Music")]
-    public AudioClip backgroundMusic;   // Assign your music clip in Inspector
+    [Header("Default Music")]
+    public AudioClip backgroundMusic;
     [Range(0f, 1f)]
-    public float volume = 0.4f;         // Adjust to taste
+    public float volume = 0.4f;
+
+    [Header("Per-Scene Music")]
+    [Tooltip("Add an entry for each scene that needs its own music clip")]
+    public SceneMusic[] sceneMusics;
+
+    [System.Serializable]
+    public class SceneMusic
+    {
+        public string sceneName;
+        public AudioClip music;
+    }
 
     private AudioSource audioSource;
 
     void Awake()
     {
-        // Singleton — only one MusicManager survives across scenes
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -26,18 +32,52 @@ public class MusicManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);   // Persists across all scene loads
+        DontDestroyOnLoad(gameObject);
 
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip        = backgroundMusic;
+        audioSource             = gameObject.AddComponent<AudioSource>();
         audioSource.loop        = true;
         audioSource.playOnAwake = false;
         audioSource.volume      = volume;
 
-        if (backgroundMusic != null)
-            audioSource.Play();
-        else
-            Debug.LogWarning("MusicManager: no background music clip assigned.");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        PlayMusicForScene(SceneManager.GetActiveScene().name);
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PlayMusicForScene(scene.name);
+    }
+
+    void PlayMusicForScene(string sceneName)
+    {
+        AudioClip clipToPlay = backgroundMusic; // default
+
+        if (sceneMusics != null)
+        {
+            foreach (SceneMusic sm in sceneMusics)
+            {
+                if (sm.sceneName == sceneName && sm.music != null)
+                {
+                    clipToPlay = sm.music;
+                    break;
+                }
+            }
+        }
+
+        if (clipToPlay == null) return;
+
+        // Only swap if the clip actually changed
+        if (audioSource.clip == clipToPlay) return;
+
+        audioSource.Stop();
+        audioSource.clip = clipToPlay;
+        audioSource.Play();
     }
 
     // ── Optional public controls ──────────────────────────────────────────
@@ -45,22 +85,10 @@ public class MusicManager : MonoBehaviour
     public void SetVolume(float v)
     {
         volume = Mathf.Clamp01(v);
-        if (audioSource != null)
-            audioSource.volume = volume;
+        if (audioSource != null) audioSource.volume = volume;
     }
 
-    public void Pause()
-    {
-        if (audioSource != null) audioSource.Pause();
-    }
-
-    public void Resume()
-    {
-        if (audioSource != null) audioSource.UnPause();
-    }
-
-    public void Stop()
-    {
-        if (audioSource != null) audioSource.Stop();
-    }
+    public void Pause()  { if (audioSource != null) audioSource.Pause(); }
+    public void Resume() { if (audioSource != null && !audioSource.isPlaying) audioSource.Play(); }
+    public void Stop()   { if (audioSource != null) audioSource.Stop(); }
 }
