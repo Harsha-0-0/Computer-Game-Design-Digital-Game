@@ -21,18 +21,14 @@ public class MilkDrop_2 : MonoBehaviour
     [Tooltip("Optional particle effect played when collected")]
     public GameObject collectParticlePrefab;
 
-    [Tooltip("Optional sound played when collected")]
-    public AudioClip collectSound;
+    
 
     private Rigidbody2D rb;
     private bool collected = false;
-    private AudioSource audioSource;
+    [Header("Audio")]
+    public AudioClip collectSound;
 
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        audioSource = GetComponent<AudioSource>();
-    }
+    
 
     void Start()
     {
@@ -105,8 +101,15 @@ public class MilkDrop_2 : MonoBehaviour
                 transform.position, Quaternion.identity);
 
         // Sound feedback
-        if (collectSound != null && audioSource != null)
-            audioSource.PlayOneShot(collectSound);
+        if (collectSound != null)
+        {
+            GameObject soundHost = new GameObject("BeanCollectSound");
+            soundHost.transform.position = transform.position;
+            AudioSource tempAudio = soundHost.AddComponent<AudioSource>();
+            tempAudio.PlayOneShot(collectSound);
+            Destroy(soundHost, collectSound.length);
+        }
+
 
         // Hide sprite immediately
         SpriteRenderer sr = GetComponent<SpriteRenderer>();

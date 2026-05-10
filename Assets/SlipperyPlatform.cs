@@ -7,11 +7,15 @@ public class SlipperyPlatform : MonoBehaviour
     public float controlForce = 4f;
     public float maxSlideSpeed = 6f;
     public float slideDirection = 1f;
-    // 1 = slides right, -1 = slides left
+
+    [Header("Audio")]
+    public AudioClip slideSound;
+    [Range(0f, 1f)] public float slideVolume = 0.6f;
 
     private bool mugOnPlatform = false;
     private Rigidbody2D mugRb;
     private MugController mugController;
+    private AudioSource audioSource;
 
     // ── Level 2 milk spill (only active when LevelManager_2 exists) ──────────
     private LevelManager_2 levelManager2;
@@ -21,9 +25,14 @@ public class SlipperyPlatform : MonoBehaviour
 
     void Start()
     {
-        // Check once at scene load — if LevelManager_2 exists, we're in Level 2
         levelManager2 = FindObjectOfType<LevelManager_2>();
         level2ModeActive = levelManager2 != null;
+
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = slideSound;
+        audioSource.loop = true;
+        audioSource.volume = slideVolume;
+        audioSource.playOnAwake = false;
     }
 
     void FixedUpdate()
@@ -32,27 +41,13 @@ public class SlipperyPlatform : MonoBehaviour
 
         float input = Input.GetAxis("Horizontal");
 
-        // Always push mug in slide direction
-        // even when standing still
-        mugRb.AddForce(
-            new Vector2(slideForce * slideDirection, 0f)
-        );
+        mugRb.AddForce(new Vector2(slideForce * slideDirection, 0f));
 
-        // Player can push back but with less force
         if (Mathf.Abs(input) > 0.1f)
-        {
-            mugRb.AddForce(
-                new Vector2(input * controlForce, 0f)
-            );
-        }
+            mugRb.AddForce(new Vector2(input * controlForce, 0f));
 
-        // Clamp max speed
         mugRb.linearVelocity = new Vector2(
-            Mathf.Clamp(
-                mugRb.linearVelocity.x,
-                -maxSlideSpeed,
-                maxSlideSpeed
-            ),
+            Mathf.Clamp(mugRb.linearVelocity.x, -maxSlideSpeed, maxSlideSpeed),
             mugRb.linearVelocity.y
         );
     }
@@ -67,7 +62,7 @@ public class SlipperyPlatform : MonoBehaviour
         if (slipperyTimer >= levelManager2.slipperyTimeThreshold)
         {
             levelManager2.OnSlipperyPenaltyTriggered();
-            slipperyTimer = 0f; // reset so it can trigger again if they stay
+            slipperyTimer = 0f;
         }
     }
 
@@ -75,8 +70,7 @@ public class SlipperyPlatform : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (!IsSlipperyShelf())
-            return;
+        if (!IsSlipperyShelf()) return;
 
         if (col.gameObject.CompareTag("Mug"))
         {
@@ -87,19 +81,21 @@ public class SlipperyPlatform : MonoBehaviour
             if (mugController != null)
                 mugController.SetSlippery(true);
 
-            // Level 2: notify manager and reset timer
             if (level2ModeActive)
             {
                 slipperyTimer = 0f;
                 levelManager2.OnEnterSlipperyPlatform();
             }
+
+            // Start looping slide sound
+            if (slideSound != null)
+                audioSource.Play();
         }
     }
 
     void OnCollisionExit2D(Collision2D col)
     {
-        if (!IsSlipperyShelf())
-            return;
+        if (!IsSlipperyShelf()) return;
 
         if (col.gameObject.CompareTag("Mug"))
         {
@@ -110,12 +106,15 @@ public class SlipperyPlatform : MonoBehaviour
                 mugController.SetSlippery(false);
             mugController = null;
 
-            // Level 2: notify manager and reset timer
             if (level2ModeActive)
             {
                 slipperyTimer = 0f;
                 levelManager2.OnExitSlipperyPlatform();
             }
+
+            // Stop slide sound
+            if (slideSound != null)
+                audioSource.Stop();
         }
     }
 }

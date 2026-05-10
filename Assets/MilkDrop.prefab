@@ -173,4 +173,4 @@ MonoBehaviour:
   isSpawned: 1
   autoDestroyTime: 3
   collectParticlePrefab: {fileID: 0}
-  collectSound: {fileID: 0}
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}

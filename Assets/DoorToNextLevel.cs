@@ -18,9 +18,14 @@ public class DoorToNextLevel : MonoBehaviour
     [Header("Level Complete UI")]
     public GameObject levelCompletePanel;
 
+    [Header("Audio")]
+    public AudioClip doorOpenSound;
+    public AudioClip doorLockedSound;
+
     private bool isUnlocked = false;
     private bool mugEntered = false;
     private SpriteRenderer[] doorRenderers;
+    private AudioSource audioSource;
 
     // ── Level 2 only ──────────────────────────────────────────────────────────
     private LevelManager_2 levelManager2;
@@ -29,14 +34,13 @@ public class DoorToNextLevel : MonoBehaviour
 
     void Start()
     {
-        doorRenderers = GetComponentsInChildren
-            <SpriteRenderer>();
+        doorRenderers = GetComponentsInChildren<SpriteRenderer>();
+        audioSource = gameObject.AddComponent<AudioSource>();
 
-        levelManager2    = FindObjectOfType<LevelManager_2>();
+        levelManager2 = FindObjectOfType<LevelManager_2>();
         level2ModeActive = levelManager2 != null;
 
-        string currentScene =
-            SceneManager.GetActiveScene().name;
+        string currentScene = SceneManager.GetActiveScene().name;
         if (currentScene == "Level1" && !requireAllBeans)
             isUnlocked = true;
     }
@@ -53,19 +57,16 @@ public class DoorToNextLevel : MonoBehaviour
             if (exactTarget && !isUnlocked)
             {
                 isUnlocked = true;
-                Debug.Log("[DoorToNextLevel] Unlocked " +
-                    "— exactly 40 milk drops!");
+                Debug.Log("[DoorToNextLevel] Unlocked — exactly 40 milk drops!");
                 StartCoroutine(GlowDoor());
             }
             else if (!exactTarget && isUnlocked)
             {
-                // Re-lock if count goes over or under 40
                 isUnlocked = false;
                 StopCoroutine("GlowDoor");
                 foreach (var sr in doorRenderers)
                     if (sr != null) sr.color = Color.white;
-                Debug.Log("[DoorToNextLevel] Re-locked " +
-                    "— milk drop count changed.");
+                Debug.Log("[DoorToNextLevel] Re-locked — milk drop count changed.");
             }
             return;
         }
@@ -78,8 +79,7 @@ public class DoorToNextLevel : MonoBehaviour
 
         if (isTutorial)
         {
-            if (LevelManager.Instance.GetBeans() >=
-                beansRequired)
+            if (LevelManager.Instance.GetBeans() >= beansRequired)
             {
                 isUnlocked = true;
                 Debug.Log("Tutorial door unlocked!");
@@ -93,11 +93,9 @@ public class DoorToNextLevel : MonoBehaviour
 
         if (scene == "Level1")
         {
-            if (requireAllBeans &&
-                LevelManager.Instance != null)
+            if (requireAllBeans && LevelManager.Instance != null)
             {
-                if (LevelManager.Instance.GetBeans() >=
-                    beansRequired)
+                if (LevelManager.Instance.GetBeans() >= beansRequired)
                 {
                     isUnlocked = true;
                     Debug.Log("Door unlocked with beans!");
@@ -110,12 +108,10 @@ public class DoorToNextLevel : MonoBehaviour
             if (LevelManager.Instance != null)
             {
                 if (LevelManager.Instance.GetChocolate() >=
-                    LevelManager.Instance
-                        .GetRequiredChocolate())
+                    LevelManager.Instance.GetRequiredChocolate())
                 {
                     isUnlocked = true;
-                    Debug.Log(
-                        "Door unlocked with chocolate!");
+                    Debug.Log("Door unlocked with chocolate!");
                     StartCoroutine(GlowDoor());
                 }
             }
@@ -124,8 +120,7 @@ public class DoorToNextLevel : MonoBehaviour
         {
             if (LevelManager.Instance != null)
             {
-                if (LevelManager.Instance.GetFoam() >=
-                    foamRequired)
+                if (LevelManager.Instance.GetFoam() >= foamRequired)
                 {
                     isUnlocked = true;
                     Debug.Log("Door unlocked with foam!");
@@ -139,18 +134,15 @@ public class DoorToNextLevel : MonoBehaviour
     {
         while (!mugEntered)
         {
-            // Stop glowing if re-locked
             if (!isUnlocked)
             {
                 foreach (var sr in doorRenderers)
-                    if (sr != null)
-                        sr.color = Color.white;
+                    if (sr != null) sr.color = Color.white;
                 yield break;
             }
 
             foreach (var sr in doorRenderers)
-                if (sr != null)
-                    sr.color = new Color(1f, 0.9f, 0.3f);
+                if (sr != null) sr.color = new Color(1f, 0.9f, 0.3f);
             yield return new WaitForSeconds(0.5f);
 
             foreach (var sr in doorRenderers)
@@ -161,8 +153,7 @@ public class DoorToNextLevel : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Mug") || mugEntered)
-            return;
+        if (!other.CompareTag("Mug") || mugEntered) return;
 
         // ── Level 2: re-check exact target at moment of entry ─────────────
         if (level2ModeActive)
@@ -170,11 +161,12 @@ public class DoorToNextLevel : MonoBehaviour
             if (levelManager2.IsExactTarget())
             {
                 mugEntered = true;
-                StartCoroutine(DoorSequence(
-                    other.gameObject));
+                StartCoroutine(DoorSequence(other.gameObject));
             }
             else
             {
+                if (doorLockedSound != null)
+                    audioSource.PlayOneShot(doorLockedSound);
                 StartCoroutine(ShowLockedMessage());
             }
             return;
@@ -188,14 +180,19 @@ public class DoorToNextLevel : MonoBehaviour
         }
         else
         {
+            if (doorLockedSound != null)
+                audioSource.PlayOneShot(doorLockedSound);
             StartCoroutine(ShowLockedMessage());
         }
     }
 
     IEnumerator DoorSequence(GameObject mug)
     {
-        MugController mc =
-            mug.GetComponent<MugController>();
+        // Play door open sound at the start of the sequence
+        if (doorOpenSound != null)
+            audioSource.PlayOneShot(doorOpenSound);
+
+        MugController mc = mug.GetComponent<MugController>();
         if (mc != null) mc.enabled = false;
 
         Rigidbody2D rb = mug.GetComponent<Rigidbody2D>();
@@ -240,10 +237,8 @@ public class DoorToNextLevel : MonoBehaviour
 
     IEnumerator ShowLockedMessage()
     {
-        GameObject popup =
-            new GameObject("LockedPopup");
-        popup.transform.position =
-            transform.position + new Vector3(0, 2f, 0);
+        GameObject popup = new GameObject("LockedPopup");
+        popup.transform.position = transform.position + new Vector3(0, 2f, 0);
 
         TextMesh text = popup.AddComponent<TextMesh>();
         text.fontSize = 14;
@@ -255,19 +250,16 @@ public class DoorToNextLevel : MonoBehaviour
         {
             text.text = levelManager2.GetDoorLockedReason();
         }
-        else if (LevelManager.Instance != null &&
-                 LevelManager.Instance.isTutorial)
+        else if (LevelManager.Instance != null && LevelManager.Instance.isTutorial)
         {
             text.text = "Collect all beans first!";
         }
         else
         {
-            string scene =
-                SceneManager.GetActiveScene().name;
+            string scene = SceneManager.GetActiveScene().name;
             if (scene == "level 4")
                 text.text = "Collect " +
-                    LevelManager.Instance
-                        .GetRequiredChocolate() +
+                    LevelManager.Instance.GetRequiredChocolate() +
                     " chocolate particles first!";
             else if (scene == "Level1")
                 text.text = "Collect all beans first!";

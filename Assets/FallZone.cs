@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class FallZone : MonoBehaviour
 {
+    [Header("Audio")]
+    public AudioClip fallSound;   // Assign in Inspector
+
     private bool isTriggered = false;
 
     void OnTriggerEnter2D(Collider2D col)
@@ -11,21 +14,19 @@ public class FallZone : MonoBehaviour
         {
             isTriggered = true;
 
-            string currentScene = SceneManager
-                .GetActiveScene().name;
+            // ── Play fall sound at mug position ───────────────────────────
+            if (fallSound != null)
+                AudioSource.PlayClipAtPoint(fallSound, col.transform.position);
+
+            string currentScene = SceneManager.GetActiveScene().name;
 
             if (currentScene == "Level_2")
             {
-                // Use LevelManager_2 for Level 2
-                LevelManager_2 lm2 =
-                    FindObjectOfType<LevelManager_2>();
-
+                LevelManager_2 lm2 = FindObjectOfType<LevelManager_2>();
                 if (lm2 != null)
                     lm2.OnMugFell();
                 else
-                    Debug.LogError(
-                        "FallZone: LevelManager_2 " +
-                        "not found in Level2!");
+                    Debug.LogError("FallZone: LevelManager_2 not found in Level2!");
             }
             else
             {
@@ -34,9 +35,7 @@ public class FallZone : MonoBehaviour
                 if (LevelManager.Instance != null)
                     LevelManager.Instance.MugDied();
                 else
-                    Debug.LogError(
-                        "FallZone: LevelManager.Instance " +
-                        "is null in " + currentScene);
+                    Debug.LogError("FallZone: LevelManager.Instance is null in " + currentScene);
             }
 
             // Reset after delay so it can trigger again

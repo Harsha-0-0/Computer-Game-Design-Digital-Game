@@ -2348,6 +2348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &440201758
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3565,6 +3566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialBean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &676835437
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4091,6 +4093,52 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &779765145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 779765147}
+  - component: {fileID: 779765146}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &779765146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779765145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56d07111c680c454c863f5a9ab620423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  backgroundMusic: {fileID: 8300000, guid: a3c9c989aa67b4d9f8098c14f32abc1f, type: 3}
+  volume: 0.2
+--- !u!4 &779765147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779765145}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.11817, y: -0.84963, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &789295059
 GameObject:
   m_ObjectHideFlags: 0
@@ -4446,6 +4494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14696bd4b3b5f4e02b53e0049d5bdf0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallZone
+  fallSound: {fileID: 8300000, guid: e06d2063deee14dd7a66eb376b709b53, type: 3}
 --- !u!61 &850377759
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4894,6 +4943,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialBean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &972641625
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5464,6 +5514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialBean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!1 &1086593861
 GameObject:
   m_ObjectHideFlags: 0
@@ -7693,6 +7744,8 @@ MonoBehaviour:
   blinkSpeed: 0.1
   blinkCount: 6
   levelCompletePanel: {fileID: 0}
+  doorOpenSound: {fileID: 8300000, guid: 805b1b737808f4709b543e5ab363c236, type: 3}
+  doorLockedSound: {fileID: 8300000, guid: 1da2b14d9821a4e6ebd48b4e9c7c5338, type: 3}
 --- !u!61 &1513099921
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8047,6 +8100,7 @@ MonoBehaviour:
   ordersBoostSpeed: 4
   ordersBoostControl: 0.15
   ordersBoostDuration: 5
+  jumpSound: {fileID: 8300000, guid: d3b46d168467e450eb30fb8c54a14f72, type: 3}
 --- !u!1 &1586453361
 GameObject:
   m_ObjectHideFlags: 0
@@ -8580,6 +8634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialBean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!1 &1704551621
 GameObject:
   m_ObjectHideFlags: 0
@@ -9467,6 +9522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialBean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!1 &1761235631
 GameObject:
   m_ObjectHideFlags: 0
@@ -9620,6 +9676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!1 &1775809973
 GameObject:
   m_ObjectHideFlags: 0
@@ -11215,3 +11272,4 @@ SceneRoots:
   - {fileID: 676835439}
   - {fileID: 581080558}
   - {fileID: 1070133501}
+  - {fileID: 779765147}

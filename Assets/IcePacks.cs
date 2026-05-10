@@ -5,19 +5,26 @@ using TMPro;
 public class IcePack : MonoBehaviour
 {
     [Header("Ice Pack Settings")]
-    public float timePenalty = 5f;
+    public float timePenalty = 1f;
     public bool destroyOnHit = false;
 
+    [Header("Audio")]
+    public AudioClip iceHitSound;
+
     private bool hit = false;
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Mug") && !hit)
         {
             hit = true;
-            StartCoroutine(IcePackHit(
-                other.gameObject
-            ));
+            StartCoroutine(IcePackHit(other.gameObject));
 
             if (!destroyOnHit)
                 StartCoroutine(HitCooldown());
@@ -32,6 +39,10 @@ public class IcePack : MonoBehaviour
 
     IEnumerator IcePackHit(GameObject mug)
     {
+        // Play sound immediately on hit
+        if (iceHitSound != null)
+            audioSource.PlayOneShot(iceHitSound);
+
         MugController mugController = mug.GetComponent<MugController>();
         SpriteRenderer[] renderers = mug.GetComponentsInChildren<SpriteRenderer>();
         Color[] originalColors = new Color[renderers.Length];
@@ -39,28 +50,19 @@ public class IcePack : MonoBehaviour
             originalColors[i] = renderers[i].color;
 
         if (mugController != null)
-        {
             mugController.ApplyIceEffect(5f, timePenalty);
-        }
 
         for (int i = 0; i < 3; i++)
         {
             foreach (var sr in renderers)
-            {
-                if (sr != null)
-                    sr.color = new Color(0.5f, 0.8f, 1f);
-            }
+                if (sr != null) sr.color = new Color(0.5f, 0.8f, 1f);
             yield return new WaitForSeconds(0.15f);
 
             for (int j = 0; j < renderers.Length; j++)
-            {
-                if (renderers[j] != null)
-                    renderers[j].color = originalColors[j];
-            }
+                if (renderers[j] != null) renderers[j].color = originalColors[j];
             yield return new WaitForSeconds(0.15f);
         }
 
-        // Try LevelManager_2 first, fall back to LevelManager
         LevelManager_2 lm2 = FindObjectOfType<LevelManager_2>();
         if (lm2 != null)
         {
@@ -85,13 +87,10 @@ public class IcePack : MonoBehaviour
 
     void ShowPenaltyPopup(Vector3 position)
     {
-        GameObject popup = 
-            new GameObject("TimePenaltyPopup");
-        popup.transform.position = position +
-            new Vector3(0, 1f, 0);
+        GameObject popup = new GameObject("TimePenaltyPopup");
+        popup.transform.position = position + new Vector3(0, 1f, 0);
 
-        TextMesh text = 
-            popup.AddComponent<TextMesh>();
+        TextMesh text = popup.AddComponent<TextMesh>();
         text.text = "-" + timePenalty + "°C!";
         text.fontSize = 24;
         text.color = new Color(0.3f, 0.7f, 1f);
@@ -107,16 +106,12 @@ public class IcePack : MonoBehaviour
         float duration = 1.5f;
         Vector3 startPos = popup.transform.position;
 
-        while (elapsed < duration && 
-            popup != null)
+        while (elapsed < duration && popup != null)
         {
             elapsed += Time.deltaTime;
+            popup.transform.position = startPos + new Vector3(0, elapsed * 2f, 0);
 
-            popup.transform.position = startPos +
-                new Vector3(0, elapsed * 2f, 0);
-
-            TextMesh text =
-                popup.GetComponent<TextMesh>();
+            TextMesh text = popup.GetComponent<TextMesh>();
             if (text != null)
             {
                 Color c = text.color;

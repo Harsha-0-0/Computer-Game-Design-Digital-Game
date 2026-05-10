@@ -454,6 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &42045624
 SpriteRenderer:
   serializedVersion: 2
@@ -651,6 +652,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &44635140
 SpriteRenderer:
   serializedVersion: 2
@@ -794,6 +796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &47917176
 SpriteRenderer:
   serializedVersion: 2
@@ -1212,6 +1215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &80930177
 SpriteRenderer:
   serializedVersion: 2
@@ -1579,6 +1583,8 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
+  slideVolume: 0.6
 --- !u!1 &112753338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1750,6 +1756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &112946302
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2100,6 +2107,8 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
+  slideVolume: 0.6
 --- !u!1 &144337880
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,6 +2178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &144337883
 SpriteRenderer:
   serializedVersion: 2
@@ -2312,6 +2322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &148759879
 SpriteRenderer:
   serializedVersion: 2
@@ -2419,6 +2430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &170316453
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2608,6 +2620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &175370072
 SpriteRenderer:
   serializedVersion: 2
@@ -3019,6 +3032,8 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
+  slideVolume: 0.6
 --- !u!1 &216449160
 GameObject:
   m_ObjectHideFlags: 0
@@ -3560,6 +3575,7 @@ MonoBehaviour:
   speedMultiplier: 2.5
   controlMultiplier: 0.25
   destroyOnHit: 0
+  ordersHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &280169736
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3749,6 +3765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &307061732
 SpriteRenderer:
   serializedVersion: 2
@@ -3892,6 +3909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &316064352
 SpriteRenderer:
   serializedVersion: 2
@@ -4881,6 +4899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &444865267
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5306,6 +5325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &482018982
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5632,6 +5652,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &490846465
 SpriteRenderer:
   serializedVersion: 2
@@ -5813,6 +5834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &578865782
 SpriteRenderer:
   serializedVersion: 2
@@ -5956,6 +5978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &581009234
 SpriteRenderer:
   serializedVersion: 2
@@ -6185,6 +6208,8 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
+  slideVolume: 0.6
 --- !u!1 &594275848
 GameObject:
   m_ObjectHideFlags: 0
@@ -6572,6 +6597,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &630651259
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6947,6 +6973,8 @@ MonoBehaviour:
   blinkSpeed: 0.1
   blinkCount: 6
   levelCompletePanel: {fileID: 0}
+  doorOpenSound: {fileID: 8300000, guid: 805b1b737808f4709b543e5ab363c236, type: 3}
+  doorLockedSound: {fileID: 8300000, guid: 1da2b14d9821a4e6ebd48b4e9c7c5338, type: 3}
 --- !u!61 &653959881
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7263,6 +7291,7 @@ MonoBehaviour:
   ordersBoostSpeed: 1.5
   ordersBoostControl: 1.2
   ordersBoostDuration: 5
+  jumpSound: {fileID: 8300000, guid: d3b46d168467e450eb30fb8c54a14f72, type: 3}
 --- !u!61 &674381380
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7336,6 +7365,52 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!1 &678664894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 678664896}
+  - component: {fileID: 678664895}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &678664895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678664894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56d07111c680c454c863f5a9ab620423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  backgroundMusic: {fileID: 8300000, guid: a3c9c989aa67b4d9f8098c14f32abc1f, type: 3}
+  volume: 0.2
+--- !u!4 &678664896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678664894}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.11817, y: -0.84963, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &685926388
 GameObject:
   m_ObjectHideFlags: 0
@@ -7579,6 +7654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &724137065
 SpriteRenderer:
   serializedVersion: 2
@@ -8010,6 +8086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &791322953
 SpriteRenderer:
   serializedVersion: 2
@@ -8421,6 +8498,8 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
+  slideVolume: 0.6
 --- !u!1 &813932556
 GameObject:
   m_ObjectHideFlags: 0
@@ -8490,6 +8569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &813932559
 SpriteRenderer:
   serializedVersion: 2
@@ -8888,6 +8968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &925308353
 SpriteRenderer:
   serializedVersion: 2
@@ -8997,6 +9078,8 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
+  slideVolume: 0.6
 --- !u!61 &939834108
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9150,6 +9233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &945200514
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10113,6 +10197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &1042240720
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11048,6 +11133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &1141435376
 SpriteRenderer:
   serializedVersion: 2
@@ -12043,6 +12129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &1169255440
 SpriteRenderer:
   serializedVersion: 2
@@ -12399,6 +12486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &1220147499
 SpriteRenderer:
   serializedVersion: 2
@@ -12542,6 +12630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &1234551709
 SpriteRenderer:
   serializedVersion: 2
@@ -13272,6 +13361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &1280202099
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14931,6 +15021,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &1405258543
 SpriteRenderer:
   serializedVersion: 2
@@ -15500,6 +15591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &1465346419
 SpriteRenderer:
   serializedVersion: 2
@@ -16056,6 +16148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &1487126434
 SpriteRenderer:
   serializedVersion: 2
@@ -17012,6 +17105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &1534554274
 SpriteRenderer:
   serializedVersion: 2
@@ -17254,6 +17348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14696bd4b3b5f4e02b53e0049d5bdf0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallZone
+  fallSound: {fileID: 8300000, guid: e06d2063deee14dd7a66eb376b709b53, type: 3}
 --- !u!61 &1549892957
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19004,6 +19099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &1687781006
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19483,6 +19579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &1726196745
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19729,6 +19826,7 @@ MonoBehaviour:
   speedMultiplier: 4
   controlMultiplier: 0.15
   destroyOnHit: 0
+  ordersHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &1752970323
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19882,6 +19980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &1774034067
 SpriteRenderer:
   serializedVersion: 2
@@ -20061,6 +20160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &1779857192
 SpriteRenderer:
   serializedVersion: 2
@@ -20306,6 +20406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &1831137230
 SpriteRenderer:
   serializedVersion: 2
@@ -20615,6 +20716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &1899057988
 SpriteRenderer:
   serializedVersion: 2
@@ -20799,6 +20901,7 @@ MonoBehaviour:
   speedMultiplier: 4
   controlMultiplier: 0.15
   destroyOnHit: 0
+  ordersHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &1926062551
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20954,6 +21057,8 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
+  slideVolume: 0.6
 --- !u!61 &1927153327
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21245,6 +21350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &1962713840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22630,6 +22736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &2056503420
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22923,6 +23030,8 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
+  slideVolume: 0.6
 --- !u!61 &2085893548
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -23078,6 +23187,7 @@ MonoBehaviour:
   speedMultiplier: 4
   controlMultiplier: 0.15
   destroyOnHit: 0
+  ordersHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &2097597511
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -23267,6 +23377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChocolateParticle
   bobSpeed: 2
   bobHeight: 0.2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!212 &2101570363
 SpriteRenderer:
   serializedVersion: 2
@@ -23783,3 +23894,4 @@ SceneRoots:
   - {fileID: 1779857193}
   - {fileID: 12067544}
   - {fileID: 698439613}
+  - {fileID: 678664896}

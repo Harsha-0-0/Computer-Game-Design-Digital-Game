@@ -19,8 +19,12 @@ public class MugController : MonoBehaviour
     public float ordersBoostControl  = 0.15f;
     public float ordersBoostDuration = 5f;
 
+    [Header("Audio")]
+    public AudioClip jumpSound;   // Assign in Inspector
+
     // ── Private state ─────────────────────────────────────────────────────
     private Rigidbody2D rb;
+    private AudioSource audioSource;
     private bool isGrounded  = false;
     private bool isSlippery  = false;
     private bool isGrowing   = false;
@@ -47,7 +51,12 @@ public class MugController : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb          = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+
+        // Add AudioSource if one isn't already on the mug
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
 
         mugRenderers      = GetComponentsInChildren<SpriteRenderer>();
         originalMugColors = new Color[mugRenderers.Length];
@@ -68,8 +77,7 @@ public class MugController : MonoBehaviour
             SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
             if (sr != null)
                 sr.sprite = mugs[selectedMug];
-                
-            transform.localScale = originalScale; // restore scale
+            transform.localScale = originalScale;
             targetScale = originalScale;
         }
 
@@ -147,13 +155,18 @@ public class MugController : MonoBehaviour
         // ── Jump ──────────────────────────────────────────────────────────
         if ((Input.GetKeyDown(KeyCode.Space) ||
              Input.GetKeyDown(KeyCode.W)     ||
-             Input.GetKeyDown(KeyCode.UpArrow)) && isGrounded && canJump && Time.time - lastJumpTime > 0.3f)
+             Input.GetKeyDown(KeyCode.UpArrow))
+             && isGrounded && canJump && Time.time - lastJumpTime > 0.3f)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             // Prevent jumping higher than intended due to collisions
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Min(rb.linearVelocity.y, jumpForce));
             lastJumpTime = Time.time;
             canJump = false;
+
+            // ── Play jump sound ───────────────────────────────────────────
+            if (jumpSound != null && audioSource != null)
+                audioSource.PlayOneShot(jumpSound);
         }
 
         // ── Grow animation ────────────────────────────────────────────────
@@ -239,7 +252,6 @@ public class MugController : MonoBehaviour
 
         float lurchDir = rb.linearVelocity.x >= 0 ? 1f : -1f;
         rb.linearVelocity = new Vector2(lurchDir * moveSpeed * speedMult, rb.linearVelocity.y);
-
         Debug.Log("Orders chaos ON — speed x" + speedMult + " for " + duration + "s");
     }
 

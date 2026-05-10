@@ -7,6 +7,9 @@ public class ChocolateParticle : MonoBehaviour
 
     private Vector3 startPos;
 
+    [Header("Audio")]
+    public AudioClip collectSound;
+
     void Start()
     {
         startPos = transform.position;
@@ -32,7 +35,21 @@ public class ChocolateParticle : MonoBehaviour
             if (LevelManager.Instance != null)
                 LevelManager.Instance.ChocolateCollected();
 
-            Destroy(gameObject);
+            PlayAndDestroy();
         }
+    }
+
+    void PlayAndDestroy()
+    {
+        if (collectSound != null)
+        {
+            GameObject soundHost = new GameObject("BeanCollectSound");
+            soundHost.transform.position = transform.position;
+            AudioSource tempAudio = soundHost.AddComponent<AudioSource>();
+            tempAudio.PlayOneShot(collectSound);
+            Destroy(soundHost, collectSound.length);
+        }
+
+        Destroy(gameObject);
     }
 }

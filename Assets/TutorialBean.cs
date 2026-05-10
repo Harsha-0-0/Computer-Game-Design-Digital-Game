@@ -6,6 +6,9 @@ public class TutorialBean : MonoBehaviour
     public float circleRadius = 0.2f;
     public float circleSpeed = 2f;
 
+    [Header("Audio")]
+    public AudioClip collectSound;
+
     private Vector3 startPos;
 
     void Start()
@@ -15,17 +18,9 @@ public class TutorialBean : MonoBehaviour
 
     void Update()
     {
-        // Move in small circle
-        float x = startPos.x +
-            Mathf.Cos(Time.time * circleSpeed)
-            * circleRadius;
-        float y = startPos.y +
-            Mathf.Sin(Time.time * circleSpeed)
-            * circleRadius;
-
-        transform.position = new Vector3(
-            x, y, startPos.z
-        );
+        float x = startPos.x + Mathf.Cos(Time.time * circleSpeed) * circleRadius;
+        float y = startPos.y + Mathf.Sin(Time.time * circleSpeed) * circleRadius;
+        transform.position = new Vector3(x, y, startPos.z);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -34,7 +29,22 @@ public class TutorialBean : MonoBehaviour
         {
             if (LevelManager.Instance != null)
                 LevelManager.Instance.BeanCollected();
-            Destroy(gameObject);
+
+            PlayAndDestroy();
         }
+    }
+
+    void PlayAndDestroy()
+    {
+        if (collectSound != null)
+        {
+            GameObject soundHost = new GameObject("BeanCollectSound");
+            soundHost.transform.position = transform.position;
+            AudioSource tempAudio = soundHost.AddComponent<AudioSource>();
+            tempAudio.PlayOneShot(collectSound);
+            Destroy(soundHost, collectSound.length);
+        }
+
+        Destroy(gameObject);
     }
 }

@@ -632,6 +632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &49509919
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1201,6 +1202,52 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &110381576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 110381578}
+  - component: {fileID: 110381577}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &110381577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110381576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56d07111c680c454c863f5a9ab620423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  backgroundMusic: {fileID: 8300000, guid: a3c9c989aa67b4d9f8098c14f32abc1f, type: 3}
+  volume: 0.2
+--- !u!4 &110381578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110381576}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.11817, y: -0.84963, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &129359995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,6 +1461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &169560423
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1557,6 +1605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &173808090
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2423,6 +2472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &324077325
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2576,6 +2626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &349412194
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2907,6 +2958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &395900621
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3643,6 +3695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &467870383
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3924,6 +3977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &476847228
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4196,6 +4250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &526980821
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4910,6 +4965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &581809105
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6251,6 +6307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &673422116
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6617,6 +6674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &689303730
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8973,6 +9031,8 @@ MonoBehaviour:
   blinkSpeed: 0.1
   blinkCount: 6
   levelCompletePanel: {fileID: 0}
+  doorOpenSound: {fileID: 8300000, guid: 805b1b737808f4709b543e5ab363c236, type: 3}
+  doorLockedSound: {fileID: 8300000, guid: 1da2b14d9821a4e6ebd48b4e9c7c5338, type: 3}
 --- !u!1 &992215982
 GameObject:
   m_ObjectHideFlags: 0
@@ -9402,6 +9462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &1044369346
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10039,6 +10100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14696bd4b3b5f4e02b53e0049d5bdf0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallZone
+  fallSound: {fileID: 8300000, guid: e06d2063deee14dd7a66eb376b709b53, type: 3}
 --- !u!1 &1097505646
 GameObject:
   m_ObjectHideFlags: 0
@@ -10209,6 +10271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &1121545244
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10362,6 +10425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &1146337536
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -11236,6 +11300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &1243268651
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -12082,6 +12147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &1316848008
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -12225,6 +12291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &1327501881
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -12549,6 +12616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IcePack
   timePenalty: 5
   destroyOnHit: 0
+  iceHitSound: {fileID: 8300000, guid: c7eb2b13c818945f991833ba95c67d50, type: 3}
 --- !u!61 &1388276102
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12702,6 +12770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &1413976840
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -13546,6 +13615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &1491342805
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -15471,6 +15541,7 @@ MonoBehaviour:
   ordersBoostSpeed: 4
   ordersBoostControl: 0.15
   ordersBoostDuration: 5
+  jumpSound: {fileID: 8300000, guid: d3b46d168467e450eb30fb8c54a14f72, type: 3}
 --- !u!61 &1754394045
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16322,6 +16393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &1854505106
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -16834,6 +16906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &1986532384
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -17154,6 +17227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &2011698110
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -17528,6 +17602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Level1Bean
   circleRadius: 0.2
   circleSpeed: 2
+  collectSound: {fileID: 8300000, guid: 90d95b9ea039b4af0a46be5b9272988d, type: 3}
 --- !u!58 &2130784427
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -17941,3 +18016,4 @@ SceneRoots:
   - {fileID: 249209078}
   - {fileID: 1008755259}
   - {fileID: 1097505647}
+  - {fileID: 110381578}

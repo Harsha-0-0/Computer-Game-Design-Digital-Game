@@ -6,6 +6,9 @@ public class Level1Bean : MonoBehaviour
     public float circleRadius = 0.2f;
     public float circleSpeed = 2f;
 
+    [Header("Audio")]
+    public AudioClip collectSound;
+
     private Vector3 startPos;
 
     void Start()
@@ -33,7 +36,21 @@ public class Level1Bean : MonoBehaviour
         {
             if (LevelManager.Instance != null)
                 LevelManager.Instance.BeanCollected();
-            Destroy(gameObject);
+            PlayAndDestroy();
         }
+    }
+
+    void PlayAndDestroy()
+    {
+        if (collectSound != null)
+        {
+            GameObject soundHost = new GameObject("BeanCollectSound");
+            soundHost.transform.position = transform.position;
+            AudioSource tempAudio = soundHost.AddComponent<AudioSource>();
+            tempAudio.PlayOneShot(collectSound);
+            Destroy(soundHost, collectSound.length);
+        }
+
+        Destroy(gameObject);
     }
 }

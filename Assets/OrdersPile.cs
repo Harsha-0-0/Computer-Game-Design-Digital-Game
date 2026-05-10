@@ -11,6 +11,16 @@ public class OrdersPile : MonoBehaviour
 
     private bool onCooldown = false;
 
+    [Header("Audio")]
+    public AudioClip ordersHitSound;
+
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
+
     void Awake()
     {
         // Force every Orders collider to be a trigger so the mug
@@ -34,6 +44,10 @@ public class OrdersPile : MonoBehaviour
 
     IEnumerator OrdersEffect(GameObject mug, MugController mc)
     {
+        // Play sound immediately on hit
+        if (ordersHitSound != null)
+            audioSource.PlayOneShot(ordersHitSound);
+
         mc.ApplyOrdersEffect(speedMultiplier, controlMultiplier, effectDuration);
 
         // Flash orange 3 times
