@@ -231,17 +231,9 @@ public class MugController : MonoBehaviour
         if (FrothManager.Instance != null)
         {
             FrothManager.Instance.FoamCollected();
-            OnFoamCollected();
         }
     }
 
-    // ── Public API ────────────────────────────────────────────────────────
-
-    public void OnFoamCollected()
-    {
-        targetScale += new Vector3(growAmount, growAmount, 0);
-        isGrowing = true;
-    }
 
     public void ApplyOrdersEffect(float speedMult, float controlMult, float duration)
     {
