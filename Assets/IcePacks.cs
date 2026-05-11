@@ -91,7 +91,7 @@ public class IcePack : MonoBehaviour
         popup.transform.position = position + new Vector3(0, 1f, 0);
 
         TextMesh text = popup.AddComponent<TextMesh>();
-        text.text = "-" + timePenalty + "°C!";
+        text.text = "-1°C!";
         text.fontSize = 24;
         text.color = new Color(0.3f, 0.7f, 1f);
         text.alignment = TextAlignment.Center;
