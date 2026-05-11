@@ -59,13 +59,13 @@ public class LevelManager_2 : MonoBehaviour
 
     [Header("Slippery Platform")]
     [Tooltip("Seconds the mug must stand on a slippery platform before losing drops")]
-    public float slipperyTimeThreshold = 3f;
+    public float slipperyTimeThreshold = 1f;
 
     [Tooltip("Number of milk drops lost per slippery penalty")]
     public int slipperyPenaltyAmount = 2;
 
     [Tooltip("Cooldown after a penalty before another can trigger (prevents rapid loss)")]
-    public float slipperyCooldown = 1.5f;
+    public float slipperyCooldown = 0.3f;
 
     [Header("Scene")]
     public string nextSceneName = "Level_3";

@@ -53,45 +53,48 @@ public class SlipperyPlatform : MonoBehaviour
     }
 
     void Update()
+{
+    if (!level2ModeActive || !mugOnPlatform) return;
+
+    slipperyTimer += Time.deltaTime;
+
+    if (slipperyTimer >= levelManager2.slipperyTimeThreshold)
     {
-        // Level 2 only: track how long mug has been on this slippery platform
-        if (!level2ModeActive || !mugOnPlatform) return;
-
-        slipperyTimer += Time.deltaTime;
-
-        if (slipperyTimer >= levelManager2.slipperyTimeThreshold)
-        {
-            levelManager2.OnSlipperyPenaltyTriggered();
-            slipperyTimer = 0f;
-        }
+        levelManager2.OnSlipperyPenaltyTriggered();
+        slipperyTimer = 0f;
     }
+}
 
     bool IsSlipperyShelf() => CompareTag("Slippery Shelf");
 
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (!IsSlipperyShelf()) return;
+   void OnCollisionEnter2D(Collision2D col)
+{
+    if (!IsSlipperyShelf()) return;
 
-        if (col.gameObject.CompareTag("Mug"))
+    if (col.gameObject.CompareTag("Mug"))
+    {
+        mugRb = col.gameObject.GetComponent<Rigidbody2D>();
+        mugController = col.gameObject.GetComponent<MugController>();
+
+        if (mugController != null)
+            mugController.SetSlippery(true);
+
+        if (!mugOnPlatform)
         {
             mugOnPlatform = true;
-            mugRb = col.gameObject.GetComponent<Rigidbody2D>();
-            mugController = col.gameObject.GetComponent<MugController>();
-
-            if (mugController != null)
-                mugController.SetSlippery(true);
 
             if (level2ModeActive)
             {
                 slipperyTimer = 0f;
                 levelManager2.OnEnterSlipperyPlatform();
+                // no immediate trigger here anymore
             }
 
-            // Start looping slide sound
             if (slideSound != null)
                 audioSource.Play();
         }
     }
+}
 
     void OnCollisionExit2D(Collision2D col)
     {
