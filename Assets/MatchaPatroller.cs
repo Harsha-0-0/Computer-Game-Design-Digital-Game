@@ -107,44 +107,23 @@ void FixedUpdate()
 
     if (boundsFound)
     {
-        // Reverse at platform edges using cached bounds
         if (transform.position.x <= leftBound)
-        {
             direction = 1f;
-        }
         else if (transform.position.x >= rightBound)
-        {
             direction = -1f;
-        }
     }
     else
     {
-        // Fallback: use gap detection if bounds weren't found
         if (isGrounded && IsGapAhead(direction))
             direction *= -1f;
     }
 
     rb.linearVelocity = new Vector2(direction * moveSpeed, rb.linearVelocity.y);
 
-    TryBumpPlayer();
+    // TryBumpPlayer() removed — bumps only happen on actual collision
 }
 
-    void TryBumpPlayer()
-    {
-        if (player == null) return;
-        if (Time.time - lastBumpTime < bumpCooldown) return;
-
-        float distX = Mathf.Abs(player.position.x - transform.position.x);
-        float distY = Mathf.Abs(player.position.y - transform.position.y);
-
-        // Only bump if player is horizontally close AND roughly on the same height
-        // (same platform = within ~1 unit vertically)
-        if (distX < bumpDetectRange && distY < 1.2f)
-        {
-            lastBumpTime = Time.time;
-            StartCoroutine(DoBump(player.gameObject));
-        }
-    }
+    
 
 IEnumerator DoBump(GameObject mugObj)
 {
