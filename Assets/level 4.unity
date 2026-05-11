@@ -10775,8 +10775,8 @@ MonoBehaviour:
   groundTags:
   - Ground
   - Slippery Shelf
-  bumpForceX: 80
-  bumpForceY: 10
+  bumpForceX: 35
+  bumpForceY: 5
   bumpCooldown: 1.5
   bumpDetectRange: 1.2
   bumpSound: {fileID: 8300000, guid: 0fc1f0c56c6394a58bc8dca2f467680c, type: 3}

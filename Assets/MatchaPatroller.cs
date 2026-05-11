@@ -157,14 +157,18 @@ IEnumerator DoBump(GameObject mugObj)
     Rigidbody2D playerRb = mugObj.GetComponent<Rigidbody2D>();
     if (playerRb != null)
     {
-        float pushDir = Mathf.Sign(mugObj.transform.position.x - transform.position.x);
+        float pushDir = direction; // push in whatever direction Matcha is walking
         playerRb.linearVelocity = Vector2.zero;
         playerRb.AddForce(
             new Vector2(pushDir * bumpForceX, bumpForceY),
             ForceMode2D.Impulse
         );
 
-        // Play bump sound when force hits the mug
+        // Stun the mug so its movement code doesn't cancel the impulse
+        MugController mc = mugObj.GetComponent<MugController>();
+if (mc != null)
+    mc.ApplyStun(0.6f, 20f); // stun for 0.6s, allow up to speed 20 during flight
+
         if (bumpSound != null)
             audioSource.PlayOneShot(bumpSound);
     }

@@ -47,6 +47,10 @@ public class MugController : MonoBehaviour
     private SpriteRenderer[] mugRenderers;
     private Color[]          originalMugColors;
 
+    // Add with the other private state variables
+    private bool isStunned = false;
+    private float stunMaxSpeed = 8f;
+
     // ─────────────────────────────────────────────────────────────────────
 
     void Start()
@@ -110,7 +114,7 @@ public class MugController : MonoBehaviour
         float effectiveMaxSpeed  = maxSpeed  * speedMult;
 
         // ── Horizontal movement ───────────────────────────────────────────
-        if (!isSlippery)
+        if (!isSlippery && !isStunned)
         {
             float keyboardMove = 0f;
             if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) keyboardMove =  1f;
@@ -149,8 +153,9 @@ public class MugController : MonoBehaviour
         }
 
         // ── Clamp final velocity ──────────────────────────────────────────
-        float finalX = Mathf.Clamp(rb.linearVelocity.x, -effectiveMaxSpeed, effectiveMaxSpeed);
-        rb.linearVelocity = new Vector2(finalX, rb.linearVelocity.y);
+        float clampSpeed = isStunned ? stunMaxSpeed : effectiveMaxSpeed;
+float finalX = Mathf.Clamp(rb.linearVelocity.x, -clampSpeed, clampSpeed);
+rb.linearVelocity = new Vector2(finalX, rb.linearVelocity.y);
 
         // ── Jump ──────────────────────────────────────────────────────────
         if ((Input.GetKeyDown(KeyCode.Space) ||
@@ -184,6 +189,19 @@ public class MugController : MonoBehaviour
             }
         }
     }
+    public void ApplyStun(float duration, float forcedMaxSpeed = 30f)
+{
+    StartCoroutine(StunRoutine(duration, forcedMaxSpeed));
+}
+
+IEnumerator StunRoutine(float duration, float forcedMaxSpeed)
+{
+    isStunned = true;
+    stunMaxSpeed = forcedMaxSpeed;
+    yield return new WaitForSeconds(duration);
+    isStunned = false;
+    stunMaxSpeed = maxSpeed;
+}
 
     // ── Collision / Trigger ───────────────────────────────────────────────
 
