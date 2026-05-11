@@ -31,6 +31,12 @@ public class LevelManager : MonoBehaviour
     private bool levelActive = true;
     private bool levelComplete = false;
 
+    [Header("Slippery Spill UI")]
+    public GameObject spillWarningPanel;
+    public TMPro.TMP_Text spillWarningText;
+    public float spillWarningDuration = 2f;
+    private Coroutine spillWarningCoroutine;
+
     void Awake()
     {
         if (Instance == null)
@@ -116,6 +122,22 @@ public class LevelManager : MonoBehaviour
 
         if (!isTutorial && collectedFoam >= totalFoam)
             LevelComplete();
+    }
+
+    public void ShowSpillWarning(string message)
+    {
+    if (spillWarningPanel == null) return;
+    if (spillWarningCoroutine != null)
+        StopCoroutine(spillWarningCoroutine);
+    spillWarningCoroutine = StartCoroutine(SpillWarningRoutine(message));
+    }
+    IEnumerator SpillWarningRoutine(string message)
+    {
+    spillWarningPanel.SetActive(true);
+    if (spillWarningText != null)
+        spillWarningText.text = message;
+    yield return new WaitForSeconds(spillWarningDuration);
+    spillWarningPanel.SetActive(false);
     }
 
     public void ChocolateCollected()
@@ -269,4 +291,22 @@ public class LevelManager : MonoBehaviour
         Debug.Log("Milk lost: " + collectedMilk + "/" + totalMilk);
         UpdateUI();
     }
+
+    public void LoseFoam(int amount = 1)
+{
+    collectedFoam -= amount;
+    collectedFoam = Mathf.Max(collectedFoam, 0);
+    Debug.Log("Foam lost: " + collectedFoam + "/" + totalFoam);
+    ShowSpillWarning($"-{amount} Foam Spilled!");
+    UpdateUI();
+}
+
+public void LoseChocolate(int amount = 1)
+{
+    collectedChocolate -= amount;
+    collectedChocolate = Mathf.Max(collectedChocolate, 0);
+    Debug.Log("Chocolate lost: " + collectedChocolate + "/" + totalChocolate);
+    ShowSpillWarning($"-{amount} Chocolate Spilled!");
+    UpdateUI();
+}
 }

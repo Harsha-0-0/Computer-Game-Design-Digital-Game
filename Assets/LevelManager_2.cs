@@ -62,7 +62,7 @@ public class LevelManager_2 : MonoBehaviour
     public float slipperyTimeThreshold = 1f;
 
     [Tooltip("Number of milk drops lost per slippery penalty")]
-    public int slipperyPenaltyAmount = 2;
+    public int slipperyPenaltyAmount = 1;
 
     [Tooltip("Cooldown after a penalty before another can trigger (prevents rapid loss)")]
     public float slipperyCooldown = 0.3f;

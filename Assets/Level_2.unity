@@ -1459,6 +1459,9 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slipperyTimeThreshold: 1
+  slipperyPenaltyAmount: 1
+  slipperyCooldown: 0.3
   slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
   slideVolume: 0.6
 --- !u!1 &200845153
@@ -1616,6 +1619,9 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slipperyTimeThreshold: 1
+  slipperyPenaltyAmount: 1
+  slipperyCooldown: 0.3
   slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
   slideVolume: 0.6
 --- !u!1 &218704872
@@ -2040,7 +2046,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: -2 Milk Drops Spilled!
+  m_text: -1 Milk Drops Spilled!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6eac4077a2c6c4ace9aa0972a6350cfd, type: 2}
   m_sharedMaterial: {fileID: -6839736008653491461, guid: 6eac4077a2c6c4ace9aa0972a6350cfd, type: 2}
@@ -2084,7 +2090,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -5787,6 +5793,9 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slipperyTimeThreshold: 1
+  slipperyPenaltyAmount: 1
+  slipperyCooldown: 0.3
   slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
   slideVolume: 0.6
 --- !u!61 &714311514
@@ -6241,7 +6250,7 @@ MonoBehaviour:
   overCountWarningText: {fileID: 2144292366}
   levelDoor: {fileID: 1722127722}
   slipperyTimeThreshold: 1.5
-  slipperyPenaltyAmount: 2
+  slipperyPenaltyAmount: 1
   slipperyCooldown: 1.5
   nextSceneName: Level3
   failSceneName: Level_2
@@ -6295,6 +6304,9 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slipperyTimeThreshold: 1
+  slipperyPenaltyAmount: 1
+  slipperyCooldown: 0.3
   slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
   slideVolume: 0.6
 --- !u!61 &747701428
@@ -8387,6 +8399,9 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slipperyTimeThreshold: 1
+  slipperyPenaltyAmount: 1
+  slipperyCooldown: 0.3
   slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
   slideVolume: 0.6
 --- !u!1 &1073492606
@@ -13625,6 +13640,9 @@ MonoBehaviour:
   controlForce: 4
   maxSlideSpeed: 6
   slideDirection: 1
+  slipperyTimeThreshold: 1
+  slipperyPenaltyAmount: 1
+  slipperyCooldown: 0.3
   slideSound: {fileID: 8300000, guid: 6fc40d49b271348d7a2e01554a52a176, type: 3}
   slideVolume: 0.6
 --- !u!1 &1693168861
