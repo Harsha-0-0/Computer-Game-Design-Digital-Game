@@ -46,89 +46,103 @@ public class DoorToNextLevel : MonoBehaviour
     }
 
     void Update()
+{
+    if (mugEntered) return;
+
+    // ── Level 2 ───────────────────────────────────────────────────────────
+    if (level2ModeActive)
     {
-        if (mugEntered) return;
+        bool exactTarget = levelManager2.IsExactTarget();
 
-        // ── Level 2: unlock ONLY at exactly 40 drops ──────────────────────
-        if (level2ModeActive)
+        if (exactTarget && !isUnlocked)
         {
-            bool exactTarget = levelManager2.IsExactTarget();
+            isUnlocked = true;
+            Debug.Log("[DoorToNextLevel] Unlocked — exactly 40 milk drops!");
+            StartCoroutine(GlowDoor());
+        }
+        else if (!exactTarget && isUnlocked)
+        {
+            isUnlocked = false;
+            StopCoroutine("GlowDoor");
+            foreach (var sr in doorRenderers)
+                if (sr != null) sr.color = Color.white;
+            Debug.Log("[DoorToNextLevel] Re-locked — milk drop count changed.");
+        }
+        return;
+    }
 
-            if (exactTarget && !isUnlocked)
+    // ── Tutorial ──────────────────────────────────────────────────────────
+    bool isTutorial = LevelManager.Instance != null &&
+                      LevelManager.Instance.isTutorial;
+
+    if (isTutorial)
+    {
+        if (LevelManager.Instance.GetBeans() >= beansRequired)
+        {
+            isUnlocked = true;
+            Debug.Log("Tutorial door unlocked!");
+            StartCoroutine(GlowDoor());
+        }
+        return;
+    }
+
+    // ── Normal levels — NO early return so re-lock always runs ────────────
+    string scene = SceneManager.GetActiveScene().name;
+
+    if (scene == "Level1")
+    {
+        if (requireAllBeans && LevelManager.Instance != null)
+        {
+            if (LevelManager.Instance.GetBeans() >= beansRequired && !isUnlocked)
             {
                 isUnlocked = true;
-                Debug.Log("[DoorToNextLevel] Unlocked — exactly 40 milk drops!");
+                Debug.Log("Door unlocked with beans!");
                 StartCoroutine(GlowDoor());
             }
-            else if (!exactTarget && isUnlocked)
+        }
+    }
+    else if (scene == "level 4")
+    {
+        if (LevelManager.Instance != null)
+        {
+            bool exact = LevelManager.Instance.GetChocolate() ==
+                         LevelManager.Instance.GetRequiredChocolate();
+            if (exact && !isUnlocked)
+            {
+                isUnlocked = true;
+                Debug.Log("Door unlocked with exact chocolate!");
+                StartCoroutine(GlowDoor());
+            }
+            else if (!exact && isUnlocked)
             {
                 isUnlocked = false;
                 StopCoroutine("GlowDoor");
                 foreach (var sr in doorRenderers)
                     if (sr != null) sr.color = Color.white;
-                Debug.Log("[DoorToNextLevel] Re-locked — milk drop count changed.");
-            }
-            return;
-        }
-
-        if (isUnlocked) return;
-
-        // ── Tutorial ──────────────────────────────────────────────────────
-        bool isTutorial = LevelManager.Instance != null &&
-                          LevelManager.Instance.isTutorial;
-
-        if (isTutorial)
-        {
-            if (LevelManager.Instance.GetBeans() >= beansRequired)
-            {
-                isUnlocked = true;
-                Debug.Log("Tutorial door unlocked!");
-                StartCoroutine(GlowDoor());
-            }
-            return;
-        }
-
-        // ── Normal levels ─────────────────────────────────────────────────
-        string scene = SceneManager.GetActiveScene().name;
-
-        if (scene == "Level1")
-        {
-            if (requireAllBeans && LevelManager.Instance != null)
-            {
-                if (LevelManager.Instance.GetBeans() >= beansRequired)
-                {
-                    isUnlocked = true;
-                    Debug.Log("Door unlocked with beans!");
-                    StartCoroutine(GlowDoor());
-                }
-            }
-        }
-        else if (scene == "level 4")
-        {
-            if (LevelManager.Instance != null)
-            {
-                if (LevelManager.Instance.GetChocolate() >=
-                    LevelManager.Instance.GetRequiredChocolate())
-                {
-                    isUnlocked = true;
-                    Debug.Log("Door unlocked with chocolate!");
-                    StartCoroutine(GlowDoor());
-                }
-            }
-        }
-        else
-        {
-            if (LevelManager.Instance != null)
-            {
-                if (LevelManager.Instance.GetFoam() >= foamRequired)
-                {
-                    isUnlocked = true;
-                    Debug.Log("Door unlocked with foam!");
-                    StartCoroutine(GlowDoor());
-                }
             }
         }
     }
+    else
+    {
+        if (LevelManager.Instance != null)
+        {
+            bool exact = LevelManager.Instance.GetFoam() == foamRequired;
+            if (exact && !isUnlocked)
+            {
+                isUnlocked = true;
+                Debug.Log("Door unlocked with exact foam!");
+                StartCoroutine(GlowDoor());
+            }
+            else if (!exact && isUnlocked)
+            {
+                isUnlocked = false;
+                StopCoroutine("GlowDoor");
+                foreach (var sr in doorRenderers)
+                    if (sr != null) sr.color = Color.white;
+            }
+        }
+    }
+}
 
     IEnumerator GlowDoor()
     {
@@ -255,17 +269,28 @@ public class DoorToNextLevel : MonoBehaviour
             text.text = "Collect all beans first!";
         }
         else
-        {
-            string scene = SceneManager.GetActiveScene().name;
-            if (scene == "level 4")
-                text.text = "Collect " +
-                    LevelManager.Instance.GetRequiredChocolate() +
-                    " chocolate particles first!";
-            else if (scene == "Level1")
-                text.text = "Collect all beans first!";
-            else
-                text.text = "Collect all foam first!";
-        }
+{
+    string scene = SceneManager.GetActiveScene().name;
+    if (scene == "level 4")
+    {
+        int current = LevelManager.Instance.GetChocolate();
+        int required = LevelManager.Instance.GetRequiredChocolate();
+        text.text = current < required
+            ? $"Need exactly {required} chocolate! ({current}/{required})"
+            : $"Too much chocolate! Use slippery platform. ({current}/{required})";
+    }
+    else if (scene == "Level1")
+    {
+        text.text = "Collect all beans first!";
+    }
+    else
+    {
+        int current = LevelManager.Instance.GetFoam();
+        text.text = current < foamRequired
+            ? $"Need exactly {foamRequired} foam! ({current}/{foamRequired})"
+            : $"Too much foam! Use slippery platform. ({current}/{foamRequired})";
+    }
+}
 
         yield return new WaitForSeconds(2f);
         Destroy(popup);

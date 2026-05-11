@@ -2476,7 +2476,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 212235790}
-  - component: {fileID: 212235789}
+  - component: {fileID: 212235791}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -2484,7 +2484,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &212235789
+--- !u!4 &212235790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212235788}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 753.1444, y: 261.0172, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &212235791
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2504,26 +2519,14 @@ MonoBehaviour:
   useMilkSystem: 0
   useFoamSystem: 1
   totalChocolate: 13
-  requiredChocolate: 10
+  requiredChocolate: 20
   useChocolateSystem: 0
   spillWarningPanel: {fileID: 1513056021}
   spillWarningText: {fileID: 1025520481}
   spillWarningDuration: 2
---- !u!4 &212235790
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212235788}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 753.1444, y: 261.0172, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  overCountWarningPanel: {fileID: 1335277351}
+  overCountWarningText: {fileID: 847052501}
+  overCountWarningDuration: 2.5
 --- !u!1 &214093695
 GameObject:
   m_ObjectHideFlags: 0
@@ -11554,7 +11557,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Too Much Milk Collected!
+  m_text: Too Much Foam Collected!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6eac4077a2c6c4ace9aa0972a6350cfd, type: 2}
   m_sharedMaterial: {fileID: -6839736008653491461, guid: 6eac4077a2c6c4ace9aa0972a6350cfd, type: 2}
@@ -11598,7 +11601,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

@@ -37,6 +37,12 @@ public class LevelManager : MonoBehaviour
     public float spillWarningDuration = 2f;
     private Coroutine spillWarningCoroutine;
 
+    [Header("Over Count Warning UI")]
+    public GameObject overCountWarningPanel;
+    public TMPro.TMP_Text overCountWarningText;
+    public float overCountWarningDuration = 2.5f;
+    private Coroutine overCountCoroutine;
+
     void Awake()
     {
         if (Instance == null)
@@ -114,15 +120,7 @@ public class LevelManager : MonoBehaviour
             LevelComplete();
     }
 
-    public void FoamCollected()
-    {
-        collectedFoam++;
-        Debug.Log("Foam: " + collectedFoam + "/" + totalFoam);
-        UpdateUI();
 
-        if (!isTutorial && collectedFoam >= totalFoam)
-            LevelComplete();
-    }
 
     public void ShowSpillWarning(string message)
     {
@@ -140,12 +138,35 @@ public class LevelManager : MonoBehaviour
     spillWarningPanel.SetActive(false);
     }
 
+    public void ShowOverCountWarning(string message)
+{
+    if (overCountWarningPanel == null) return;
+    if (overCountCoroutine != null)
+        StopCoroutine(overCountCoroutine);
+    overCountCoroutine = StartCoroutine(OverCountRoutine(message));
+}
+
+IEnumerator OverCountRoutine(string message)
+{
+    overCountWarningPanel.SetActive(true);
+    if (overCountWarningText != null)
+        overCountWarningText.text = message;
+    yield return new WaitForSeconds(overCountWarningDuration);
+    overCountWarningPanel.SetActive(false);
+}
+
     public void ChocolateCollected()
-    {
-        collectedChocolate++;
-        Debug.Log("Chocolate: " + collectedChocolate + "/" + totalChocolate);
-        UpdateUI();
-    }
+{
+    collectedChocolate++;
+    Debug.Log("Chocolate: " + collectedChocolate + "/" + totalChocolate);
+    UpdateUI();
+
+    if (collectedChocolate > requiredChocolate)
+        ShowOverCountWarning("Too much chocolate! Use the slippery platform to spill some.");
+
+    if (collectedChocolate == requiredChocolate)
+        LevelComplete();
+}
 
     public void MugDied()
     {
@@ -277,12 +298,18 @@ public class LevelManager : MonoBehaviour
     }
 
     public void FoamCollected(int amount = 1)
-    {
-        collectedFoam += amount;
-        collectedFoam  = Mathf.Max(collectedFoam, 0);
-        Debug.Log("Foam: " + collectedFoam + "/" + totalFoam);
-        UpdateUI();
-    }
+{
+    collectedFoam += amount;
+    collectedFoam = Mathf.Max(collectedFoam, 0);
+    Debug.Log("Foam: " + collectedFoam + "/" + totalFoam);
+    UpdateUI();
+
+    if (!isTutorial && collectedFoam > totalFoam)
+        ShowOverCountWarning("Too many foam! Use the slippery platform to spill some.");
+
+    if (!isTutorial && collectedFoam == totalFoam)
+        LevelComplete();
+}
 
     public void LoseMilk(int amount = 1)
     {
@@ -298,6 +325,8 @@ public class LevelManager : MonoBehaviour
     collectedFoam = Mathf.Max(collectedFoam, 0);
     Debug.Log("Foam lost: " + collectedFoam + "/" + totalFoam);
     ShowSpillWarning($"-{amount} Foam Spilled!");
+    if (collectedFoam <= totalFoam && overCountWarningPanel != null)
+    overCountWarningPanel.SetActive(false);
     UpdateUI();
 }
 
@@ -307,6 +336,8 @@ public void LoseChocolate(int amount = 1)
     collectedChocolate = Mathf.Max(collectedChocolate, 0);
     Debug.Log("Chocolate lost: " + collectedChocolate + "/" + totalChocolate);
     ShowSpillWarning($"-{amount} Chocolate Spilled!");
+    if (collectedChocolate <= requiredChocolate && overCountWarningPanel != null)
+        overCountWarningPanel.SetActive(false);
     UpdateUI();
 }
 }
