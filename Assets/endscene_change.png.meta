@@ -1,0 +1,754 @@
+fileFormatVersion: 2
+guid: 77ba261e7526149f09f75ff1e1073ede
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2633123188143995638
+    second: endscene_change_0
+  - first:
+      213: 2613580671238268325
+    second: endscene_change_1
+  - first:
+      213: 4969079563678419771
+    second: endscene_change_2
+  - first:
+      213: 5019181746952311389
+    second: endscene_change_3
+  - first:
+      213: 7441979926527817624
+    second: endscene_change_4
+  - first:
+      213: 6902874031328419845
+    second: endscene_change_5
+  - first:
+      213: -4712864059040359469
+    second: endscene_change_6
+  - first:
+      213: -917657212851482833
+    second: endscene_change_7
+  - first:
+      213: 5274645666219717951
+    second: endscene_change_8
+  - first:
+      213: 2458581012702487342
+    second: endscene_change_9
+  - first:
+      213: -1051222956077208286
+    second: endscene_change_10
+  - first:
+      213: -9043316205863483705
+    second: endscene_change_11
+  - first:
+      213: -7458596701890274724
+    second: endscene_change_12
+  - first:
+      213: 3456348974543747733
+    second: endscene_change_13
+  - first:
+      213: 8581174888518809988
+    second: endscene_change_14
+  - first:
+      213: 7872208436435076578
+    second: endscene_change_15
+  - first:
+      213: -9152295316327491336
+    second: endscene_change_16
+  - first:
+      213: 7751471475244963004
+    second: endscene_change_17
+  - first:
+      213: -374094288429794783
+    second: endscene_change_18
+  - first:
+      213: 5182131548926294313
+    second: endscene_change_19
+  - first:
+      213: -4820846073136587217
+    second: endscene_change_20
+  - first:
+      213: 6885457496607675566
+    second: endscene_change_21
+  - first:
+      213: -1362390624388197858
+    second: endscene_change_22
+  - first:
+      213: -7164166262011071111
+    second: endscene_change_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: endscene_change_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 811
+        width: 57
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6faba27b69bba8420800000000000000
+      internalID: 2633123188143995638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_1
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 810
+        width: 49
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a5ebfce5cd454420800000000000000
+      internalID: 2613580671238268325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_2
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 811
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3b84bd2987b5f440800000000000000
+      internalID: 4969079563678419771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_3
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 788
+        width: 65
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d529732c437b7a540800000000000000
+      internalID: 5019181746952311389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_4
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 810
+        width: 49
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 897374a5059374760800000000000000
+      internalID: 7441979926527817624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_5
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 810
+        width: 46
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5006996cb5febcf50800000000000000
+      internalID: 6902874031328419845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_6
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 810
+        width: 36
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3db913eab1b889eb0800000000000000
+      internalID: -4712864059040359469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_7
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 0
+        width: 1029
+        height: 1029
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2f896a70a3d343f0800000000000000
+      internalID: -917657212851482833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_8
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 758
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f357413894e433940800000000000000
+      internalID: 5274645666219717951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_9
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 718
+        width: 21
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e23e6a9a762ae1220800000000000000
+      internalID: 2458581012702487342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 696
+        width: 45
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22d28438a4e4961f0800000000000000
+      internalID: -1051222956077208286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_11
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 696
+        width: 49
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c649f503dfaf7280800000000000000
+      internalID: -9043316205863483705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_12
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 697
+        width: 95
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5a1ee421ddbd7890800000000000000
+      internalID: -7458596701890274724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_13
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 697
+        width: 21
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59a377f641b67ff20800000000000000
+      internalID: 3456348974543747733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_14
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 696
+        width: 46
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4897aa99815761770800000000000000
+      internalID: 8581174888518809988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_15
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 696
+        width: 50
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e5cb8b3dd3bf3d60800000000000000
+      internalID: 7872208436435076578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_16
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 696
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f814d696e38cf080800000000000000
+      internalID: -9152295316327491336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_17
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 285
+        width: 98
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb49c88dc32c29b60800000000000000
+      internalID: 7751471475244963004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_18
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 284
+        width: 235
+        height: 211
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12ab3a90a33fecaf0800000000000000
+      internalID: -374094288429794783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_19
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 215
+        width: 57
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 929b8190031aae740800000000000000
+      internalID: 5182131548926294313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_20
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 190
+        width: 84
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2e5bd5d90ae81db0800000000000000
+      internalID: -4820846073136587217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_21
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 189
+        width: 81
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea4d959cc1f0e8f50800000000000000
+      internalID: 6885457496607675566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_22
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 190
+        width: 73
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e12d40402f0d71de0800000000000000
+      internalID: -1362390624388197858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: endscene_change_23
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 192
+        width: 57
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 975fdf8fdb4c39c90800000000000000
+      internalID: -7164166262011071111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      endscene_change_0: 2633123188143995638
+      endscene_change_1: 2613580671238268325
+      endscene_change_10: -1051222956077208286
+      endscene_change_11: -9043316205863483705
+      endscene_change_12: -7458596701890274724
+      endscene_change_13: 3456348974543747733
+      endscene_change_14: 8581174888518809988
+      endscene_change_15: 7872208436435076578
+      endscene_change_16: -9152295316327491336
+      endscene_change_17: 7751471475244963004
+      endscene_change_18: -374094288429794783
+      endscene_change_19: 5182131548926294313
+      endscene_change_2: 4969079563678419771
+      endscene_change_20: -4820846073136587217
+      endscene_change_21: 6885457496607675566
+      endscene_change_22: -1362390624388197858
+      endscene_change_23: -7164166262011071111
+      endscene_change_3: 5019181746952311389
+      endscene_change_4: 7441979926527817624
+      endscene_change_5: 6902874031328419845
+      endscene_change_6: -4712864059040359469
+      endscene_change_7: -917657212851482833
+      endscene_change_8: 5274645666219717951
+      endscene_change_9: 2458581012702487342
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
