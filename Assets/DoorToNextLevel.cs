@@ -253,12 +253,13 @@ public class DoorToNextLevel : MonoBehaviour
     {
         GameObject popup = new GameObject("LockedPopup");
         popup.transform.position = transform.position + new Vector3(0, 2f, 0);
+popup.transform.localScale = Vector3.one * 0.15f; // scale down instead of small font size
 
-        TextMesh text = popup.AddComponent<TextMesh>();
-        text.fontSize = 14;
-        text.color = Color.red;
-        text.alignment = TextAlignment.Center;
-        text.anchor = TextAnchor.MiddleCenter;
+TextMesh text = popup.AddComponent<TextMesh>();
+text.fontSize = 40; // keep font size large for sharpness
+text.color = Color.red;
+text.alignment = TextAlignment.Center;
+text.anchor = TextAnchor.MiddleCenter;
 
         if (level2ModeActive)
         {
