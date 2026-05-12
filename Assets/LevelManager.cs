@@ -206,25 +206,17 @@ IEnumerator OverCountRoutine(string message)
     }
 
     void LevelComplete()
-{
-    levelComplete = true;
-    levelActive   = false;
-    Debug.Log("Level Complete!");
-
-    // Reset lives after tutorial so Level 1 starts fresh
-    if (isTutorial && GameManager.Instance != null)
     {
-        GameManager.Instance.SetLives(GameManager.Instance.totalLives);
-        GameManager.Instance.ResetTimer();
-    }
-    else if (GameManager.Instance != null)
-    {
-        GameManager.Instance.ResetTimer();
-    }
+        levelComplete = true;
+        levelActive   = false;
+        Debug.Log("Level Complete!");
 
-    if (UIManager.Instance != null)
-        UIManager.Instance.ShowLevelComplete();
-}
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResetTimer();
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.ShowLevelComplete();
+    }
 
     public void ReduceTime(float seconds)
     {

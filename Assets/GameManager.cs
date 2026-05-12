@@ -12,57 +12,26 @@ public class GameManager : MonoBehaviour
     private int currentLives;
     private float savedTimer = -1f;
     private bool initialized = false;
-    private bool level1Visited = false;
 
     void Awake()
-{
-    if (Instance == null)
     {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
-        if (!initialized)
+        if (Instance == null)
         {
-            initialized = true;
-            currentLives = totalLives;
-            savedTimer = levelTime;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            if (!initialized)
+            {
+                initialized = true;
+                currentLives = totalLives;
+                savedTimer = levelTime;
+            }
         }
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    else
-    {
-        Destroy(gameObject);
-    }
-}
-
-void OnDestroy()
-{
-    SceneManager.sceneLoaded -= OnSceneLoaded;
-}
-
-void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-{
-    if (scene.name == "Level1")
-    {
-        if (!level1Visited)
+        else
         {
-            // First time entering Level 1 — reset lives and timer
-            level1Visited = true;
-            currentLives = totalLives;
-            savedTimer = levelTime;
-            Debug.Log("[GameManager] Level1 first entry — lives and timer reset.");
+            Destroy(gameObject);
         }
-        // subsequent loads are restarts — don't reset
     }
-    else if (scene.name == "TutorialScene")
-    {
-        ResetGame();
-        // Reset the flag so if player goes back to tutorial
-        // and replays, Level 1 resets again on next entry
-        level1Visited = false;
-    }
-}
 
     public void LoseLife()
     {
@@ -74,13 +43,12 @@ void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     }
 
     public void ResetGame()
-{
-    initialized = false;
-    currentLives = totalLives;
-    savedTimer = levelTime;
-    level1Visited = false;
-    SceneManager.LoadScene("Level1");
-}
+    {
+        initialized = false;
+        currentLives = totalLives;
+        savedTimer = levelTime;
+        SceneManager.LoadScene("Level1");
+    }
 
     // Called by LevelManager to save
     // timer before scene reload
