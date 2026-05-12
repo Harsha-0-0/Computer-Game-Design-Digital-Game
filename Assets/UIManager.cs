@@ -6,40 +6,44 @@ using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
-     public static UIManager Instance;
+    public static UIManager Instance;
 
     [Header("Timer")]
     public RectTransform thermometerBar;
     public RectTransform thermometerCircle;
     public float levelTime = 240f;
-    // public float thermometerDisplayWidth = 160; // set this in Inspector to match your bar's visual width
     private float _thermoWidth;
     private float _circleRadius;
     private UnityEngine.UI.Image _circleImage;
 
-
     [Header("Lives")]
-    public List<Image> lifeImages;        // 3 Image components (Life1, Life2, Life3)
+    public List<Image> lifeImages;
     public Sprite mugNormal;
     public Sprite mugBroken;
 
-        [Header("Bean Count")]
-        public TextMeshProUGUI beanCountText;
+    [Header("Bean Count")]
+    public TextMeshProUGUI beanCountText;
 
-        [Header("Chocolate Count")]
-        public TextMeshProUGUI chocolateCountText;
+    [Header("Chocolate Count")]
+    public TextMeshProUGUI chocolateCountText;
 
+    [Header("Level Complete")]
+    public GameObject levelCompletePanel;
 
+    [Header("Game Over")]
+    public GameObject gameOverPanel;
 
-        [Header("Level Complete")]
-        public GameObject levelCompletePanel;
-
-        [Header("Game Over")]
-        public GameObject gameOverPanel;
+    // Brown colour #8B4513 used when collected < total
+    private static readonly Color brownColor =
+        new Color(0.545f, 0.271f, 0.075f);
+    
+    private static readonly Color greenColor =
+        new Color(0.133f, 0.545f, 0.133f);
 
     void Awake()
     {
-        Debug.Log("UIManager Awake FIRED on " + gameObject.name); // add this first
+        Debug.Log("UIManager Awake FIRED on " +
+            gameObject.name);
         if (Instance == null)
         {
             Instance = this;
@@ -47,7 +51,8 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("UIManager DUPLICATE on " + gameObject.name);
+            Debug.Log("UIManager DUPLICATE on " +
+                gameObject.name);
             Destroy(gameObject);
         }
     }
@@ -62,91 +67,172 @@ public class UIManager : MonoBehaviour
     {
         yield return null;
         yield return null;
-        _circleImage = thermometerCircle.GetComponent<UnityEngine.UI.Image>();
-        _circleRadius = thermometerCircle.rect.width * 0.5f;
+        _circleImage = thermometerCircle
+            .GetComponent<UnityEngine.UI.Image>();
+        _circleRadius =
+            thermometerCircle.rect.width * 0.5f;
         _thermoWidth = thermometerBar.rect.width;
         float halfWidth = _thermoWidth * 0.5f;
-        Debug.Log("thermoWidth: " + _thermoWidth + " halfWidth: " + halfWidth);
-        thermometerCircle.anchoredPosition = new Vector2(halfWidth - _circleRadius, 0f);
+        Debug.Log("thermoWidth: " + _thermoWidth +
+            " halfWidth: " + halfWidth);
+        thermometerCircle.anchoredPosition =
+            new Vector2(halfWidth - _circleRadius, 0f);
     }
-    public void UpdateTimer(float timeRemaining, bool isTutorial = false)
+
+    public void UpdateTimer(
+        float timeRemaining, bool isTutorial = false)
     {
         if (thermometerCircle == null) return;
+
         float totalTime = levelTime; // fallback
 
         if (LevelManager.Instance != null)
             totalTime = LevelManager.Instance.levelTime;
         else
         {
-            LevelManager_2 lm2 = FindObjectOfType<LevelManager_2>();
+            LevelManager_2 lm2 =
+                FindObjectOfType<LevelManager_2>();
             if (lm2 != null)
-                totalTime = lm2.levelTime; // Level 2 time
+                totalTime = lm2.levelTime;
         }
+
         float t = Mathf.Clamp01(timeRemaining / totalTime);
         float halfWidth = _thermoWidth * 0.5f;
-        // t=1 (full time) = right edge, t=0 (no time) = left edge
-        float x = Mathf.Lerp(halfWidth - _circleRadius, -halfWidth + _circleRadius, t);    thermometerCircle.anchoredPosition = new Vector2(x, 0f);
+
+        // t=1 (full time) = HOT = right edge
+        // t=0 (no time)   = COLD = left edge
+        float x = Mathf.Lerp(
+            halfWidth - _circleRadius,
+            -halfWidth + _circleRadius,
+            t);
+        thermometerCircle.anchoredPosition =
+            new Vector2(x, 0f);
+
         if (_circleImage != null)
-            _circleImage.color = (timeRemaining <= 30f) ? Color.red : Color.white;
+            _circleImage.color = (timeRemaining <= 30f)
+                ? Color.red
+                : Color.white;
     }
+
     public void UpdateBeans(int collected, int total)
     {
         if (beanCountText == null)
         {
-            Debug.LogWarning("UIManager.UpdateBeans: beanCountText is not assigned.");
+            Debug.LogWarning(
+                "UIManager.UpdateBeans: " +
+                "beanCountText is not assigned.");
             return;
         }
-        beanCountText.text = collected + "/" + total + " Beans";
+        beanCountText.text =
+            collected + "/" + total + " Beans";
+
+        if (collected < total)
+            beanCountText.color = brownColor;
+        else if (collected == total)
+            beanCountText.color = greenColor;
+        else
+            beanCountText.color = Color.red;
     }
 
     public void UpdateMilk(int collected, int total)
     {
         if (beanCountText == null)
         {
-            Debug.LogWarning("UIManager.UpdateMilk: beanCountText is not assigned.");
+            Debug.LogWarning(
+                "UIManager.UpdateMilk: " +
+                "beanCountText is not assigned.");
             return;
         }
-        beanCountText.text = collected + "/" + total + " Milk Drops";
+        beanCountText.text =
+            collected + "/" + total + " Milk Drops";
+
+        if (collected < total)
+            beanCountText.color = brownColor;
+        else if (collected == total)
+            beanCountText.color = greenColor;
+        else
+            beanCountText.color = Color.red;
+    }
+
+    public void UpdateMilkWithColor(
+        int collected, int total)
+    {
+        if (beanCountText == null) return;
+
+        beanCountText.text =
+            collected + "/" + total + " Milk Drops";
+
+        if (collected < total)
+            beanCountText.color = brownColor;
+        else if (collected == total)
+            beanCountText.color = greenColor;
+        else
+            beanCountText.color = Color.red;
     }
 
     public void UpdateFoam(int collected, int total)
     {
         if (beanCountText == null)
         {
-            Debug.LogWarning("UIManager.UpdateFoam: beanCountText is not assigned.");
+            Debug.LogWarning(
+                "UIManager.UpdateFoam: " +
+                "beanCountText is not assigned.");
             return;
         }
-        beanCountText.text = collected + "/" + total + " Foams";
+        beanCountText.text =
+            collected + "/" + total + " Foams";
+
+        if (collected < total)
+            beanCountText.color = brownColor;
+        else if (collected == total)
+            beanCountText.color = greenColor;
+        else
+            beanCountText.color = Color.red;
     }
 
     public void UpdateChocolate(int collected, int total)
     {
-        if (chocolateCountText != null)
+        TextMeshProUGUI target = chocolateCountText != null
+            ? chocolateCountText
+            : beanCountText;
+
+        if (target == null)
         {
-            chocolateCountText.text = collected + "/" + total + " Chocolate Particles";
+            Debug.LogWarning(
+                "UIManager.UpdateChocolate: " +
+                "no text assigned.");
+            return;
         }
-        else if (beanCountText != null)
-        {
-            beanCountText.text = collected + "/" + total + " Chocolate Particles";
-        }
+
+        target.text =
+            collected + "/" + total +
+            " Chocolate Particles";
+
+        if (collected < total)
+            target.color = brownColor;
+        else if (collected == total)
+            target.color = greenColor;
         else
+            target.color = Color.red;
+    }
+
+    public void UpdateLives(int lives)
+    {
+        Debug.Log("UpdateLives called with lives=" +
+            lives + ", lifeImages.Count=" +
+            lifeImages.Count + ", mugNormal=" +
+            (mugNormal != null) + ", mugBroken=" +
+            (mugBroken != null));
+
+        for (int i = 0; i < lifeImages.Count; i++)
         {
-            Debug.LogWarning("UIManager.UpdateChocolate: no text assigned.");
+            if (lifeImages[i] == null) continue;
+            lifeImages[i].sprite =
+                (i < lives) ? mugNormal : mugBroken;
+            lifeImages[i].enabled = true;
         }
     }
 
-public void UpdateLives(int lives)
-{
-    Debug.Log("UpdateLives called with lives=" + lives + ", lifeImages.Count=" + lifeImages.Count 
-        + ", mugNormal=" + (mugNormal != null) + ", mugBroken=" + (mugBroken != null));
-    
-    for (int i = 0; i < lifeImages.Count; i++)
-    {
-        if (lifeImages[i] == null) continue;
-        lifeImages[i].sprite = (i < lives) ? mugNormal : mugBroken;
-        lifeImages[i].enabled = true;
-    }
-}
     public void ShowLevelComplete()
     {
         if (levelCompletePanel != null)
@@ -159,16 +245,16 @@ public void UpdateLives(int lives)
             gameOverPanel.SetActive(true);
     }
 
-  public IEnumerator FlashTimer()
-{
-    for (int i = 0; i < 3; i++)
+    public IEnumerator FlashTimer()
     {
-        if (_circleImage != null)
-            _circleImage.color = Color.cyan;
-        yield return new WaitForSeconds(0.15f);
-        if (_circleImage != null)
-            _circleImage.color = Color.white;
-        yield return new WaitForSeconds(0.15f);
+        for (int i = 0; i < 3; i++)
+        {
+            if (_circleImage != null)
+                _circleImage.color = Color.cyan;
+            yield return new WaitForSeconds(0.15f);
+            if (_circleImage != null)
+                _circleImage.color = Color.white;
+            yield return new WaitForSeconds(0.15f);
+        }
     }
-}
 }

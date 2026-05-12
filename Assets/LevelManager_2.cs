@@ -157,8 +157,7 @@ public class LevelManager_2 : MonoBehaviour
         UpdateDropCountUI();
         UpdateDoorVisual();
         if (UIManager.Instance != null)
-        UIManager.Instance.UpdateMilk(
-            currentDropCount, targetDropCount);
+            UIManager.Instance.UpdateMilkWithColor(currentDropCount, targetDropCount);
 
         // Warn player if they've gone over target
         if (currentDropCount > targetDropCount)
@@ -175,8 +174,7 @@ public class LevelManager_2 : MonoBehaviour
         UpdateDropCountUI();
         UpdateDoorVisual();
         if (UIManager.Instance != null)
-        UIManager.Instance.UpdateMilk(
-            currentDropCount, targetDropCount);
+            UIManager.Instance.UpdateMilkWithColor(currentDropCount, targetDropCount);
     }
 
     /// <summary>
