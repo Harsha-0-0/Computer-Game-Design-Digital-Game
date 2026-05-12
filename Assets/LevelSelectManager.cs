@@ -44,11 +44,15 @@ public class LevelSelectManager : MonoBehaviour
 
     void LoadLevel(string sceneName)
     {
+        if (UISoundManager.Instance != null)
+        UISoundManager.Instance.PlayClick();
         SceneManager.LoadScene(sceneName);
     }
 
     public void GoBack()
     {
+        if (UISoundManager.Instance != null)
+        UISoundManager.Instance.PlayClick();
         SceneManager.LoadScene("MugSelectionScene");
     }
 }

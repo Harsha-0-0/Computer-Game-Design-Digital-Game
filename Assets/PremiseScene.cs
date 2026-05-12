@@ -31,7 +31,7 @@ public class PremiseScene : MonoBehaviour
             (Input.anyKeyDown ||
              Input.GetMouseButtonDown(0)))
         {
-            StartCoroutine(Transition());
+            StartCoroutine(Transition(playSound: true));
         }
     }
 
@@ -39,12 +39,14 @@ public class PremiseScene : MonoBehaviour
     {
         yield return new WaitForSeconds(autoAdvanceTime);
         if (!isTransitioning)
-            StartCoroutine(Transition());
+            StartCoroutine(Transition(playSound: true));
     }
 
-    IEnumerator Transition()
+    IEnumerator Transition(bool playSound = false)
     {
         isTransitioning = true;
+        if (playSound && UISoundManager.Instance != null)
+        UISoundManager.Instance.PlayClick();
         yield return new WaitForSeconds(fadeDuration);
         SceneManager.LoadScene(nextSceneName);
     }
