@@ -59,6 +59,9 @@ public class TitleScreen : MonoBehaviour
     {
         canPress = false;
 
+        if (UISoundManager.Instance != null)
+        UISoundManager.Instance.PlayClick();
+
         // Fade out everything
         if (titleText != null)
             StartCoroutine(FadeOutText(titleText, 1f));

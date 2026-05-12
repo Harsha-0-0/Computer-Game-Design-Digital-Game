@@ -51,6 +51,8 @@ public class PauseMenu : MonoBehaviour
 
     void GoToMugSelection()
     {
+        if (UISoundManager.Instance != null)
+        UISoundManager.Instance.PlayClick();
         // Save return scene
         PlayerPrefs.SetString("ReturnToScene", SceneManager.GetActiveScene().name);
 
@@ -81,6 +83,8 @@ public class PauseMenu : MonoBehaviour
 
     public void TogglePause()
     {
+        if (UISoundManager.Instance != null)
+        UISoundManager.Instance.PlayClick();
         if (isPaused) Resume();
         else Pause();
     }
@@ -95,6 +99,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        if (UISoundManager.Instance != null)
+        UISoundManager.Instance.PlayClick();
         isPaused = false;
         Time.timeScale = 1f;
         if (pauseMenuPanel != null)
@@ -103,6 +109,8 @@ public class PauseMenu : MonoBehaviour
 
     public void RestartLevel()
     {
+        if (UISoundManager.Instance != null)
+        UISoundManager.Instance.PlayClick();
         Time.timeScale = 1f;
 
         // Reset lives to 3 on manual restart
@@ -117,6 +125,8 @@ public class PauseMenu : MonoBehaviour
 
     public void ExitToMenu()
     {
+        if (UISoundManager.Instance != null)
+        UISoundManager.Instance.PlayClick();
         Time.timeScale = 1f;
         SceneManager.LoadScene("LevelSelectScene");
     }

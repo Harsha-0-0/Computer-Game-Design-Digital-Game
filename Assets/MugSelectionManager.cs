@@ -19,6 +19,8 @@ public class MugSelectionManager : MonoBehaviour
 
     private int selectedMugIndex = 0;
 
+    private bool sceneReady = false;
+
     void Start()
     {
         // Set up all mug option images
@@ -33,6 +35,7 @@ public class MugSelectionManager : MonoBehaviour
 
         // Select first mug by default
         SelectMug(0);
+        sceneReady = true; // sound only plays after this
     }
 
     void Update()
@@ -47,6 +50,9 @@ public class MugSelectionManager : MonoBehaviour
     public void SelectMug(int index)
     {
         selectedMugIndex = index;
+
+        if (sceneReady && UISoundManager.Instance != null)
+        UISoundManager.Instance.PlayClick();
 
         // Update preview image
         if (previewImage != null &&
@@ -69,6 +75,8 @@ public class MugSelectionManager : MonoBehaviour
 
     public void ConfirmSelection()
     {
+        if (UISoundManager.Instance != null)
+        UISoundManager.Instance.PlayClick();
         PlayerPrefs.SetInt(
             "SelectedMug",
             selectedMugIndex
