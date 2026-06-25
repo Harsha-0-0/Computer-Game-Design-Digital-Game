@@ -41,7 +41,6 @@ You are a coffee mug in a bustling, chaotic café environment. Your mission? Com
 
 ### 🌡️ Temperature Management System
 - Unique mechanic where your coffee temperature affects gameplay
-- Collect heat sources to maintain optimal temperature
 - Avoid cooling hazards like ice blocks
 - Visual temperature indicators to track your status
 
@@ -50,13 +49,12 @@ Each level introduces new challenges and mechanics:
 1. **Espresso Extraction** - Learn the basics and collect your first ingredient
 2. **Milk Steaming** - Navigate steam pressure zones
 3. **Foam Creation** - Master slippery, foam-covered surfaces
-4. **Rush Hour Chaos** - Dodge falling order stacks
+4. **Rush Hour Chaos** - Dodge order piles
 5. **Matcha Showdown** - Face the final boss enemy
 6. **Croissant Collection** - Complete the order!
 
 ### 🎨 Café Aesthetics
 - Vibrant, stylized art style
-- Custom shaders for coffee and steam effects
 - Detailed café environment with animated elements
 - Charming character design and animations
 
